@@ -1,6 +1,7 @@
 # Focus on static 2level system
 import numpy as np
 from sympy import *
+import matplotlib.pyplot as plt
 
 z = Symbol('z')
 
@@ -8,14 +9,11 @@ z = Symbol('z')
 p1 = 0.5
 p2 = 0.5
 
-# time
-dt = 1
-
 # transition matrix elements
 a_R = 0.4
 a_L = 0.3
-b_R = 0.1
-b_L = 0.2
+b_R = 0.4
+b_L = 0.1
 
 a = a_R+a_L
 b = b_R+b_L
@@ -31,17 +29,37 @@ print(z2_cont)
 a_z = a_L + a_R * z
 b_z = b_L + b_R / z
 
-w_z = [[1-b*dt, a_z],[b_z, 1-a*dt]]
-print(w_z)
+def w(s):
+    # params
+    T = 0.5*s**(99/100)
+    M = s
+    dt = T/M
+    X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a_L*dt]])
+    V1 = np.array([[0,1],[0,0]])
+    V2 = np.array([[0,0],[1,0]])
+    w_z_1 = X +z*a_R*dt*V1+1/z*b_R*dt*V2    # normal way of definition is not good.
+    w_n = np.eye(2)
 
-def w(w_z,k):
-    w_n = [[1,0],[0,1]]
-    for i in range(k):
-        w_n = np.dot(w_n,w_z)
+    for i in range(s):
+        w_n = np.dot(w_n,w_z_1)
     return simplify(w_n)
 
+def Z(M):
+    return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-print(solveset(np.dot(np.dot([1,1],w(w_z,3)),[[p1],[p2]])[0],z))
-print(solveset(np.dot(np.dot([1,1],w(w_z,5)),[[p1],[p2]])[0],z))
-print(solveset(np.dot(np.dot([1,1],w(w_z,10)),[[p1],[p2]])[0],z))
-print(solveset(np.dot(np.dot([1,1],w(w_z,20)),[[p1],[p2]])[0],z))
+
+iter = 10
+z_disc=[]
+for i in range(1,iter+1):
+    z_disc.append(list(solveset(Z(i),z)))
+z_disc
+
+fig = plt.figure()
+ax1 = plt.subplot2grid((1,1),(0,0))
+
+ax1.plot([np.real(z1_cont),np.real(z2_cont)],[np.imag(z1_cont),np.imag(z2_cont)],linestyle="None",marker="s",color="blue",label="Continuous",markersize=8)
+for i in range(iter):
+    ax1.plot(np.real(z_disc[i]),np.imag(z_disc[i]),linestyle="None",marker="o",color=[0.99-i/10,0.99-i/10,0.99-i/10],label="Discrete k="+str(i+1))
+ax1.legend()
+ax1.set_xlim([-10,1])
+plt.show()

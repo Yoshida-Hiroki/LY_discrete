@@ -3,10 +3,11 @@ import numpy as np
 from sympy import *
 import matplotlib.pyplot as plt
 import csv
+import cmath
 
 
 type = r"\discrete2"
-date = "210923"
+date = "210926"
 ver = "1"
 
 z = Symbol('z')
@@ -37,7 +38,7 @@ b_z = b_L + b_R / z
 
 def w(s):
     # params
-    T = 0.5*s**(99/100)
+    T = 100
     M = s
     dt = T/M
     X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a_L*dt]])
@@ -53,12 +54,14 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-
-iter = 16
+iter = 10
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))
-z_disc
+
+for i in range(iter):
+    for j in range((int(i/2)+1)*2):
+        z_disc[i][j] = complex(z_disc[i][j])
 
 fig = plt.figure()
 ax1 = plt.subplot2grid((1,1),(0,0))
@@ -71,11 +74,9 @@ ax1.set_xlim([-10,1])
 # plt.show()
 plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".png")
 
-
 outfile = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".csv",'w', newline='')
 writer = csv.writer(outfile)
 writer.writerows(z_disc)
 # for i in range(iter):
 #     writer.writerow([i+1, z_disc[i]])
-
 outfile.close()

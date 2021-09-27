@@ -7,8 +7,8 @@ import cmath
 
 
 type = r"\discrete2"
-date = "210926"
-ver = "2"
+date = "210927"
+ver = "1"
 
 z = Symbol('z')
 
@@ -17,10 +17,10 @@ p1 = 0.5
 p2 = 0.5
 
 # transition matrix elements
-a_R = 0.4
+a_R = 0.2
 a_L = 0.3
-b_R = 0.4
-b_L = 0.1
+b_R = 0.3
+b_L = 0.2
 
 a = a_R+a_L
 b = b_R+b_L
@@ -54,7 +54,7 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-iter = 16
+iter = 10
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))

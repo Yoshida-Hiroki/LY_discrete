@@ -8,7 +8,7 @@ import cmath
 
 type = r"\discrete2"
 date = "210927"
-ver = "1"
+ver = "2"
 
 z = Symbol('z')
 
@@ -17,9 +17,9 @@ p1 = 0.5
 p2 = 0.5
 
 # transition matrix elements
-a_R = 0.2
+a_R = 0.4
 a_L = 0.3
-b_R = 0.3
+b_R = 0.4
 b_L = 0.2
 
 a = a_R+a_L
@@ -77,6 +77,5 @@ plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ve
 outfile = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".csv",'w', newline='')
 writer = csv.writer(outfile)
 writer.writerows(z_disc)
-# for i in range(iter):
-#     writer.writerow([i+1, z_disc[i]])
+writer.writerow([z1_cont, z2_cont])
 outfile.close()

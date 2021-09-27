@@ -8,7 +8,7 @@ import cmath
 
 type = r"\discrete2"
 date = "210927"
-ver = "2"
+ver = "3"
 
 z = Symbol('z')
 
@@ -54,7 +54,7 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-iter = 10
+iter = 12
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))
@@ -67,8 +67,10 @@ fig = plt.figure()
 ax1 = plt.subplot2grid((1,1),(0,0))
 
 ax1.plot([np.real(z1_cont),np.real(z2_cont)],[np.imag(z1_cont),np.imag(z2_cont)],linestyle="None",marker="s",color="blue",label="Continuous",markersize=8)
+# for i in range(iter):
+#     ax1.plot(np.real(z_disc[i]),np.imag(z_disc[i]),linestyle="None",marker="o",color=[0.9-i/20,0.9-i/20,0.9-i/20],label="Discrete k="+str(i+1))
 for i in range(iter):
-    ax1.plot(np.real(z_disc[i]),np.imag(z_disc[i]),linestyle="None",marker="o",color=[0.9-i/20,0.9-i/20,0.9-i/20],label="Discrete k="+str(i+1))
+    ax1.plot([np.real(z_disc[i][int(i/2)]),np.real(z_disc[i][int(i/2)+1])],[np.imag(z_disc[i][int(i/2)]),np.imag(z_disc[i][int(i/2)+1])],linestyle="None",marker="o",color=[0.9-i/20,0.9-i/20,0.9-i/20],label="Discrete k="+str(i+1))
 ax1.legend()
 ax1.set_xlim([-10,1])
 # plt.show()

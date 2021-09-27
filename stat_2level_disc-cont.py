@@ -8,7 +8,7 @@ import cmath
 
 type = r"\discrete2"
 date = "210927"
-ver = "11"
+ver = "12"
 
 z = Symbol('z')
 
@@ -17,7 +17,7 @@ p1 = 0.5
 p2 = 0.5
 
 # transition matrix elements
-a_R = 0.1
+a_R = 0.4
 a_L = 0.3
 b_R = 0.4
 b_L = 0.2

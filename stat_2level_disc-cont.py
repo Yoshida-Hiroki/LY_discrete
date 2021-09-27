@@ -8,7 +8,7 @@ import cmath
 
 type = r"\discrete2"
 date = "210927"
-ver = "4"
+ver = "7"
 
 z = Symbol('z')
 
@@ -41,7 +41,7 @@ def w(s):
     T = 100
     M = s
     dt = T/M
-    X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a_L*dt]])
+    X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a*dt]])
     V1 = np.array([[0,1],[0,0]])
     V2 = np.array([[0,0],[1,0]])
     w_z_1 = X +z*a_R*dt*V1+1/z*b_R*dt*V2    # normal way of definition is not good.
@@ -54,7 +54,7 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-iter = 12
+iter = 10
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))
@@ -68,7 +68,7 @@ ax1 = plt.subplot2grid((1,1),(0,0))
 
 ax1.plot([np.real(z1_cont),np.real(z2_cont)],[np.imag(z1_cont),np.imag(z2_cont)],linestyle="None",marker="s",color="blue",label="Continuous",markersize=8)
 for i in range(iter):
-    ax1.plot(np.real(z_disc[i]),np.imag(z_disc[i]),linestyle="None",marker="o",color=[0.9-i/20,0.9-i/20,0.9-i/20],label="Discrete k="+str(i+1))
+    ax1.plot(np.real(z_disc[i]),np.imag(z_disc[i]),linestyle="None",marker="o",color=[0.9-i/25,0.9-i/25,0.9-i/25],label="Discrete k="+str(i+1))
 # for i in range(iter):
 #     ax1.plot([np.real(z_disc[i][int(i/2)]),np.real(z_disc[i][int(i/2)+1])],[np.imag(z_disc[i][int(i/2)]),np.imag(z_disc[i][int(i/2)+1])],linestyle="None",marker="o",color=[0.9-i/20,0.9-i/20,0.9-i/20],label="Discrete k="+str(i+1))
 ax1.legend()

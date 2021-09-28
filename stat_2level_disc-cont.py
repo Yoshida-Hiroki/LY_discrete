@@ -7,8 +7,8 @@ import cmath
 
 
 type = r"\discrete2"
-date = "210927"
-ver = "12"
+date = "210928"
+ver = "1"
 
 z = Symbol('z')
 
@@ -38,8 +38,8 @@ b_z = b_L + b_R / z
 
 def w(s):
     # params
-    T = 10*s
-    M = 10
+    T = 100
+    M = s
     dt = T/M
     X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a*dt]])
     V1 = np.array([[0,1],[0,0]])
@@ -54,7 +54,7 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-iter = 10
+iter = 20
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))
@@ -72,7 +72,7 @@ for i in range(iter):
 # for i in range(iter):
 #     ax1.plot([np.real(z_disc[i][int(i/2)]),np.real(z_disc[i][int(i/2)+1])],[np.imag(z_disc[i][int(i/2)]),np.imag(z_disc[i][int(i/2)+1])],linestyle="None",marker="o",color=[0.9-i/20,0.9-i/20,0.9-i/20],label="Discrete k="+str(i+1))
 ax1.legend()
-ax1.set_xlim([-10,1])
+ax1.set_xlim([-10,3])
 # plt.show()
 plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".png")
 

@@ -7,7 +7,7 @@ import cmath
 
 
 type = r"\discrete3"
-date = "210927"
+date = "210928"
 ver = "1"
 
 z = Symbol('z')
@@ -23,13 +23,13 @@ a1_L = 0.3
 a2_R = 0.2
 a2_L = 0.3
 a3_R = 0.4
-a3_L = 0.5
-b1_R = 0.1
+a3_L = 0.1
+b1_R = 0.7
 b1_L = 0.2
 b2_R = 0.3
-b2_L = 0.4
-b3_R = 0.3
-b3_L = 0.7
+b2_L = 0.2
+b3_R = 0.6
+b3_L = 0.2
 
 a1 = a1_R+a1_L
 b1 = b1_R+b1_L

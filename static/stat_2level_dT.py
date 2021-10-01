@@ -8,7 +8,7 @@ import cmath
 
 type = r"\discrete2dT"
 date = "211001"
-ver = "1"
+ver = "2"
 
 z = Symbol('z')
 
@@ -54,7 +54,7 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-iter = 10
+iter = 16
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))

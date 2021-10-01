@@ -36,9 +36,10 @@ print(z2_cont)
 a_z = a_L + a_R * z
 b_z = b_L + b_R / z
 
+T = 100
 def w(s):
     # params
-    T = 100
+    # T = 100
     M = s
     dt = T/M
     X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a*dt]])
@@ -83,3 +84,7 @@ writer = csv.writer(outfile)
 writer.writerows(z_disc)
 writer.writerow([z1_cont, z2_cont])
 outfile.close()
+
+f = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".txt",'w')
+f.write('p1='+str(p1)+'\n'+'p2='+str(p2)+'\n\n'+'a_R='+str(a_R)+'\n'+'a_L='+str(a_L)+'\n'+'b_R='+str(b_R)+'\n'+'b_L='+str(b_L)+'\n\n'+'T='+str(T)+'\n\n'+'iter='+str(iter))
+f.close()

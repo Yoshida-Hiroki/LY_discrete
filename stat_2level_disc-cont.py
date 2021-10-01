@@ -54,7 +54,11 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
+<<<<<<< HEAD
 iter = 16
+=======
+iter = 8
+>>>>>>> 3aa1886e6b7b563e6d1994fa727903974fa23c72
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))

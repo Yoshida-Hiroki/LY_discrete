@@ -6,7 +6,7 @@ import csv
 import cmath
 
 
-type = r"\discrete2"
+type = r"\discrete2M"
 date = "211001"
 ver = "1"
 
@@ -38,8 +38,8 @@ b_z = b_L + b_R / z
 
 def w(s):
     # params
-    T = 100
-    M = s
+    T = 10*s
+    M = 10
     dt = T/M
     X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a*dt]])
     V1 = np.array([[0,1],[0,0]])
@@ -54,7 +54,7 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-iter = 16
+iter = 10
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))

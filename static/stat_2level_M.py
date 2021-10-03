@@ -8,13 +8,13 @@ import cmath
 
 type = r"\discrete2M"
 date = "211003"
-ver = "1"
+ver = "2"
 
 z = Symbol('z')
 
 # initial distrib
-p1 = 0.5
-p2 = 0.5
+p1 = 0.8
+p2 = 0.2
 
 # transition matrix elements
 a_R = 0.4

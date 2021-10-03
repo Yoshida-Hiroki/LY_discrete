@@ -8,7 +8,7 @@ import cmath
 
 type = r"\discrete2T"
 date = "211003"
-ver = "2"
+ver = "3"
 
 z = Symbol('z')
 
@@ -37,7 +37,7 @@ print(z2_cont)
 a_z = a_L + a_R * z
 b_z = b_L + b_R / z
 
-T = 0.5
+T = 100
 def w(s):
     # params
     # T = 100

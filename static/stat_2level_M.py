@@ -8,7 +8,7 @@ import cmath
 
 type = r"\discrete2M"
 date = "211003"
-ver = "2"
+ver = "3"
 
 z = Symbol('z')
 
@@ -40,7 +40,7 @@ b_z = b_L + b_R / z
 M=10
 def w(s):
     # params
-    T = 0.5*s
+    T = 10*s
     # M = 10
     dt = T/M
     X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a*dt]])

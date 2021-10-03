@@ -7,8 +7,8 @@ import cmath
 
 
 type = r"\discrete2M"
-date = "211001"
-ver = "2"
+date = "211003"
+ver = "1"
 
 z = Symbol('z')
 
@@ -21,6 +21,7 @@ a_R = 0.4
 a_L = 0.3
 b_R = 0.4
 b_L = 0.2
+# 1/(a+b)=0.77
 
 a = a_R+a_L
 b = b_R+b_L
@@ -39,7 +40,7 @@ b_z = b_L + b_R / z
 M=10
 def w(s):
     # params
-    T = 10*s
+    T = 0.5*s
     # M = 10
     dt = T/M
     X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a*dt]])
@@ -55,7 +56,7 @@ def w(s):
 def Z(M):
     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
 
-iter = 16
+iter = 10
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))
@@ -86,5 +87,5 @@ writer.writerow([z1_cont, z2_cont])
 outfile.close()
 
 f = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".txt",'w')
-f.write('p1='+str(p1)+'\n'+'p2='+str(p2)+'\n\n'+'a_R='+str(a_R)+'\n'+'a_L='+str(a_L)+'\n'+'b_R='+str(b_R)+'\n'+'b_L='+str(b_L)+'\n\n'+'T=10s'+'\n'+'M='+str(M)+'\n\n'+'s=1 to '+str(iter))
+f.write('p1='+str(p1)+'\n'+'p2='+str(p2)+'\n\n'+'a_R='+str(a_R)+'\n'+'a_L='+str(a_L)+'\n'+'b_R='+str(b_R)+'\n'+'b_L='+str(b_L)+'\n\n'+'T=0.5s'+'\n'+'M='+str(M)+'\n\n'+'s=1 to '+str(iter))
 f.close()

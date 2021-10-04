@@ -8,7 +8,7 @@ import cmath
 
 type = r"\discrete2M"
 date = "211004"
-ver = "1"
+ver = "2"
 
 z = Symbol('z')
 
@@ -37,7 +37,7 @@ z2_cont = (-((b-a)**2/4+b_L*a_L+b_R*a_R)-np.sqrt(((b-a)**2/4+b_L*a_L+b_R*a_R)**2
 a_z = a_L + a_R * z
 b_z = b_L + b_R / z
 
-M=10
+M=5
 def w(s):
     # params
     T = 10*s
@@ -61,9 +61,9 @@ z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))
 
-# for i in range(iter):
-#     for j in range((int(i/2)+1)*2):
-#         z_disc[i][j] = complex(z_disc[i][j])
+for i in range(iter):
+    for j in range((int(M/2)+1)*2):
+        z_disc[i][j] = complex(z_disc[i][j])
 
 
 fig = plt.figure()

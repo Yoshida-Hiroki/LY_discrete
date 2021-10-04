@@ -7,8 +7,8 @@ import cmath
 
 
 type = r"\discrete2M"
-date = "211003"
-ver = "4"
+date = "211004"
+ver = "1"
 
 z = Symbol('z')
 
@@ -49,7 +49,7 @@ def w(s):
     w_z_1 = X +z*a_R*dt*V1+1/z*b_R*dt*V2    # normal way of definition is not good.
     w_n = np.eye(2)
 
-    for i in range(s):
+    for i in range(M):
         w_n = np.dot(w_n,w_z_1)
     return simplify(w_n)
 

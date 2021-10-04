@@ -65,7 +65,7 @@ for i in range(iter):
     for j in range((int(i/2)+1)*2):
         z_disc[i][j] = complex(z_disc[i][j])
 
-Z(6).subs(z,1.0000005422537703)
+
 ################### current ########################
 J_cont = (a+b)/2*(1-z1_cont*z2_cont)/(2*(1-z1_cont)*(1-z2_cont))
 def J_disc(T,s):
@@ -87,6 +87,7 @@ print(J)
 fig = plt.figure()
 ax1 = plt.subplot2grid((1,1),(0,0))
 
+ax1.set_title('M=s, T='+str(T))
 ax1.plot([np.real(z1_cont),np.real(z2_cont)],np.full(np.size([np.real(z1_cont),np.real(z2_cont)]),iter),linestyle="None",marker="s",color="blue",label="Continuous")
 for i in range(iter):
     ax1.plot(np.real(z_disc[i]),np.full(np.size(np.real(z_disc[i])),i),linestyle="None",marker="o",markersize=2,color=[0,0,0],label="Discrete k="+str(i+1))
@@ -94,6 +95,8 @@ for i in range(iter):
 #     ax1.plot([np.real(z_disc[i][int(i/2)]),np.real(z_disc[i][int(i/2)+1])],[np.imag(z_disc[i][int(i/2)]),np.imag(z_disc[i][int(i/2)+1])],linestyle="None",marker="o",color=[0.9-i/20,0.9-i/20,0.9-i/20],label="Discrete k="+str(i+1))
 # ax1.legend()
 ax1.set_xlim([-10,3])
+ax1.set_xlabel('$\Re (z)$')
+ax1.set_ylabel('s')
 ax1.set_yticks([x for x in range(iter+1)])
 ax1.set_yticklabels([x for x in range(1,iter+1)]+['continuous'])
 # plt.show()

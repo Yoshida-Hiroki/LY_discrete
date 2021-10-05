@@ -65,24 +65,28 @@ for i in range(iter):
     for j in range((int(i/2)+1)*2):
         z_disc[i][j] = complex(z_disc[i][j])
 
+# z_prod = [[]*(iter-2)]
+# for i in range(2,iter):
+#     for j in range((int((i-2)/2)+1)):
+#         z_prod[i-2][j].append(z_disc[i][j]*z_disc[i][i-i%2-1-j])
 
 ################### current ########################
-J_cont = (a+b)/2*(1-z1_cont*z2_cont)/(2*(1-z1_cont)*(1-z2_cont))
-def J_disc(T,s):
-    temp = 0
-    for i in range((int(s/2)+1)*2):
-        temp = temp + 1/(1-z_disc[s][i])
-    return (temp-(int(s/2)+1))/T
-
-J_cont
-J_disc(T,2)
-
-J = [0]*(iter+1)
-J[0]=J_cont
-for i in range(1,iter+1):
-    J[i] = J_disc(T,i-1)
-
-print(J)
+# J_cont = (a+b)/2*(1-z1_cont*z2_cont)/(2*(1-z1_cont)*(1-z2_cont))
+# def J_disc(T,s):
+#     temp = 0
+#     for i in range((int(s/2)+1)*2):
+#         temp = temp + 1/(1-z_disc[s][i])
+#     return (temp-(int(s/2)+1))/T
+#
+# J_cont
+# J_disc(T,2)
+#
+# J = [0]*(iter+1)
+# J[0]=J_cont
+# for i in range(1,iter+1):
+#     J[i] = J_disc(T,i-1)
+#
+# print(J)
 
 fig = plt.figure()
 ax1 = plt.subplot2grid((1,1),(0,0))

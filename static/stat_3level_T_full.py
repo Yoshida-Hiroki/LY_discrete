@@ -6,7 +6,7 @@ import csv
 import cmath
 
 
-type = r"\discrete3"
+type = r"\discrete3_full"
 date = "210928"
 ver = "1"
 
@@ -57,7 +57,7 @@ def w(s):
     w_z_1 = X +z*a1_R*dt*V1+z*a2_R*dt*V2+z*a3_R*dt*V3+1/z*b1_R*dt*V4+1/z*b2_R*dt*V5+1/z*b3_R*dt*V6    # normal way of definition is not good.
     w_n = np.eye(3)
 
-    for i in range(s):
+    for i in range(M):
         w_n = np.dot(w_n,w_z_1)
     return simplify(w_n)
 
@@ -65,7 +65,7 @@ def Z(M):
     return np.dot(np.dot([1,1,1],w(M)),[[p1],[p2],[p3]])[0]
 
 
-iter = 8
+iter = 4
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))

@@ -66,6 +66,26 @@ z2 = lambda x : (-((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))-np.sqrt(((b(x)-
 
 ###############################################
 
+M=100
+dt = 1
+R = (0.5*dt)/(1-0.5*dt)
+
+def root(x):
+    sum = 0
+    for i in range(2*M):
+        sum += 1/(2*M)*(0.5*np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))
+    return sum
+
+def rho1(x):
+    sum = 0
+    for i in range(2*M):
+        sum += 1/(2*M)*(np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
+    return R/(np.pi*(1+R**2*root(x)**2))*sum
+
+def rho2(x):
+    return -R*root(x)/(np.pi*(1+R**2*root(x)**2))*(1/(x-z1)+1/(x-z2)-1/x)
+root(-0.5)
+
 
 # # discrete zeros
 # a_z = a_L + a_R * z

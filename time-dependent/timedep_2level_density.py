@@ -1,6 +1,7 @@
 # Focus on static 2level system
 import numpy as np
 from sympy import *
+from scipy import integrate
 import matplotlib.pyplot as plt
 import csv
 import cmath
@@ -11,7 +12,7 @@ date = "211015"
 ver = "1"
 
 # definitions of functions
-R = lambda x: np.ones_like(x)*1
+# R = lambda x: np.ones_like(x)*1
 r = lambda x: np.pi/4*np.sin(x)/50
 phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
 phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
@@ -20,10 +21,10 @@ phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
 # phi_a_prime = lambda x: -np.pi/4*np.sin(x)
 # phi_b_prime = lambda x: np.pi/4*np.cos(x)
 
-a_L = lambda x: R(x)/2*(1+r(x))*np.sin(phi_a(x)/2)**2
-a_R = lambda x: R(x)/2*(1+r(x))*np.cos(phi_a(x)/2)**2
-b_L = lambda x: R(x)/2*(1-r(x))*np.sin(phi_b(x)/2)**2
-b_R = lambda x: R(x)/2*(1-r(x))*np.cos(phi_b(x)/2)**2
+a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
+a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
+b_L = lambda x: 1/2*(1-r(x))*np.sin(phi_b(x)/2)**2
+b_R = lambda x: 1/2*(1-r(x))*np.cos(phi_b(x)/2)**2
 
 a = lambda x : a_R(x)+a_L(x)
 b = lambda x : b_R(x)+b_L(x)
@@ -31,6 +32,10 @@ b = lambda x : b_R(x)+b_L(x)
 # continuum zeros
 z1 = lambda x : (-((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))+np.sqrt(((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))**2-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x))
 z2 = lambda x : (-((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))-np.sqrt(((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))**2-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x))
+
+x = np.linspace(0,2*np.pi,1000)
+z_p = np.max(z1(x))
+z_m = np.min(z2(x))
 
 
 ######################## function checking (moving zeros plot) ################################
@@ -60,11 +65,12 @@ z2 = lambda x : (-((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))-np.sqrt(((b(x)-
 # ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
 # ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
 # plt.show()
+#
+# ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s")
+# ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s")
+# plt.show()
 
-# plt.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s")
-# plt.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s")
-
-###############################################
+#################### zero density definition #########################
 
 M=100
 dt = 1
@@ -83,8 +89,62 @@ def rho1(x):
     return R/(np.pi*(1+R**2*root(x)**2))*sum
 
 def rho2(x):
-    return -R*root(x)/(np.pi*(1+R**2*root(x)**2))*(1/(x-z1)+1/(x-z2)-1/x)
-root(-0.5)
+    sum = 0
+    for i in range(2*M):
+        sum += 1/(2*M)*(np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
+    return -R/(np.pi*(1+R**2*root(x)**2))*sum
+
+
+############# zero density plot ####################
+
+x1 = np.linspace(z_p+0.0001,-0.1,10000)
+x2 = np.linspace(-25,z_m-0.0001,10000)
+
+fig = plt.figure()
+ax1 = plt.subplot2grid((1,1),(0,0))
+ax1.plot(x1,rho1(x1),color="blue")
+ax1.plot(x2,rho2(x2),color="g")
+ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s",markersize=2,color="blue")
+ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s",markersize=2,color="g")
+plt.show()
+
+# print(integrate.quad(rho1,z_p+0.0001,-0.1))
+# rho1(x1).sum()*(x1[1]-x1[0])
+############# current density calculation ##############
+
+dx1 = x1[1]-x1[0]
+dx2 = x2[1]-x2[0]
+
+def integ1(x,z):
+    return rho1(x)*np.log((z-x)/(1-x))
+
+def integ2(x,z):
+    return rho2(x)*np.log((z-x)/(1-x))
+
+def integ3(x,z):
+    return rho1(x)*z/(z-x)
+
+def integ4(x,z):
+    return rho2(x)*z/(z-x)
+
+def J(z):
+    return (integ3(x1,z).sum()*dx1+integ4(x2,z).sum()*dx2-1)*0.5
+
+def phi(z):
+    return (integ1(x1,z).sum()*dx1+integ2(x2,z).sum()*dx2-np.log(z))*0.5-J(z)*np.log(z)
+
+Chi = np.linspace(-4,5,100)
+J_dat=[]
+phi_dat=[]
+for chi in Chi:
+    J_dat.append(J(np.exp(chi)))
+    phi_dat.append(phi(np.exp(chi)))
+
+plt.plot(J_dat,phi_dat)
+plt.xlim([-0.2,0.2])
+plt.ylim([-0.3,0.05])
+plt.show()
+
 
 
 # # discrete zeros

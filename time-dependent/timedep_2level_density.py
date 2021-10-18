@@ -171,8 +171,8 @@ for i in range(iter):
         rand = np.random.rand()
         theta = (k-1)*np.pi/M
 
-        n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[theta]*0.5*(1-np.sign(a(theta)*dt-rand))
-        j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[theta]*0.5*(1+np.sign(a_R(theta)*dt-rand))
+        n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(theta)*dt-rand))
+        j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(theta)*dt-rand))
 
     J_sim[int(np.sum(j)+2*M)] += 1
 

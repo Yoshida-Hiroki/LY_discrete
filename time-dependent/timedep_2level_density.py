@@ -8,7 +8,7 @@ import cmath
 
 
 type = r"\time_density"
-date = "211015"
+date = "211018"
 ver = "1"
 
 # definitions of functions
@@ -37,37 +37,46 @@ x = np.linspace(0,2*np.pi,1000)
 z_p = np.max(z1(x))
 z_m = np.min(z2(x))
 
-
+Z1=z1(x)
+Z2=z2(x)
+Z1
 ######################## function checking (moving zeros plot) ################################
 
-# fig = plt.figure()
-# ax1 = plt.subplot2grid((1,2),(0,0))
-# ax2 = plt.subplot2grid((1,2),(0,1))
-#
-# x = np.linspace(0,2*np.pi,1000)
-# ax1.set_title("moving zeros")
-# ax1.plot(x,np.real(-z1(x)),color="black",label="$-z_1$")
-# ax1.plot(x,np.real(-z2(x)),color="blue",label="$-z_2$")
-# ax1.legend()
-# ax1.set_xlabel(r"$\theta$")
-# ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-# ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-# # ax1.set_xlim([-10,0])
-# ax1.hlines(0,0,2*np.pi,color="gray")
-# # ax1.set_yscale("log")
-#
-# # ax2.set_title("affinity $z_1z_2$")
+fig = plt.figure()
+ax1 = plt.subplot2grid((1,2),(0,0))
+ax2 = plt.subplot2grid((1,2),(0,1))
+
+ax1.set_title("moving zeros")
+ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
+ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
+ax1.legend()
+ax1.set_xlabel(r"$\theta$")
+ax1.set_ylabel("$z$")
+ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+# ax1.set_xlim([-10,0])
+ax1.hlines(0,0,2*np.pi,color="gray")
+# ax1.set_yscale("log")
+
+ax2.set_title("$z_1z_2$")
 # ax2.set_yscale("log")
-# ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
+ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
+ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
+ax2.set_xlabel(r"$\theta$")
 # ax2.plot(x,1/(a_R(x)*b_L(x)),label="$1/(a_Rb_L)$")
 # ax2.plot(x,(a(x)+b(x))**2/(4*a_R(x)*b_L(x))-1-z1(x)*z2(x),label=r"$(\frac{a+b}{4a_Rb_L}-1-z_1z_2)$",color="black")
-# ax2.legend()
-# ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+ax2.legend()
+ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+plt.tight_layout()
 # plt.show()
 #
 # ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s")
 # ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s")
+
+plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r"_zeros.png")
+plt.clf()
+plt.close()
 # plt.show()
 
 #################### zero density definition #########################
@@ -94,22 +103,29 @@ def rho2(x):
         sum += 1/(2*M)*(np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
     return -R/(np.pi*(1+R**2*root(x)**2))*sum
 
-
-############# zero density plot ####################
-
 x1 = np.linspace(z_p+0.0001,-0.1,10000)
 x2 = np.linspace(-25,z_m-0.0001,10000)
 
+############# zero density plot ####################
+
 fig = plt.figure()
 ax1 = plt.subplot2grid((1,1),(0,0))
-ax1.plot(x1,rho1(x1),color="blue")
-ax1.plot(x2,rho2(x2),color="g")
-ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s",markersize=2,color="blue")
-ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s",markersize=2,color="g")
-plt.show()
+ax1.plot(x1,rho1(x1),color="blue",label=r"$\rho_+$")
+ax1.plot(x2,rho2(x2),color="g",label=r"$\rho_-$")
+ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s",markersize=2,color="blue",label=r"$z_1$")
+ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s",markersize=2,color="g",label=r"$z_2$")
+plt.legend()
+ax1.set_xlabel(r"$z$")
+ax1.set_ylabel(r"$\rho$")
+ax1.set_ylim([-0.05,1])
+plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r"_density.png")
+plt.clf()
+plt.close()
+# plt.show()
 
 # print(integrate.quad(rho1,z_p+0.0001,-0.1))
 # rho1(x1).sum()*(x1[1]-x1[0])
+
 ############# current density calculation ##############
 
 dx1 = x1[1]-x1[0]
@@ -140,61 +156,60 @@ for chi in Chi:
     J_dat.append(J(np.exp(chi)))
     phi_dat.append(phi(np.exp(chi)))
 
-plt.plot(J_dat,phi_dat)
-plt.xlim([-0.2,0.2])
-plt.ylim([-0.3,0.05])
-plt.show()
+
+################## simulation #############################
+
+iter = 100000
+J_sim = [0]*(4*M+1)
+for i in range(iter):
+    n = [0]*(2*M)
+    j = [0]*(2*M)
+    for k in range(1,2*M):
+        rand = np.random.rand()
+
+        n[k] = (1-n[k-1])*0.5*(1+np.sign(b(k-1)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(k-1)*dt-rand))
+        j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(k-1)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(k-1)*dt-rand))
+
+    J_sim[int(np.sum(j)+2*M)] += 1
+
+# S = iter*2/(2*M)
+# MAX=np.max(J_sim)
+
+phi_sim = [0]*(4*M+1)
+for i in range(4*M+1):
+    phi_sim[i] = np.log(J_sim[i]/iter)/(2*M)
 
 
+################### plot ##########################
+fig = plt.figure()
+ax1 = plt.subplot2grid((1,1),(0,0))
 
-# # discrete zeros
-# a_z = a_L + a_R * z
-# b_z = b_L + b_R / z
-#
-# def w(s):
-#     # params
-#     T = 100
-#     M = s
-#     dt = T/M
-#     X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a*dt]])
-#     V1 = np.array([[0,1],[0,0]])
-#     V2 = np.array([[0,0],[1,0]])
-#     w_z_1 = X +z*a_R*dt*V1+1/z*b_R*dt*V2    # normal way of definition is not good.
-#     w_n = np.eye(2)
-#
-#     for i in range(s):
-#         w_n = np.dot(w_n,w_z_1)
-#     return simplify(w_n)
-#
-# def Z(M):
-#     return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
-#
-# iter = 16
-# z_disc=[]
-# for i in range(1,iter+1):
-#     z_disc.append(list(solveset(Z(i),z)))
-#
-# for i in range(iter):
-#     for j in range((int(i/2)+1)*2):
-#         z_disc[i][j] = complex(z_disc[i][j])
-#
-# fig = plt.figure()
-# ax1 = plt.subplot2grid((1,1),(0,0))
-#
-# ax1.plot([np.real(z1_cont),np.real(z2_cont)],np.full(np.size([np.real(z1_cont),np.real(z2_cont)]),iter),linestyle="None",marker="s",color="blue",label="Continuous",markersize=8)
-# for i in range(iter):
-#     ax1.plot(np.real(z_disc[i]),np.full(np.size(np.real(z_disc[i])),i),linestyle="None",marker="o",color=[0.9-i/25,0.9-i/25,0.9-i/25],label="Discrete k="+str(i+1))
-# # for i in range(iter):
-# #     ax1.plot([np.real(z_disc[i][int(i/2)]),np.real(z_disc[i][int(i/2)+1])],[np.imag(z_disc[i][int(i/2)]),np.imag(z_disc[i][int(i/2)+1])],linestyle="None",marker="o",color=[0.9-i/20,0.9-i/20,0.9-i/20],label="Discrete k="+str(i+1))
-# # ax1.legend()
-# ax1.set_xlim([-10,3])
-# ax1.set_yticks([x for x in range(iter+1)])
-# ax1.set_yticklabels([x for x in range(1,iter+1)]+['continuous'])
-# # plt.show()
-# plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".png")
-#
-# outfile = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".csv",'w', newline='')
-# writer = csv.writer(outfile)
-# writer.writerows(z_disc)
-# writer.writerow([z1_cont, z2_cont])
-# outfile.close()
+ax1.plot(J_dat,phi_dat)
+ax1.set_xlim([-0.4,0.1])
+ax1.set_ylim([-0.3,0.05])
+ax1.plot(np.linspace(-1,1,4*M+1),phi_sim,linestyle="None",marker="+")
+ax1.hlines(0,-0.4,0.1,color="gray")
+ax1.vlines(0,-0.3,0.05,color="gray")
+ax1.set_xlabel(r"$J$")
+ax1.set_ylabel(r"$\phi$")
+plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r"_current.png")
+plt.clf()
+plt.close()
+# plt.show()
+
+##################### csv ##########################
+
+outfile = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".csv",'w', newline='')
+writer = csv.writer(outfile)
+writer.writerow(Z1)
+writer.writerow(Z2)
+writer.writerow(J_dat)
+writer.writerow(phi_dat)
+writer.writerow(np.linspace(-1,1,4*M+1))
+writer.writerow(phi_sim)
+outfile.close()
+
+##################### txt ###########################
+f = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".txt",'w')
+f.write('R=1'+'\n'+'r=pi/200*sin(x)'+'\n'+'phi_a=pi*3/4+pi/10*cos(x)'+'\n'+'phi_b=pi/4+pi/10*cos(x)'+'\n\n'+'M='+str(M)+'\n'+'iteration='+str(iter)+'\n\n'+'-------scv data------'+"\n\n"+'z1:[0,2pi]'+"\n"+'z2:[0,2pi]'+"\n"+'J:Derived from density of zeros'+"\n"+'phi:Derived from density of zeros to be plotted with J above'+'\n'+"J_sim:4*M+1 points in [-1,1]"+"\n"+'phi_sim:Phi derived from simulation. to be plotted with J_sim above.'+"\n\n"+"------Remarks-------")
+f.close()

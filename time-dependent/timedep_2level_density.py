@@ -9,7 +9,7 @@ import cmath
 
 type = r"\time_density"
 date = "211018"
-ver = "1"
+ver = "2"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
@@ -39,7 +39,7 @@ z_m = np.min(z2(x))
 
 Z1=z1(x)
 Z2=z2(x)
-Z1
+
 ######################## function checking (moving zeros plot) ################################
 
 fig = plt.figure()
@@ -88,19 +88,22 @@ R = (0.5*dt)/(1-0.5*dt)
 def root(x):
     sum = 0
     for i in range(2*M):
-        sum += 1/(2*M)*(0.5*np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))
+        theta = i*np.pi/M
+        sum += 1/(2*M)*(0.5*np.sqrt(-(x-z1(theta))*(x-z2(theta))/(x*(1-z1(theta))*(1-z2(theta)))))
     return sum
 
 def rho1(x):
     sum = 0
     for i in range(2*M):
-        sum += 1/(2*M)*(np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
+        theta = i*np.pi/M
+        sum += 1/(2*M)*(np.sqrt(-(x-z1(theta))*(x-z2(theta))/(x*(1-z1(theta))*(1-z2(theta)))))*(1/(x-z1(theta))+1/(x-z2(theta))-1/x)
     return R/(np.pi*(1+R**2*root(x)**2))*sum
 
 def rho2(x):
     sum = 0
     for i in range(2*M):
-        sum += 1/(2*M)*(np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
+        theta = i*np.pi/M
+        sum += 1/(2*M)*(np.sqrt(-(x-z1(theta))*(x-z2(theta))/(x*(1-z1(theta))*(1-z2(theta)))))*(1/(x-z1(theta))+1/(x-z2(theta))-1/x)
     return -R/(np.pi*(1+R**2*root(x)**2))*sum
 
 x1 = np.linspace(z_p+0.0001,-0.1,10000)
@@ -166,9 +169,10 @@ for i in range(iter):
     j = [0]*(2*M)
     for k in range(1,2*M):
         rand = np.random.rand()
+        theta = (k-1)*np.pi/M
 
-        n[k] = (1-n[k-1])*0.5*(1+np.sign(b(k-1)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(k-1)*dt-rand))
-        j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(k-1)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(k-1)*dt-rand))
+        n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[theta]*0.5*(1-np.sign(a(theta)*dt-rand))
+        j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[theta]*0.5*(1+np.sign(a_R(theta)*dt-rand))
 
     J_sim[int(np.sum(j)+2*M)] += 1
 

@@ -56,10 +56,10 @@ def integ4(x,z):
     return rho2(x)*z/(z-x)
 
 def J(z):
-    return (integrate.quad(integ3,z1+dx,0-dx,args=z)[0]+integrate.quad(integ4,-100,z2-dx,args=z)[0]-1)*0.5
+    return (integrate.quad(integ3,z1+dx,0-dx,args=z)[0]+integrate.quad(integ4,-1000,z2-dx,args=z)[0]-1)*0.5
 
 def phi(z):
-    return (integrate.quad(integ1,z1+dx,0-dx,args=z)[0]+integrate.quad(integ2,-100,z2-dx,args=z)[0]-np.log(z))*0.5-J(z)*np.log(z)
+    return (integrate.quad(integ1,z1+dx,0-dx,args=z)[0]+integrate.quad(integ2,-1000,z2-dx,args=z)[0]-np.log(z))*0.5-J(z)*np.log(z)
 
 Chi = np.linspace(-4,5,100)
 J_dat=[]
@@ -68,37 +68,37 @@ for chi in Chi:
     J_dat.append(J(np.exp(chi)))
     phi_dat.append(phi(np.exp(chi)))
 
-plt.plot(J_dat,phi_dat)
-plt.xlim([-0.2,0.2])
-plt.ylim([-0.3,0.05])
-plt.show()
-J_dat
+######################## simulation ####################################
+iter = 100000
+M = 100
+J_sim = [0]*(4*M+1)
+for i in range(iter):
+    n = [1]+[0]*(2*M-1)
+    j = [0]*(2*M)
+    for k in range(1,2*M):
+        r = np.random.rand()
 
-# def g(x):
-#     return 0.5*integrate()
-#
-#
-# x1 = np.linspace(z1+0.000001,-0.001,1000)
-# x2 = np.linspace(-2,z2-0.000001,1000)
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-# fig = plt.figure()
-# ax = plt.subplot2grid((1,1),(0,0))
-#
-# ax.plot(x1,rho1(x1))
-# ax.plot(x2,rho2(x2))
-# ax.set_ylim([0,10])
-# plt.show()
+        n[k] = (1-n[k-1])*0.5*(1+np.sign(b*dt-r))+n[k-1]*0.5*(1-np.sign(a*dt-r))
+        j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R*dt-r))+n[k-1]*0.5*(1+np.sign(a_R*dt-r))
+
+    J_sim[int(np.sum(j)+2*M)] += 1
+
+# S = iter*2/(2*M)
+# MAX=np.max(J_sim)
+
+phi_sim = [0]*(4*M+1)
+for i in range(4*M+1):
+    phi_sim[i] = np.log(J_sim[i]/iter)/(2*M)
+
+######################## plot ################################
+
+fig = plt.figure()
+ax1 = plt.subplot2grid((1,1),(0,0))
+
+ax1.plot(J_dat,phi_dat)
+ax1.set_xlim([-0.2,0.2])
+ax1.set_ylim([-0.3,0.05])
+ax1.plot(np.linspace(-1,1,4*M+1),phi_sim,linestyle="None",marker="s")
+ax1.hlines(0,-0.2,0.2,color="gray")
+ax1.vlines(0,-0.3,0.05,color="gray")
+plt.show()

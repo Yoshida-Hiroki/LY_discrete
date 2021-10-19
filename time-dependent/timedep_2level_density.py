@@ -9,11 +9,11 @@ import cmath
 
 type = r"\time_density"
 date = "211019"
-ver = "3"
+ver = "4"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
-r = lambda x: np.pi/7*np.sin(x)
+r = lambda x: np.pi/6*np.sin(x)
 phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
 phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
 
@@ -221,5 +221,5 @@ outfile.close()
 
 ##################### txt ###########################
 f = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".txt",'w')
-f.write('R=1'+'\n'+'r=pi/7*sin(x)'+'\n'+'phi_a=pi*3/4+pi/10*cos(x)'+'\n'+'phi_b=pi/4+pi/10*cos(x)'+'\n\n'+'M='+str(M)+'\n'+'iteration='+str(iter)+'\n\n'+'-------scv data------'+"\n\n"+'z1:[0,2pi]'+"\n"+'z2:[0,2pi]'+"\n"+'J:Derived from density of zeros'+"\n"+'phi:Derived from density of zeros to be plotted with J above'+'\n'+"J_sim:4*M+1 points in [-1,1]"+"\n"+'phi_sim:Phi derived from simulation. to be plotted with J_sim above.'+"\n\n"+"------Remarks-------")
+f.write('R=1'+'\n'+'r=pi/6*sin(x)'+'\n'+'phi_a=pi*3/4+pi/10*cos(x)'+'\n'+'phi_b=pi/4+pi/10*cos(x)'+'\n\n'+'M='+str(M)+'\n'+'iteration='+str(iter)+'\n\n'+'-------scv data------'+"\n\n"+'z1:[0,2pi]'+"\n"+'z2:[0,2pi]'+"\n"+'J:Derived from density of zeros'+"\n"+'phi:Derived from density of zeros to be plotted with J above'+'\n'+"J_sim:4*M+1 points in [-1,1]"+"\n"+'phi_sim:Phi derived from simulation. to be plotted with J_sim above.'+"\n\n"+"------Remarks-------")
 f.close()

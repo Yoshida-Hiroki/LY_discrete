@@ -8,14 +8,19 @@ import cmath
 
 
 type = r"\time_density"
+<<<<<<< HEAD
 date = "211018"
 ver = "3"
+=======
+date = "211019"
+ver = "2"
+>>>>>>> 4366bf74721c53dfa0a0821b890de67c5040745e
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
-r = lambda x: np.pi/4*np.sin(x)/50
-phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
-phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
+r = lambda x: np.pi/4*np.sin(x)
+phi_a = lambda x: np.pi/2+np.pi/4*np.cos(x)
+phi_b = lambda x: np.pi/2+np.pi/4*np.sin(x)
 
 # r_prime = lambda x: np.pi/4*np.cos(x)
 # phi_a_prime = lambda x: -np.pi/4*np.sin(x)
@@ -104,7 +109,7 @@ def rho2(x):
     return -R/(np.pi*(1+R**2*root(x)**2))*sum
 
 x1 = np.linspace(z_p+0.0001,-0.1,10000)
-x2 = np.linspace(-25,z_m-0.0001,10000)
+x2 = np.linspace(-50,z_m-0.0001,10000)
 
 ############# zero density plot ####################
 
@@ -117,7 +122,7 @@ ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s",markersize=2,
 plt.legend()
 ax1.set_xlabel(r"$z$")
 ax1.set_ylabel(r"$\rho$")
-ax1.set_ylim([-0.05,1])
+# ax1.set_ylim([-0.05,1])
 plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r"_density.png")
 plt.clf()
 plt.close()
@@ -159,19 +164,33 @@ for chi in Chi:
 
 ################## simulation #############################
 
-iter = 100000
+iter = 1000
 J_sim = [0]*(4*M+1)
 for i in range(iter):
-    n = [0]*(2*M)
-    j = [0]*(2*M)
+    n_before = 0
+    n_after = 0
+    j = 0
+    # n = [0]*(2*M)
+    # j = [0]*(2*M)
     for k in range(1,2*M):
         rand = np.random.rand()
 
+<<<<<<< HEAD
         n[k] = (1-n[k-1])*0.5*(1+np.sign(b(k-1)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(k-1)*dt-rand))
         j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(k-1)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(k-1)*dt-rand))
+=======
+        n_after = (1-n_before)*0.5*(1+np.sign(b(theta)*dt-rand))+n_before*0.5*(1-np.sign(a(theta)*dt-rand))
+        j += -(1-n_before)*0.5*(1+np.sign(b_R(theta)*dt-rand))+n_before*0.5*(1+np.sign(a_R(theta)*dt-rand))
+        # n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(theta)*dt-rand))
+        # j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(theta)*dt-rand))
+>>>>>>> 4366bf74721c53dfa0a0821b890de67c5040745e
 
-    J_sim[int(np.sum(j)+2*M)] += 1
+        n_before = n_after
 
+    J_sim[int(j+2*M)] += 1
+    # J_sim[int(np.sum(j)+2*M)] += 1
+
+# plt.plot(np.linspace(-1,1,4*M+1),J_sim)
 # S = iter*2/(2*M)
 # MAX=np.max(J_sim)
 

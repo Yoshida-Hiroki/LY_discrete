@@ -9,13 +9,13 @@ import cmath
 
 type = r"\time_density"
 date = "211019"
-ver = "1"
+ver = "2"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
-r = lambda x: np.pi/4*np.sin(x)/50
-phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
-phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
+r = lambda x: np.pi/4*np.sin(x)
+phi_a = lambda x: np.pi/2+np.pi/4*np.cos(x)
+phi_b = lambda x: np.pi/2+np.pi/4*np.sin(x)
 
 # r_prime = lambda x: np.pi/4*np.cos(x)
 # phi_a_prime = lambda x: -np.pi/4*np.sin(x)
@@ -107,7 +107,7 @@ def rho2(x):
     return -R/(np.pi*(1+R**2*root(x)**2))*sum
 
 x1 = np.linspace(z_p+0.0001,-0.1,10000)
-x2 = np.linspace(-25,z_m-0.0001,10000)
+x2 = np.linspace(-50,z_m-0.0001,10000)
 
 ############# zero density plot ####################
 
@@ -120,7 +120,7 @@ ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s",markersize=2,
 plt.legend()
 ax1.set_xlabel(r"$z$")
 ax1.set_ylabel(r"$\rho$")
-ax1.set_ylim([-0.05,1])
+# ax1.set_ylim([-0.05,1])
 plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r"_density.png")
 plt.clf()
 plt.close()

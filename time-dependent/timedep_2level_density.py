@@ -13,7 +13,7 @@ ver = "3"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
-r = lambda x: np.pi/200*np.sin(x)
+r = lambda x: np.pi/7*np.sin(x)
 phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
 phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
 
@@ -37,8 +37,8 @@ x = np.linspace(0,2*np.pi,1000)
 z_p = np.max(z1(x))
 z_m = np.min(z2(x))
 
-Z1=z1(x)
-Z2=z2(x)
+print(z_p)
+print(z_m)
 
 ######################## function checking (moving zeros plot) ################################
 
@@ -81,7 +81,7 @@ plt.close()
 
 #################### zero density definition #########################
 
-M=1000
+M=100
 dt = 1
 R = (0.5*dt)/(1-0.5*dt)
 
@@ -159,7 +159,7 @@ for chi in Chi:
 
 ################## simulation #############################
 
-iter = 1000
+iter = 100000
 J_sim = [0]*(4*M+1)
 for i in range(iter):
     n_before = 0
@@ -210,8 +210,8 @@ plt.close()
 
 outfile = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".csv",'w', newline='')
 writer = csv.writer(outfile)
-writer.writerow(Z1)
-writer.writerow(Z2)
+writer.writerow(z1(x))
+writer.writerow(z2(x))
 writer.writerow(J_dat)
 writer.writerow(phi_dat)
 writer.writerow(np.linspace(-1,1,4*M+1))
@@ -220,5 +220,5 @@ outfile.close()
 
 ##################### txt ###########################
 f = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".txt",'w')
-f.write('R=1'+'\n'+'r=pi/200*sin(x)'+'\n'+'phi_a=pi*3/4+pi/10*cos(x)'+'\n'+'phi_b=pi/4+pi/10*cos(x)'+'\n\n'+'M='+str(M)+'\n'+'iteration='+str(iter)+'\n\n'+'-------scv data------'+"\n\n"+'z1:[0,2pi]'+"\n"+'z2:[0,2pi]'+"\n"+'J:Derived from density of zeros'+"\n"+'phi:Derived from density of zeros to be plotted with J above'+'\n'+"J_sim:4*M+1 points in [-1,1]"+"\n"+'phi_sim:Phi derived from simulation. to be plotted with J_sim above.'+"\n\n"+"------Remarks-------")
+f.write('R=1'+'\n'+'r=pi/7*sin(x)'+'\n'+'phi_a=pi*3/4+pi/10*cos(x)'+'\n'+'phi_b=pi/4+pi/10*cos(x)'+'\n\n'+'M='+str(M)+'\n'+'iteration='+str(iter)+'\n\n'+'-------scv data------'+"\n\n"+'z1:[0,2pi]'+"\n"+'z2:[0,2pi]'+"\n"+'J:Derived from density of zeros'+"\n"+'phi:Derived from density of zeros to be plotted with J above'+'\n'+"J_sim:4*M+1 points in [-1,1]"+"\n"+'phi_sim:Phi derived from simulation. to be plotted with J_sim above.'+"\n\n"+"------Remarks-------")
 f.close()

@@ -8,17 +8,8 @@ import cmath
 
 
 type = r"\time_density"
-<<<<<<< HEAD
-date = "211018"
-ver = "3"
-=======
 date = "211019"
-<<<<<<< HEAD
 ver = "3"
-=======
-ver = "2"
->>>>>>> 4366bf74721c53dfa0a0821b890de67c5040745e
->>>>>>> 99ebcc69b0d01c49ff0b28a7a371de45d9747a97
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
@@ -179,15 +170,10 @@ for i in range(iter):
     for k in range(1,2*M):
         rand = np.random.rand()
 
-<<<<<<< HEAD
-        n[k] = (1-n[k-1])*0.5*(1+np.sign(b(k-1)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(k-1)*dt-rand))
-        j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(k-1)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(k-1)*dt-rand))
-=======
         n_after = (1-n_before)*0.5*(1+np.sign(b(theta)*dt-rand))+n_before*0.5*(1-np.sign(a(theta)*dt-rand))
         j += -(1-n_before)*0.5*(1+np.sign(b_R(theta)*dt-rand))+n_before*0.5*(1+np.sign(a_R(theta)*dt-rand))
         # n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(theta)*dt-rand))
         # j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(theta)*dt-rand))
->>>>>>> 4366bf74721c53dfa0a0821b890de67c5040745e
 
         n_before = n_after
 

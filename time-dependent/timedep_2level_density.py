@@ -8,8 +8,8 @@ import cmath
 
 
 type = r"\time_density"
-date = "211018"
-ver = "2"
+date = "211019"
+ver = "1"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
@@ -162,20 +162,29 @@ for chi in Chi:
 
 ################## simulation #############################
 
-iter = 100000
+iter = 1000
 J_sim = [0]*(4*M+1)
 for i in range(iter):
-    n = [0]*(2*M)
-    j = [0]*(2*M)
+    n_before = 0
+    n_after = 0
+    j = 0
+    # n = [0]*(2*M)
+    # j = [0]*(2*M)
     for k in range(1,2*M):
         rand = np.random.rand()
         theta = (k-1)*np.pi/M
 
-        n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(theta)*dt-rand))
-        j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(theta)*dt-rand))
+        n_after = (1-n_before)*0.5*(1+np.sign(b(theta)*dt-rand))+n_before*0.5*(1-np.sign(a(theta)*dt-rand))
+        j += -(1-n_before)*0.5*(1+np.sign(b_R(theta)*dt-rand))+n_before*0.5*(1+np.sign(a_R(theta)*dt-rand))
+        # n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(theta)*dt-rand))
+        # j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(theta)*dt-rand))
 
-    J_sim[int(np.sum(j)+2*M)] += 1
+        n_before = n_after
 
+    J_sim[int(j+2*M)] += 1
+    # J_sim[int(np.sum(j)+2*M)] += 1
+
+# plt.plot(np.linspace(-1,1,4*M+1),J_sim)
 # S = iter*2/(2*M)
 # MAX=np.max(J_sim)
 

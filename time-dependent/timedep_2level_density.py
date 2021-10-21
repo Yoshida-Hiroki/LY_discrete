@@ -181,6 +181,7 @@ for i in range(iter):
     # j = [0]*(2*M)
     for k in range(1,2*M):
         rand = np.random.rand()
+        theta = (k-1)*np.pi/M
 
         n_after = (1-n_before)*0.5*(1+np.sign(b(theta)*dt-rand))+n_before*0.5*(1-np.sign(a(theta)*dt-rand))
         j += -(1-n_before)*0.5*(1+np.sign(b_R(theta)*dt-rand))+n_before*0.5*(1+np.sign(a_R(theta)*dt-rand))

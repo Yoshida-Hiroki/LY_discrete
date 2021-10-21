@@ -8,8 +8,8 @@ import cmath
 
 
 type = r"\time_density"
-date = "211019"
-ver = "3"
+date = "211021"
+ver = "1"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
@@ -105,6 +105,18 @@ def rho2(x):
 
 x1 = np.linspace(z_p+0.0001,-0.1,10000)
 x2 = np.linspace(-50,z_m-0.0001,10000)
+
+###################################################
+
+def LHS(x):
+    sum = 0
+    for i in range(2*M):
+        sum += -(a(i)+b(i))/2*(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))/(2*M)
+    return sum
+
+zet = np.linspace(-50,0,100)
+plt.ylim([0,0.05])
+plt.plot(zet,root(zet)**2)
 
 ############# zero density plot ####################
 

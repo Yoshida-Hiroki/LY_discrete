@@ -129,7 +129,7 @@ int main(){
   gp = _popen(GNUPLOT_PATH, "w");
   fprintf(gp,"set terminal png\n");
   fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.png'\n");
-  fprintf(gp,"plot [][-0.05]'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($2>0 ? $2: 1/0) with line\n");
-  fprintf(gp,"replot [][-0.05]'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($3>0 ? $3: 1/0) with line\n");
+  fprintf(gp,"plot [][-0.05:]'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($2>0 ? $2: 1/0) with line\n");
+  fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($3>0 ? $3: 1/0) with line\n");
   pclose(gp);
 }

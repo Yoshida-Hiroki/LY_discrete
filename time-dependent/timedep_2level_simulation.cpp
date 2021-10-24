@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <Windows.h>
 #include <fstream>
 using namespace std;
 #define GNUPLOT_PATH "C:/PROGRA~1/gnuplot/bin/gnuplot.exe"
@@ -51,17 +52,10 @@ double sign(double x){
 int main(){
   // independent parameters
   int dt = 1;
-  double omega = 2*pi/50;
-  double T = 1000;
-  // int N = 1;
+  int N = 100;
+  int M = 100;
 
-  // dependent parameters
-  int M = pi/(omega*dt);
-  double T_0 = 2*M*dt;
-  int N = T/T_0;
-  // int T = N*dt;
-
-  int iter = 1000;
+  int iter = 100000;
 
   vector<int> J_sim(4*M*N+1);
   vector<double> phi_sim(4*M*N+1);
@@ -72,10 +66,10 @@ int main(){
     int n_after = 0;
     int j = 0;
 
-    for(int l = 0 ; l < N ; l++){
-      for(int k = 0 ; k < 2*M; k++){
+    for(int l = 0 ; l < 2*M ; l++){
+      for(int k = 0 ; k < N; k++){
         double rnd = (double)rand()/RAND_MAX;
-        double theta = 2*pi/(2*M)*k;
+        double theta = 2*pi/(double)N*(double)k;
 
         // n_after = (1-n_before)*0.5*(1+sign(0.4*dt-rnd))+n_before*0.5*(1-sign(0.6*dt-rnd));
         // j += -(1-n_before)*0.5*(1+sign(0.2*dt-rnd))+n_before*0.5*(1+sign(0.3*dt-rnd));
@@ -107,7 +101,9 @@ int main(){
   gp = _popen(GNUPLOT_PATH, "w");
   fprintf(gp,"set terminal png\n");
   fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.png'\n");
-  fprintf(gp,"plot 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.dat'\n");
+  fprintf(gp,"plot [][-0.3:0.01]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.dat'\n");
   pclose(gp);
+
+  Beep(660, 1000);
 
 }

@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <Windows.h>
+#include <time.h>
 #include <fstream>
 using namespace std;
 #define GNUPLOT_PATH "C:/PROGRA~1/gnuplot/bin/gnuplot.exe"
@@ -49,16 +50,27 @@ double sign(double x){
 }
 
 
+
 int main(){
-  // independent parameters
+  clock_t start = clock();
+
   int dt = 1;
-  int N = 100;
-  int M = 100;
+  int N = 1000;
+  int M = 1;
 
   int iter = 100000;
 
   vector<int> J_sim(4*M*N+1);
   vector<double> phi_sim(4*M*N+1);
+
+  vector<double> B(N),A(N),B_R(N),A_R(N);
+  for(int i = 0 ; i < N ; i++){
+    double theta = (double)2*pi/N*i;
+    A[i] = a(theta);
+    B[i] = b(theta);
+    A_R[i] = a_R(theta);
+    B_R[i] = b_R(theta);
+  }
 
   srand(time(NULL));
   for(int i = 0 ; i < iter;i++){
@@ -69,12 +81,11 @@ int main(){
     for(int l = 0 ; l < 2*M ; l++){
       for(int k = 0 ; k < N; k++){
         double rnd = (double)rand()/RAND_MAX;
-        double theta = 2*pi/(double)N*(double)k;
 
-        // n_after = (1-n_before)*0.5*(1+sign(0.4*dt-rnd))+n_before*0.5*(1-sign(0.6*dt-rnd));
-        // j += -(1-n_before)*0.5*(1+sign(0.2*dt-rnd))+n_before*0.5*(1+sign(0.3*dt-rnd));
-        n_after = (1-n_before)*0.5*(1+sign(b(theta)*dt-rnd))+n_before*0.5*(1-sign(a(theta)*dt-rnd));
-        j += -(1-n_before)*0.5*(1+sign(b_R(theta)*dt-rnd))+n_before*0.5*(1+sign(a_R(theta)*dt-rnd));
+        n_after = (1-n_before)*0.5*(1+sign(0.4*dt-rnd))+n_before*0.5*(1-sign(0.6*dt-rnd));
+        j += -(1-n_before)*0.5*(1+sign(0.2*dt-rnd))+n_before*0.5*(1+sign(0.3*dt-rnd));
+        // n_after = (1-n_before)*0.5*(1+sign(B[k]*dt-rnd))+n_before*0.5*(1-sign(A[k]*dt-rnd));
+        // j += -(1-n_before)*0.5*(1+sign(B_R[k]*dt-rnd))+n_before*0.5*(1+sign(A_R[k]*dt-rnd));
 
         n_before = n_after;
       }
@@ -82,7 +93,7 @@ int main(){
     J_sim[(int)(j+2*M*N)] += 1;
   }
   for(int i = 0; i < 4*M*N+1;i++){
-    phi_sim[i] = log((double)J_sim[i]/(double)iter)/(2*M*N);
+    phi_sim[i] = log((double)J_sim[i]/(double)iter)/(2*(double)M*(double)N);
   }
 
   string path = "C:/Users/hyoshida/Desktop/timedep/";
@@ -101,9 +112,11 @@ int main(){
   gp = _popen(GNUPLOT_PATH, "w");
   fprintf(gp,"set terminal png\n");
   fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.png'\n");
-  fprintf(gp,"plot [][-0.3:0.01]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.dat'\n");
+  fprintf(gp,"plot [-0.2:0.2][-0.3:0.05]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.dat'\n");
   pclose(gp);
 
-  Beep(660, 1000);
+  clock_t end = clock();
+  cout << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+  Beep(450, 1000);
 
 }

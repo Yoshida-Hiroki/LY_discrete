@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 #include <fstream>
 using namespace std;
+#define GNUPLOT_PATH "C:/PROGRA~1/gnuplot/bin/gnuplot.exe"
 
 
 double pi = 3.141592;
@@ -60,7 +61,7 @@ int main(){
   int N = T/T_0;
   // int T = N*dt;
 
-  int iter = 100000;
+  int iter = 1000;
 
   vector<int> J_sim(4*M*N+1);
   vector<double> phi_sim(4*M*N+1);
@@ -90,12 +91,23 @@ int main(){
     phi_sim[i] = log((double)J_sim[i]/(double)iter)/(2*M*N);
   }
 
-  string filename = "C:/Users/hyoshida/Desktop/sim.dat";
+  string path = "C:/Users/hyoshida/Desktop/timedep/";
+  string type = "time_simulation_";
+  string date = "211024";
+  string file = ".dat";
+  string filename = path + type + date + file;
   ofstream writing_file;
   writing_file.open(filename, ios::out);
 
   for(int i = 0; i < 4*M*N+1;i++){
     writing_file << (double)(-2*M*N + i)/(2*M*N) << " " << phi_sim[i] << endl;
   }
+
+  FILE *gp;
+  gp = _popen(GNUPLOT_PATH, "w");
+  fprintf(gp,"set terminal png\n");
+  fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.png'\n");
+  fprintf(gp,"plot 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.dat'\n");
+  pclose(gp);
 
 }

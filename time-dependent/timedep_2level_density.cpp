@@ -1,15 +1,16 @@
 #include <bits/stdc++.h>
 #include <fstream>
 using namespace std;
-
+#define GNUPLOT_PATH "C:/PROGRA~1/gnuplot/bin/gnuplot.exe"
 
 double pi = 3.141592;
 
 
+
 // independent parameters
 int dt = 1;
-double omega = 2*pi/50;
-double T = 1000;
+double omega = 2*pi/10;
+double T = 2000;
 // int N = 1;
 
 // dependent parameters
@@ -118,11 +119,14 @@ double rho2(double x){
 int main(){
   double zmin = -25;
   double zmax = 0;
-  int partnum = 10;
+  int partnum = 1000;
 
-  string path = "C:/Users/hyoshida/Desktop/";
-  string file = "den.dat";
-  string filename = path + file;
+  // string path = "G:/マイドライブ/research/";
+  string path = "C:/Users/hyoshida/Desktop/timedep/";
+  string type = "time_density_";
+  string date = "211024";
+  string file = ".dat";
+  string filename = path + type + date + file;
   ofstream writing_file;
   writing_file.open(filename, ios::out);
 
@@ -131,4 +135,12 @@ int main(){
 
     writing_file << z << " " << rho1(z) << " " << rho2(z) << endl;
   }
+
+  FILE *gp;
+  gp = _popen(GNUPLOT_PATH, "w");
+  fprintf(gp,"set terminal png\n");
+  fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.png'\n");
+  fprintf(gp,"plot 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($2>0 ? $2: 1/0) with line\n");
+  fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($3>0 ? $3: 1/0) with line\n");
+  pclose(gp);
 }

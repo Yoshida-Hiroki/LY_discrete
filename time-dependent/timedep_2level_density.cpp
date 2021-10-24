@@ -5,19 +5,8 @@ using namespace std;
 
 double pi = 3.141592;
 
-
-
-// independent parameters
-int dt = 1;
-double omega = 2*pi/10;
-double T = 2000;
-// int N = 1;
-
-// dependent parameters
-int M = pi/(omega*dt);
-double T_0 = 2*M*dt;
-int N = T/T_0;
-// int T = N*dt;
+double dt = 1;
+int N = 1000;
 
 double r(double x){
   return pi/200*sin(x);
@@ -69,36 +58,36 @@ double sup_func(double x){
 
 double ave_sup_func(int i){
   double sum = 0.0;
-  for(int i = 0; i < 2*M ; i++){
-    double theta = 2*pi/(2*(double)M)*(double)i;
-    sum += 1/(2*(double)M)*sup_func(theta);
+  for(int i = 0; i < N ; i++){
+    double theta = 2*pi/(double)N*(double)i;
+    sum += 1/(double)N*sup_func(theta);
   }
   return sum;
 }
 
 double ave_LHS(double x){
   double sum = 0.0;
-  for(int i = 0; i < 2*M ; i++){
-    double theta = 2*pi/(2*(double)M)*(double)i;
-    sum += 1/(2*(double)M)*sup_func(theta)*sqrt(((x-z1(theta))*(x-z2(theta)))/(x*(1-z1(theta))*(1-z2(theta))));
+  for(int i = 0; i < N ; i++){
+    double theta = 2*pi/(double)N*(double)i;
+    sum += 1/(double)N*sup_func(theta)*sqrt(((x-z1(theta))*(x-z2(theta)))/(x*(1-z1(theta))*(1-z2(theta))));
   }
   return sum;
 }
 
 double ave_f(double x){
   double sum =0.0;
-  for(int i = 0; i < 2*M ; i++){
-    double theta = 2*pi/(2*(double)M)*(double)i;
-    sum += 1/(2*(double)M)*sup_func(theta)*sqrt(-((x-z1(theta))*(x-z2(theta)))/(x*(1-z1(theta))*(1-z2(theta))));
+  for(int i = 0; i < N ; i++){
+    double theta = 2*pi/(double)N*(double)i;
+    sum += 1/(double)N*sup_func(theta)*sqrt(-((x-z1(theta))*(x-z2(theta)))/(x*(1-z1(theta))*(1-z2(theta))));
   }
   return sum;
 }
 
 double ave_g(double x){
   double sum =0.0;
-  for(int i = 0; i < 2*M ; i++){
-    double theta = 2*pi/(2*(double)M)*(double)i;
-    sum += 1/(2*(double)M)*sup_func(theta)*sqrt(-((x-z1(theta))*(x-z2(theta)))/(x*(1-z1(theta))*(1-z2(theta))))*(1/(x-z1(theta))+1/(x-z2(theta))-1/x);
+  for(int i = 0; i < N ; i++){
+    double theta = 2*pi/(double)N*(double)i;
+    sum += 1/(double)N*sup_func(theta)*sqrt(-((x-z1(theta))*(x-z2(theta)))/(x*(1-z1(theta))*(1-z2(theta))))*(1/(x-z1(theta))+1/(x-z2(theta))-1/x);
   }
   return sum;
 }
@@ -140,7 +129,7 @@ int main(){
   gp = _popen(GNUPLOT_PATH, "w");
   fprintf(gp,"set terminal png\n");
   fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.png'\n");
-  fprintf(gp,"plot 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($2>0 ? $2: 1/0) with line\n");
-  fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($3>0 ? $3: 1/0) with line\n");
+  fprintf(gp,"plot [][-0.05]'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($2>0 ? $2: 1/0) with line\n");
+  fprintf(gp,"replot [][-0.05]'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($3>0 ? $3: 1/0) with line\n");
   pclose(gp);
 }

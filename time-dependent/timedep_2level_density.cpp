@@ -1,12 +1,14 @@
 #include <bits/stdc++.h>
 #include <fstream>
+#include <time.h>
+#include <Windows.h>
 using namespace std;
 #define GNUPLOT_PATH "C:/PROGRA~1/gnuplot/bin/gnuplot.exe"
 
 double pi = 3.141592;
 
 double dt = 1;
-int N = 1000;
+int N = 2000;
 
 double r(double x){
   return pi/200*sin(x);
@@ -97,39 +99,66 @@ double R(int i){
 }
 
 double rho1(double x){
-  return R(0)*ave_g(x)/ave_sup_func(0)/(1+pow(R(0),2.0)*pow(ave_f(x)/ave_sup_func(0),2.0));
+  return R(0)/pi/(1+pow((double)R(0)*ave_f(x)/ave_sup_func(0),2.0))*ave_g(x)/ave_sup_func(0);
 }
 
 double rho2(double x){
-  return -R(0)*ave_g(x)/ave_sup_func(0)/(1+pow(R(0),2.0)*pow(ave_f(x)/ave_sup_func(0),2.0));
+  return -R(0)/pi*ave_g(x)/ave_sup_func(0)/(1+pow(R(0),2.0)*pow(ave_f(x)/ave_sup_func(0),2.0));
+}
+
+double zmin = -25;
+double zmax = 0;
+int partnum = 1000;
+double dz = (double)(zmax-zmin)/partnum;
+
+double J(double z){
+  double integ = 0;
+
+  for(int i = 0 ; i< partnum;i++){
+    double x = zmin + (double)dz*i;
+    double temp = dz*abs(rho1(x))*z/(z-x);
+    integ += (temp==temp) ? temp : 0;
+  }
+  return 0.5*(integ -1.0);
+}
+
+double phi(double z){
+  double integ = 0;
+
+  for(int i = 0 ; i< partnum;i++){
+    double x = zmin + (double)dz*i;
+    double temp = dz*abs(rho1(x))*(log(z-x)-log(1-z));
+    integ += (temp == temp) ? temp:0;
+  }
+  return 0.5*(integ-2*J(z)*log(z)-log(z));
 }
 
 
+
 int main(){
-  double zmin = -25;
-  double zmax = 0;
-  int partnum = 1000;
+  cout << J(4) << endl;
 
-  // string path = "G:/マイドライブ/research/";
-  string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string type = "time_density_";
-  string date = "211024";
-  string file = ".dat";
-  string filename = path + type + date + file;
-  ofstream writing_file;
-  writing_file.open(filename, ios::out);
-
-  for(int i = 0;i< partnum;i++){
-    double z = zmin + (zmax-zmin)/partnum*(double)i;
-
-    writing_file << z << " " << rho1(z) << " " << rho2(z) << endl;
-  }
-
-  FILE *gp;
-  gp = _popen(GNUPLOT_PATH, "w");
-  fprintf(gp,"set terminal png\n");
-  fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.png'\n");
-  fprintf(gp,"plot [][-0.05:]'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($2>0 ? $2: 1/0) with line\n");
-  fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($3>0 ? $3: 1/0) with line\n");
-  pclose(gp);
+  Beep(400,10);
+  // // string path = "G:/マイドライブ/research/";
+  // string path = "C:/Users/hyoshida/Desktop/timedep/";
+  // string type = "time_density_";
+  // string date = "211024";
+  // string file = ".dat";
+  // string filename = path + type + date + file;
+  // ofstream writing_file;
+  // writing_file.open(filename, ios::out);
+  //
+  // for(int i = 0;i< partnum;i++){
+  //   double z = zmin + (zmax-zmin)/partnum*(double)i;
+  //
+  //   writing_file << z << " " << rho1(z) << " " << rho2(z) << endl;
+  // }
+  //
+  // FILE *gp;
+  // gp = _popen(GNUPLOT_PATH, "w");
+  // fprintf(gp,"set terminal png\n");
+  // fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.png'\n");
+  // fprintf(gp,"plot [][-0.05:]'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($2>0 ? $2: 1/0) with line\n");
+  // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211024.dat' using 1:($3>0 ? $3: 1/0) with line\n");
+  // pclose(gp);
 }

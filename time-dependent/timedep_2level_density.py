@@ -8,8 +8,8 @@ import cmath
 
 
 type = r"\time_density"
-date = "211021"
-ver = "1"
+date = "211026"
+ver = "2"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
@@ -95,16 +95,16 @@ def rho1(x):
     sum = 0
     for i in range(2*M):
         sum += 1/(2*M)*(0.5*np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
-    return R/(np.pi*(1+R**2*(root(x)/0.5)**2))*sum/0.5
+    return R/(np.pi*(1+R**2*(root(x)*2)**2))*sum*2
 
 def rho2(x):
     sum = 0
     for i in range(2*M):
         sum += 1/(2*M)*(np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
-    return -R/(np.pi*(1+R**2*(root(x)/0.5)**2))*sum
+    return -R/(np.pi*(1+R**2*(root(x)*2)**2))*sum*2
 
-x1 = np.linspace(z_p+0.0001,-0.1,10000)
-x2 = np.linspace(-50,z_m-0.0001,10000)
+x1 = np.linspace(z_p+0.0001,-0.1,100000)
+x2 = np.linspace(-50,z_m-0.0001,100000)
 
 
 
@@ -162,7 +162,7 @@ def J(z):
 
 def phi(z):
     return (integ1(x1,z).sum()*dx1+integ2(x2,z).sum()*dx2-np.log(z))*0.5-J(z)*np.log(z)
-
+J(2)
 Chi = np.linspace(-4,5,100)
 J_dat=[]
 phi_dat=[]

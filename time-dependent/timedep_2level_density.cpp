@@ -73,14 +73,6 @@ double z2(double x){
 
 vector<double> Z1(N),Z2(N);
 
-double ave_LHS(double x){
-  double sum = 0.0;
-  for(int i = 0; i < N ; i++){
-    sum += 1/(double)N*0.5*sqrt(((x-Z1[i])*(x-Z2[i]))/(x*(1-Z1[i])*(1-Z2[i])));
-  }
-  return sum;
-}
-
 double ave_f(double x){
   double sum =0.0;
   for(int i = 0; i < N ; i++){
@@ -158,15 +150,27 @@ int main(){
     Z1[i] = z1(theta);
     Z2[i] = z2(theta);
   }
+  double f_min1=10000,f_min2=10000;
   for(int j = 0 ;j<partnum1;j++){
     double x1 = x1min + (double)dx1*j;
     Rho1[j] = abs(rho1(x1));
+    if(f_min1 > ave_f(x1)) f_min1 = ave_f(x1);
   }
   for(int j = 0 ;j<partnum2;j++){
     double x2 = x2min + (double)dx2*j;
     Rho2[j] = abs(rho1(x2));
+    if(f_min2 > ave_f(x2)) f_min2 = ave_f(x2);
   }
 
+  cout << f_min1 << endl;
+  cout << f_min2 << endl;
+
+  double x1,x2;
+  x1 = 2/pi*atan(2*f_min1);
+  x2 = 2/pi*atan(2*f_min2);
+
+  cout << x1 << endl;
+  cout << x2 << endl;
 
   // //////////// J-phi(J) plot ////////////////////
   // string path = "C:/Users/hyoshida/Desktop/timedep/";
@@ -200,9 +204,17 @@ int main(){
   //   }
 
   //////////// f(z) plot ///////////////
-  
+  string path = "C:/Users/hyoshida/Desktop/timedep/";
+  string file3 = "f_211026_1.dat";
+  string filename3 = path + file3;
+  ofstream writing_file3;
+  writing_file3.open(filename3, ios::out);
 
-
+  writing_file3 << -100 << " " << ave_f(-100) << " " << x1 << " " << x2 << endl;
+  for(int l = 1 ; l < 10000;l++){
+    double x = -100 + (double)100/10000*l;
+    writing_file3 << x << " "<< ave_f(x) << endl;
+  }
 
 
   // FILE *gp;

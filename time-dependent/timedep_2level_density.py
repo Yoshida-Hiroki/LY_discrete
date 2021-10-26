@@ -94,8 +94,8 @@ def root(x):
 def rho1(x):
     sum = 0
     for i in range(2*M):
-        sum += 1/(2*M)*(np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
-    return R/(np.pi*(1+R**2*(root(x)/0.5)**2))*sum
+        sum += 1/(2*M)*(0.5*np.sqrt(-(x-z1(i))*(x-z2(i))/(x*(1-z1(i))*(1-z2(i)))))*(1/(x-z1(i))+1/(x-z2(i))-1/x)
+    return R/(np.pi*(1+R**2*(root(x)/0.5)**2))*sum/0.5
 
 def rho2(x):
     sum = 0
@@ -105,6 +105,8 @@ def rho2(x):
 
 x1 = np.linspace(z_p+0.0001,-0.1,10000)
 x2 = np.linspace(-50,z_m-0.0001,10000)
+
+
 
 ###################################################
 
@@ -160,7 +162,7 @@ def J(z):
 
 def phi(z):
     return (integ1(x1,z).sum()*dx1+integ2(x2,z).sum()*dx2-np.log(z))*0.5-J(z)*np.log(z)
-J(4)
+
 Chi = np.linspace(-4,5,100)
 J_dat=[]
 phi_dat=[]
@@ -171,35 +173,35 @@ for chi in Chi:
 
 ################## simulation #############################
 
-iter = 1000
-J_sim = [0]*(4*M+1)
-for i in range(iter):
-    n_before = 0
-    n_after = 0
-    j = 0
-    # n = [0]*(2*M)
-    # j = [0]*(2*M)
-    for k in range(1,2*M):
-        rand = np.random.rand()
-        theta = (k-1)*np.pi/M
-
-        n_after = (1-n_before)*0.5*(1+np.sign(b(theta)*dt-rand))+n_before*0.5*(1-np.sign(a(theta)*dt-rand))
-        j += -(1-n_before)*0.5*(1+np.sign(b_R(theta)*dt-rand))+n_before*0.5*(1+np.sign(a_R(theta)*dt-rand))
-        # n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(theta)*dt-rand))
-        # j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(theta)*dt-rand))
-
-        n_before = n_after
-
-    J_sim[int(j+2*M)] += 1
-    # J_sim[int(np.sum(j)+2*M)] += 1
-
-# plt.plot(np.linspace(-1,1,4*M+1),J_sim)
-# S = iter*2/(2*M)
-# MAX=np.max(J_sim)
-
-phi_sim = [0]*(4*M+1)
-for i in range(4*M+1):
-    phi_sim[i] = np.log(J_sim[i]/iter)/(2*M)
+# iter = 1000
+# J_sim = [0]*(4*M+1)
+# for i in range(iter):
+#     n_before = 0
+#     n_after = 0
+#     j = 0
+#     # n = [0]*(2*M)
+#     # j = [0]*(2*M)
+#     for k in range(1,2*M):
+#         rand = np.random.rand()
+#         theta = (k-1)*np.pi/M
+#
+#         n_after = (1-n_before)*0.5*(1+np.sign(b(theta)*dt-rand))+n_before*0.5*(1-np.sign(a(theta)*dt-rand))
+#         j += -(1-n_before)*0.5*(1+np.sign(b_R(theta)*dt-rand))+n_before*0.5*(1+np.sign(a_R(theta)*dt-rand))
+#         # n[k] = (1-n[k-1])*0.5*(1+np.sign(b(theta)*dt-rand))+n[k-1]*0.5*(1-np.sign(a(theta)*dt-rand))
+#         # j[k] = -(1-n[k-1])*0.5*(1+np.sign(b_R(theta)*dt-rand))+n[k-1]*0.5*(1+np.sign(a_R(theta)*dt-rand))
+#
+#         n_before = n_after
+#
+#     J_sim[int(j+2*M)] += 1
+#     # J_sim[int(np.sum(j)+2*M)] += 1
+#
+# # plt.plot(np.linspace(-1,1,4*M+1),J_sim)
+# # S = iter*2/(2*M)
+# # MAX=np.max(J_sim)
+#
+# phi_sim = [0]*(4*M+1)
+# for i in range(4*M+1):
+#     phi_sim[i] = np.log(J_sim[i]/iter)/(2*M)
 
 
 ################### plot ##########################
@@ -209,15 +211,15 @@ ax1 = plt.subplot2grid((1,1),(0,0))
 ax1.plot(J_dat,phi_dat)
 ax1.set_xlim([-0.4,0.1])
 ax1.set_ylim([-0.3,0.05])
-ax1.plot(np.linspace(-1,1,4*M+1),phi_sim,linestyle="None",marker="+")
+# ax1.plot(np.linspace(-1,1,4*M+1),phi_sim,linestyle="None",marker="+")
 ax1.hlines(0,-0.4,0.1,color="gray")
 ax1.vlines(0,-0.3,0.05,color="gray")
 ax1.set_xlabel(r"$J$")
 ax1.set_ylabel(r"$\phi$")
-# plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r"_current.png")
-# plt.clf()
-# plt.close()
-plt.show()
+plt.savefig(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r"_current.png")
+plt.clf()
+plt.close()
+# plt.show()
 
 ##################### csv ##########################
 #

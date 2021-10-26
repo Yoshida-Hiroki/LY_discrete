@@ -82,10 +82,10 @@ int main(){
       for(int k = 0 ; k < N; k++){
         double rnd = (double)rand()/RAND_MAX;
 
-        n_after = (1-n_before)*0.5*(1+sign(0.4*dt-rnd))+n_before*0.5*(1-sign(0.6*dt-rnd));
-        j += -(1-n_before)*0.5*(1+sign(0.2*dt-rnd))+n_before*0.5*(1+sign(0.3*dt-rnd));
-        // n_after = (1-n_before)*0.5*(1+sign(B[k]*dt-rnd))+n_before*0.5*(1-sign(A[k]*dt-rnd));
-        // j += -(1-n_before)*0.5*(1+sign(B_R[k]*dt-rnd))+n_before*0.5*(1+sign(A_R[k]*dt-rnd));
+        // n_after = (1-n_before)*0.5*(1+sign(0.4*dt-rnd))+n_before*0.5*(1-sign(0.6*dt-rnd));
+        // j += -(1-n_before)*0.5*(1+sign(0.2*dt-rnd))+n_before*0.5*(1+sign(0.3*dt-rnd));
+        n_after = (1-n_before)*0.5*(1+sign(B[k]*dt-rnd))+n_before*0.5*(1-sign(A[k]*dt-rnd));
+        j += -(1-n_before)*0.5*(1+sign(B_R[k]*dt-rnd))+n_before*0.5*(1+sign(A_R[k]*dt-rnd));
 
         n_before = n_after;
       }
@@ -98,7 +98,7 @@ int main(){
 
   string path = "C:/Users/hyoshida/Desktop/timedep/";
   string type = "time_simulation_";
-  string date = "211024";
+  string date = "211026";
   string file = ".dat";
   string filename = path + type + date + file;
   ofstream writing_file;
@@ -111,8 +111,9 @@ int main(){
   FILE *gp;
   gp = _popen(GNUPLOT_PATH, "w");
   fprintf(gp,"set terminal png\n");
-  fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.png'\n");
-  fprintf(gp,"plot [-0.2:0.2][-0.3:0.05]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211024.dat'\n");
+  fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026.png'\n");
+  fprintf(gp,"plot [-0.45:0][-0.3:0.05]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026.dat'\n");
+  // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 2:3 with line lc 2\n");
   pclose(gp);
 
   clock_t end = clock();

@@ -101,7 +101,7 @@ int main(){
   }
 
   string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string file = "time_simulation_211026_13.dat";
+  string file = "sim_211026_13.dat";
   string filename = path + file;
   ofstream writing_file;
   writing_file.open(filename, ios::out);

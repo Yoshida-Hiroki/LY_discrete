@@ -167,30 +167,42 @@ int main(){
     Rho2[j] = abs(rho1(x2));
   }
 
-  // cout << z2(2) << endl;
 
-  string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string file = "time_density_211026_16.dat";
-  string filename = path + file;
-  ofstream writing_file;
-  writing_file.open(filename, ios::out);
-
-  double chi_min = -4;
-  double chi_max = 5;
-  int chi_part = 100;
-  for(int k = 0 ; k < chi_part ; k++){
-    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
-    writing_file << exp(chi) << " "<< J(exp(chi)) << " " << phi(exp(chi)) << endl;
-  }
-
+  // //////////// J-phi(J) plot ////////////////////
+  // string path = "C:/Users/hyoshida/Desktop/timedep/";
+  // string file = "phi_211026_16.dat";
+  // string filename = path + file;
+  // ofstream writing_file;
+  // writing_file.open(filename, ios::out);
+  //
+  // double chi_min = -4;
+  // double chi_max = 5;
+  // int chi_part = 100;
+  // for(int k = 0 ; k < chi_part ; k++){
+  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
+  //   writing_file << exp(chi) << " "<< J(exp(chi)) << " " << phi(exp(chi)) << endl;
+  // }
+  //
+  // ////////////// rho plot //////////////////
+  // string path = "C:/Users/hyoshida/Desktop/timedep/";
+  // string file2 = "rho_211026_16.dat";
+  // string filename2 = path + file2;
+  // ofstream writing_file2;
+  // writing_file2.open(filename2, ios::out);
+  //
   // for(int l = 0 ; l < partnum1;l++){
-  //   double x1 = x1min + (double)dx1*l;
-  //   writing_file << x1 << " "<< abs(rho1(x1)) << endl;
-  // }
+  //     double x1 = x1min + (double)dx1*l;
+  //     writing_file2 << x1 << " "<< abs(rho1(x1)) << endl;
+  //   }
   // for(int l = 0 ; l < partnum2;l++){
-  //   double x2 = x2min + (double)dx2*l;
-  //   writing_file << x2 << " "<< abs(rho1(x2)) << endl;
-  // }
+  //     double x2 = x2min + (double)dx2*l;
+  //     writing_file2 << x2 << " "<< abs(rho1(x2)) << endl;
+  //   }
+
+  //////////// f(z) plot ///////////////
+  
+
+
 
 
   // FILE *gp;

@@ -23,18 +23,22 @@ double phi_b(double x){
 
 double a_L(double x){
   return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
+  // return 0.3;
 }
 
 double a_R(double x){
   return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
+  // return 0.3;
 }
 
 double b_L(double x){
   return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
+  // return 0.2;
 }
 
 double b_R(double x){
   return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
+  // return 0.2;
 }
 
 double a(double x){
@@ -55,8 +59,8 @@ int main(){
   clock_t start = clock();
 
   int dt = 1;
-  int N = 1000;
-  int M = 1;
+  int N = 100;
+  int M = 100;
 
   int iter = 100000;
 
@@ -97,10 +101,8 @@ int main(){
   }
 
   string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string type = "time_simulation_";
-  string date = "211026";
-  string file = ".dat";
-  string filename = path + type + date + file;
+  string file = "time_simulation_211026_13.dat";
+  string filename = path + file;
   ofstream writing_file;
   writing_file.open(filename, ios::out);
 
@@ -108,16 +110,16 @@ int main(){
     writing_file << (double)(-2*M*N + i)/(2*M*N) << " " << phi_sim[i] << endl;
   }
 
-  FILE *gp;
-  gp = _popen(GNUPLOT_PATH, "w");
-  fprintf(gp,"set terminal png\n");
-  fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026.png'\n");
-  fprintf(gp,"plot [-0.45:0][-0.3:0.05]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026.dat'\n");
-  // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 2:3 with line lc 2\n");
-  pclose(gp);
+  // FILE *gp;
+  // gp = _popen(GNUPLOT_PATH, "w");
+  // fprintf(gp,"set terminal png\n");
+  // fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026.png'\n");
+  // fprintf(gp,"plot [-0.45:0][-0.3:0.05]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026.dat'\n");
+  // // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 2:3 with line lc 2\n");
+  // pclose(gp);
 
   clock_t end = clock();
   cout << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-  Beep(450, 1000);
+  Beep(660, 500);
 
 }

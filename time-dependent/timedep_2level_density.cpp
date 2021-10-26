@@ -8,7 +8,7 @@ using namespace std;
 double pi = 3.141592;
 
 double dt = 1;
-int N = 2000;
+int N = 100;
 
 double r(double x){
   return pi/200*sin(x);
@@ -24,18 +24,22 @@ double phi_b(double x){
 
 double a_L(double x){
   return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
+  // return 0.3;
 }
 
 double a_R(double x){
   return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
+  // return 0.3;
 }
 
 double b_L(double x){
   return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
+  // return 0.2;
 }
 
 double b_R(double x){
   return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
+  // return 0.2;
 }
 
 double a(double x){
@@ -47,11 +51,11 @@ double b(double x){
 }
 
 double z1(double x){
-  return (-(pow(b(x)-a(x),2.0)/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))+sqrt(pow((pow((b(x)-a(x)),2.0)/4+b_L(x)*a_L(x)+b_R(x)*a_R(x)),2.0)-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x));
+  return (-(pow(b(x)-a(x),2.0)*0.25+b_L(x)*a_L(x)+b_R(x)*a_R(x))+sqrt(pow((pow((b(x)-a(x)),2.0)*0.25+b_L(x)*a_L(x)+b_R(x)*a_R(x)),2.0)-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x));
 }
 
 double z2(double x){
-  return (-(pow(b(x)-a(x),2.0)/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))-sqrt(pow((pow((b(x)-a(x)),2.0)/4+b_L(x)*a_L(x)+b_R(x)*a_R(x)),2.0)-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x));
+  return (-(pow(b(x)-a(x),2.0)*0.25+b_L(x)*a_L(x)+b_R(x)*a_R(x))-sqrt(pow((pow((b(x)-a(x)),2.0)*0.25+b_L(x)*a_L(x)+b_R(x)*a_R(x)),2.0)-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x));
 }
 
 // double sup_func(double x){
@@ -105,18 +109,28 @@ double rho1(double x){
 //   return -1/pi*ave_g(x)*2/(1+pow(ave_f(x)*2,2.0));
 // }
 
-double xmin = -25;
-double xmax = -0.0000001;
-int partnum = 10000;
-double dz = (double)(xmax-xmin)/partnum;
+double x1min = -10000;
+double x1max = -17;
+int partnum1 = 100000;
+double dx1 = (double)(x1max-x1min)/partnum1;
 
-vector<double> Rho(partnum);
+double x2min = -3;
+double x2max = 0;
+int partnum2 = 100000;
+double dx2 = (double)(x2max-x2min)/partnum2;
+
+vector<double> Rho1(partnum1),Rho2(partnum2);
 
 double J(double z){
   double integ = 0;
-  for(int i = 0 ; i< partnum-1;i++){
-    double x = xmin + (double)dz*i;
-    double temp = dz*Rho[i]*z/(z-x);
+  for(int i = 0 ; i< partnum1;i++){
+    double x1 = x1min + (double)dx1*i;
+    double temp = (double)dx1*Rho1[i]*z/(z-x1);
+    integ += (temp==temp) ? temp : 0;
+  }
+  for(int i = 0 ; i< partnum2;i++){
+    double x2 = x2min + (double)dx2*i;
+    double temp = (double)dx2*Rho2[i]*z/(z-x2);
     integ += (temp==temp) ? temp : 0;
   }
   return 0.5*(integ -1.0);
@@ -124,10 +138,14 @@ double J(double z){
 
 double phi(double z){
   double integ = 0;
-
-  for(int i = 0 ; i< partnum-1;i++){
-    double x = xmin + (double)dz*i;
-    double temp = dz*Rho[i]*(log(z-x)-log(1-x));
+  for(int i = 0 ; i< partnum1;i++){
+    double x1 = x1min + (double)dx1*i;
+    double temp = dx1*Rho1[i]*(log(z-x1)-log(1-x1));
+    integ += (temp == temp) ? temp:0;
+  }
+  for(int i = 0 ; i< partnum2;i++){
+    double x2 = x2min + (double)dx2*i;
+    double temp = dx2*Rho2[i]*(log(z-x2)-log(1-x2));
     integ += (temp == temp) ? temp:0;
   }
   return 0.5*(integ-2*J(z)*log(z)-log(z));
@@ -140,18 +158,20 @@ int main(){
     Z1[i] = z1(theta);
     Z2[i] = z2(theta);
   }
-  for(int j = 0 ;j<partnum;j++){
-    double x = xmin + (double)dz*j;
-    Rho[j] = abs(rho1(x));
+  for(int j = 0 ;j<partnum1;j++){
+    double x1 = x1min + (double)dx1*j;
+    Rho1[j] = abs(rho1(x1));
+  }
+  for(int j = 0 ;j<partnum2;j++){
+    double x2 = x2min + (double)dx2*j;
+    Rho2[j] = abs(rho1(x2));
   }
 
+  // cout << z2(2) << endl;
 
-  // string path = "G:/マイドライブ/research/";
   string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string type = "time_density_";
-  string date = "211026";
-  string file = ".dat";
-  string filename = path + type + date + file;
+  string file = "time_density_211026_16.dat";
+  string filename = path + file;
   ofstream writing_file;
   writing_file.open(filename, ios::out);
 
@@ -163,16 +183,27 @@ int main(){
     writing_file << exp(chi) << " "<< J(exp(chi)) << " " << phi(exp(chi)) << endl;
   }
 
-  FILE *gp;
-  gp = _popen(GNUPLOT_PATH, "w");
-  fprintf(gp,"set terminal png\n");
-  fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.png'\n");
-  fprintf(gp,"plot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 2:3\n");
-  // fprintf(gp,"plot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 1:($2>0 ? $2: 1/0) with line\n");
-  // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 1:($3>0 ? $3: 1/0) with line\n");
-  pclose(gp);
+  // for(int l = 0 ; l < partnum1;l++){
+  //   double x1 = x1min + (double)dx1*l;
+  //   writing_file << x1 << " "<< abs(rho1(x1)) << endl;
+  // }
+  // for(int l = 0 ; l < partnum2;l++){
+  //   double x2 = x2min + (double)dx2*l;
+  //   writing_file << x2 << " "<< abs(rho1(x2)) << endl;
+  // }
+
+
+  // FILE *gp;
+  // gp = _popen(GNUPLOT_PATH, "w");
+  // fprintf(gp,"set terminal png\n");
+  // fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_density_211026_2.png'\n");
+  // fprintf(gp,"plot [-0.45:0][-0.3:0.05]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026_2.dat'\n");
+  // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026_2.dat' using 2:3\n");
+  // // fprintf(gp,"plot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 1:($2>0 ? $2: 1/0) with line\n");
+  // // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 1:($3>0 ? $3: 1/0) with line\n");
+  // pclose(gp);
 
   clock_t end = clock();
   cout << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-  Beep(400,1000);
+  Beep(550,1000);
 }

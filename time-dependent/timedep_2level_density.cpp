@@ -145,11 +145,13 @@ double phi(double z){
 
 int main(){
   clock_t start = clock();
+  
   for(int i = 0 ; i < N ; i++ ){
     double theta = (double)2*pi/N*i;
     Z1[i] = z1(theta);
     Z2[i] = z2(theta);
   }
+
   double f_min1=10000,f_min2=10000;
   for(int j = 0 ;j<partnum1;j++){
     double x1 = x1min + (double)dx1*j;
@@ -205,7 +207,7 @@ int main(){
 
   //////////// f(z) plot ///////////////
   string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string file3 = "f_211026_1.dat";
+  string file3 = "f_211027_1.dat";
   string filename3 = path + file3;
   ofstream writing_file3;
   writing_file3.open(filename3, ios::out);

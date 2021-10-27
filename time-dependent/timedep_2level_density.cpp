@@ -10,6 +10,9 @@ double pi = 3.141592;
 double dt = 1;
 int N = 100;
 
+string date = "211027";
+string ver = "_1_N";
+
 double r(double x){
   return pi/200*sin(x);
 }
@@ -101,7 +104,7 @@ double rho1(double x){
 //   return -1/pi*ave_g(x)*2/(1+pow(ave_f(x)*2,2.0));
 // }
 
-double x1min = -10000;
+double x1min = -1000;
 double x1max = -17;
 int partnum1 = 100000;
 double dx1 = (double)(x1max-x1min)/partnum1;
@@ -145,7 +148,7 @@ double phi(double z){
 
 int main(){
   clock_t start = clock();
-  
+
   for(int i = 0 ; i < N ; i++ ){
     double theta = (double)2*pi/N*i;
     Z1[i] = z1(theta);
@@ -174,20 +177,20 @@ int main(){
   cout << x1 << endl;
   cout << x2 << endl;
 
-  // //////////// J-phi(J) plot ////////////////////
-  // string path = "C:/Users/hyoshida/Desktop/timedep/";
-  // string file = "phi_211026_16.dat";
-  // string filename = path + file;
-  // ofstream writing_file;
-  // writing_file.open(filename, ios::out);
-  //
-  // double chi_min = -4;
-  // double chi_max = 5;
-  // int chi_part = 100;
-  // for(int k = 0 ; k < chi_part ; k++){
-  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
-  //   writing_file << exp(chi) << " "<< J(exp(chi)) << " " << phi(exp(chi)) << endl;
-  // }
+  //////////// J-phi(J) plot ////////////////////
+  string path = "C:/Users/hyoshida/Desktop/timedep/";
+  string ext = ".dat";
+  string filename = path + "phi_"+date+ver + to_string(N) + ext;
+  ofstream writing_file;
+  writing_file.open(filename, ios::out);
+
+  double chi_min = -4;
+  double chi_max = 5;
+  int chi_part = 100;
+  for(int k = 0 ; k < chi_part ; k++){
+    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
+    writing_file << exp(chi) << " "<< J(exp(chi)) << " " << phi(exp(chi)) << endl;
+  }
   //
   // ////////////// rho plot //////////////////
   // string path = "C:/Users/hyoshida/Desktop/timedep/";
@@ -206,9 +209,8 @@ int main(){
   //   }
 
   //////////// f(z) plot ///////////////
-  string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string file3 = "f_211027_1.dat";
-  string filename3 = path + file3;
+  // string path = "C:/Users/hyoshida/Desktop/timedep/";
+  string filename3 = path + "f_" + date+ ver + to_string(N) + ext;
   ofstream writing_file3;
   writing_file3.open(filename3, ios::out);
 
@@ -231,5 +233,5 @@ int main(){
 
   clock_t end = clock();
   cout << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-  Beep(550,1000);
+  Beep(750,200);
 }

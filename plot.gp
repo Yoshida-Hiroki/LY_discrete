@@ -1,21 +1,21 @@
 # J-phi(J) plot for simulation and zero calculation
-# set xrange [-0.25:-0.1]
-# set yrange [-0.05:0.01]
-# set xzeroaxis
-# set xlabel 'J'
-# set ylabel '{/Symbol-Oblique j}(J)'
-# plot 'C:/Users/hyoshida/Desktop/timedep/sim_211027_1.dat' title "sim N=100,M=100,iter=10^5"
-# # replot 'C:/Users/hyoshida/Desktop/timedep/sim_211027_11.dat' title "sim N=100,M=10,iter=10^5"
-# # replot 'C:/Users/hyoshida/Desktop/timedep/sim_211027_12.dat' title "sim N=100,M=50,iter=10^5"
-# # replot 'C:/Users/hyoshida/Desktop/timedep/sim_211027_13.dat' title "sim N=100,M=100,iter=10^5" */
-# replot 'C:/Users/hyoshida/Desktop/timedep/phi_211027_1_N1.dat' using 2:3 title "N=1" with line
-# replot 'C:/Users/hyoshida/Desktop/timedep/phi_211027_1_N5.dat' using 2:3 title "N=5" with line
-# replot 'C:/Users/hyoshida/Desktop/timedep/phi_211027_1_N10.dat' using 2:3 title "N=10" with line
-# replot 'C:/Users/hyoshida/Desktop/timedep/phi_211027_1_N100.dat' using 2:3 title "N=100" with line
-# set output "C:/Users/hyoshida/Desktop/timedep/phi_211027_1.png"
-# set terminal png
-# set term png enhanced
-# replot
+set xrange [-0.25:-0.1]
+set yrange [-0.05:0.01]
+set xzeroaxis
+set xlabel 'J'
+set ylabel '{/Symbol-Oblique j}(J)'
+plot 'C:/Users/hyoshida/Desktop/timedep/sim_211027_2.dat' title "sim N=100,M=100,iter=10^5"
+# replot 'C:/Users/hyoshida/Desktop/timedep/sim_211027_21.dat' title "sim N=100,M=10,iter=10^5"
+# replot 'C:/Users/hyoshida/Desktop/timedep/sim_211027_22.dat' title "sim N=100,M=50,iter=10^5"
+# replot 'C:/Users/hyoshida/Desktop/timedep/sim_211027_23.dat' title "sim N=100,M=100,iter=10^5" */
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211027_2_N1.dat' using 2:3 title "N=1" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211027_2_N5.dat' using 2:3 title "N=5" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211027_2_N10.dat' using 2:3 title "N=10" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211027_2_N100.dat' using 2:3 title "N=100" with line
+set output "C:/Users/hyoshida/Desktop/timedep/phi_211027_2.png"
+set terminal png
+set term png enhanced
+replot
 #
 # ################# rho plot ####################
 # set xrange [-30:0]
@@ -40,42 +40,42 @@ set yzeroaxis
 set xlabel 'z'
 set ylabel '<(a+b)/2*sqrt((z-z1)(z-z2)/(z(1-z1)(1-z2)))'
 
-stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N1.dat' u 3 every ::0::0 nooutput
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N1.dat' u 3 every ::0::0 nooutput
 set yrange [0:*]
 x1_N1 = STATS_mean
-stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N1.dat' using 4 every ::0::0 nooutput
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N1.dat' using 4 every ::0::0 nooutput
 set yrange [0:*]
 x2_N1 = STATS_mean
-plot 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N1.dat' using 1:2 title sprintf("N=1, x1= %f, x2 = %f", x1_N1,x2_N1)
+plot 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N1.dat' using 1:2 title sprintf("N=1, x1= %f, x2 = %f", x1_N1,x2_N1)
 
-stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N5.dat' u 3 every ::0::0 nooutput
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N5.dat' u 3 every ::0::0 nooutput
 set yrange [0:*]
 x1_N2 = STATS_mean
-stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N5.dat' using 4 every ::0::0 nooutput
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N5.dat' using 4 every ::0::0 nooutput
 set yrange [0:*]
 x2_N2 = STATS_mean
-replot 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N5.dat' using 1:2 title sprintf("N=5, x1= %f, x2 = %f", x1_N2,x2_N2)
+replot 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N5.dat' using 1:2 title sprintf("N=5, x1= %f, x2 = %f", x1_N2,x2_N2)
 
-stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N10.dat' u 3 every ::0::0 nooutput
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N10.dat' u 3 every ::0::0 nooutput
 set yrange [0:*]
 x1_N10 = STATS_mean
-stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N10.dat' using 4 every ::0::0 nooutput
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N10.dat' using 4 every ::0::0 nooutput
 set yrange [0:*]
 x2_N10 = STATS_mean
-replot 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N10.dat' using 1:2 title sprintf("N=10, x1= %f, x2 = %f", x1_N10,x2_N10)
+replot 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N10.dat' using 1:2 title sprintf("N=10, x1= %f, x2 = %f", x1_N10,x2_N10)
 
-stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N100.dat' u 3 every ::0::0 nooutput
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N100.dat' u 3 every ::0::0 nooutput
 set yrange [0:*]
 x1_N100 = STATS_mean
-stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N100.dat' using 4 every ::0::0 nooutput
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N100.dat' using 4 every ::0::0 nooutput
 set yrange [0:*]
 x2_N100 = STATS_mean
-replot 'C:/Users/hyoshida/Desktop/timedep/f_211027_1_N100.dat' using 1:2 title sprintf("N=100, x1= %f, x2 = %f", x1_N100,x2_N100)
+replot 'C:/Users/hyoshida/Desktop/timedep/f_211027_2_N100.dat' using 1:2 title sprintf("N=100, x1= %f, x2 = %f", x1_N100,x2_N100)
 
 set xrange [-30:0]
 set yrange [0:0.5]
 
-set output "C:/Users/hyoshida/Desktop/timedep/f_211027_1.png"
+set output "C:/Users/hyoshida/Desktop/timedep/f_211027_2.png"
 set terminal png
 set term png enhanced
 replot

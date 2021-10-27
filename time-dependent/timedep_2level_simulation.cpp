@@ -101,7 +101,7 @@ int main(){
   }
 
   string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string file = "sim_211027_1.dat";
+  string file = "sim_211027_2.dat";
   string filename = path + file;
   ofstream writing_file;
   writing_file.open(filename, ios::out);

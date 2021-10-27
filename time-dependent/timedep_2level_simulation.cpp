@@ -10,7 +10,7 @@ double pi = 3.141592;
 
 
 double r(double x){
-  return pi/200*sin(x);
+  return pi/10*cos(x);
 }
 
 double phi_a(double x){

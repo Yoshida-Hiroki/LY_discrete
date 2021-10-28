@@ -12,7 +12,9 @@ replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_4_N5.dat' using 2:3 title "
 replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_4_N10.dat' using 2:3 title "N=10" with line
 replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_4_N50.dat' using 2:3 title "N=50" with line
 replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_4_N100.dat' using 2:3 title "N=100" with line
-set output "C:/Users/hyoshida/Desktop/timedep/phi_211028_4.png"
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_4_2points_N100.dat' using 2:3 title "2 points,N=100" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_4_2points_N100000.dat' using 2:3 title "2 points,N=100000" with line
+set output "C:/Users/hyoshida/Desktop/timedep/phi_211028_4_3.png"
 set terminal png
 set term png enhanced
 replot
@@ -73,10 +75,26 @@ set yrange [0:*]
 x2_N100 = STATS_mean
 replot 'C:/Users/hyoshida/Desktop/timedep/f_211028_4_N100.dat' using 1:2 with line title sprintf("N=100, x1= %f, x2 = %f", x1_N100,x2_N100)
 
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211028_4_2points_N100.dat' u 3 every ::0::0 nooutput
+set yrange [0:*]
+x1_2_N100 = STATS_mean
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211028_4_2points_N100.dat' using 4 every ::0::0 nooutput
+set yrange [0:*]
+x2_2_N100 = STATS_mean
+replot 'C:/Users/hyoshida/Desktop/timedep/f_211028_4_2points_N100.dat' using 1:2 with line title sprintf("2points, N=100, x1= %f, x2 = %f", x1_2_N100,x2_2_N100)
+
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211028_4_2points_N100000.dat' u 3 every ::0::0 nooutput
+set yrange [0:*]
+x1_2_N100000 = STATS_mean
+stats 'C:/Users/hyoshida/Desktop/timedep/f_211028_4_2points_N100000.dat' using 4 every ::0::0 nooutput
+set yrange [0:*]
+x2_2_N100000 = STATS_mean
+replot 'C:/Users/hyoshida/Desktop/timedep/f_211028_4_2points_N100000.dat' using 1:2 with line title sprintf("2points, N=100000, x1= %f, x2 = %f", x1_2_N100000,x2_2_N100000)
+
 set xrange [-40:0]
 set yrange [0:0.5]
 
-set output "C:/Users/hyoshida/Desktop/timedep/f_211028_4.png"
+set output "C:/Users/hyoshida/Desktop/timedep/f_211028_4_3.png"
 set terminal png
 set term png enhanced
 replot

@@ -10,7 +10,7 @@ double pi = 3.141592;
 
 
 double r(double x){
-  return pi/100*sin(x);
+  return pi/50*sin(x);
 }
 
 double phi_a(double x){
@@ -101,7 +101,7 @@ int main(){
   }
 
   string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string file = "sim_211028_1.dat";
+  string file = "sim_211028_2.dat";
   string filename = path + file;
   ofstream writing_file;
   writing_file.open(filename, ios::out);

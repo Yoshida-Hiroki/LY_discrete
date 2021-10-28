@@ -11,18 +11,18 @@ double dt = 1;
 int N = 100000;
 
 string date = "211028";
-string ver = "_5_2points_2_N";
+string ver = "_6_2points_2_N";
 
 double r(double x){
-  return pi/4*sin(x);
+  return pi/100*sin(x);
 }
 
 double phi_a(double x){
-  return pi*3/4+pi/10*cos(x);
+  return pi*3/4+pi/50*cos(x);
 }
 
 double phi_b(double x){
-  return pi/4+pi/10*cos(x);
+  return pi/4+pi/50*sin(x);
 }
 
 double a_L(double x){
@@ -98,11 +98,11 @@ double rho1(double x){
 // }
 
 double x1min = -1000;
-double x1max = -80;
+double x1max = -7;
 int partnum1 = 10000000;
 double dx1 = (double)(x1max-x1min)/partnum1;
 
-double x2min = -3;
+double x2min = -5;
 double x2max = 0;
 int partnum2 = 10000000;
 double dx2 = (double)(x2max-x2min)/partnum2;

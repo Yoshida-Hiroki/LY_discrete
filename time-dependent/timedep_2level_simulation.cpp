@@ -15,18 +15,18 @@ int M = 100;
 int iter = 100000;
 
 string date = "211028";
-string ver = "_5";
+string ver = "_6";
 
 double r(double x){
-  return pi/4*sin(x);
+  return pi/100*sin(x);
 }
 
 double phi_a(double x){
-  return pi*3/4+pi/10*cos(x);
+  return pi*3/4+pi/50*cos(x);
 }
 
 double phi_b(double x){
-  return pi/4+pi/10*cos(x);
+  return pi/4+pi/50*sin(x);
 }
 
 double a_L(double x){

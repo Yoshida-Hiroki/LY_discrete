@@ -9,16 +9,16 @@ using namespace std;
 double pi = 3.141592;
 
 int dt = 1;
-int N = 5;
-int M = 200;
+int N = 100;
+int M = 100;
 
 int iter = 100000;
 
 string date = "211028";
-string ver = "_1_MN_1";
+string ver = "_5";
 
 double r(double x){
-  return pi/100*sin(x);
+  return pi/4*sin(x);
 }
 
 double phi_a(double x){

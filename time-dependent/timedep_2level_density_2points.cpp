@@ -11,10 +11,10 @@ double dt = 1;
 int N = 100000;
 
 string date = "211028";
-string ver = "_4_2points_2_N";
+string ver = "_5_2points_2_N";
 
 double r(double x){
-  return pi/6*sin(x);
+  return pi/4*sin(x);
 }
 
 double phi_a(double x){
@@ -98,7 +98,7 @@ double rho1(double x){
 // }
 
 double x1min = -1000;
-double x1max = -17;
+double x1max = -80;
 int partnum1 = 10000000;
 double dx1 = (double)(x1max-x1min)/partnum1;
 
@@ -165,15 +165,12 @@ int main(){
     if(f_min2 > ave_f(x2)) f_min2 = ave_f(x2);
   }
 
-  cout << f_min1 << endl;
-  cout << f_min2 << endl;
-
   double x1,x2;
   x1 = 2/pi*atan(2*f_min1);
   x2 = 2/pi*atan(2*f_min2);
 
-  cout << x1 << endl;
-  cout << x2 << endl;
+  cout << z1_max << endl;
+  cout << z2_min << endl;
 
   //////////// J-phi(J) plot ////////////////////
   string path = "C:/Users/hyoshida/Desktop/timedep/";

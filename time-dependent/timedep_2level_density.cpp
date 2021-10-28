@@ -11,10 +11,10 @@ double dt = 1;
 int N = 100;
 
 string date = "211028";
-string ver = "_2_N";
+string ver = "_3_N";
 
 double r(double x){
-  return pi/50*sin(x);
+  return pi/10*sin(x);
 }
 
 double phi_a(double x){

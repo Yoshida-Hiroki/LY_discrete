@@ -15,7 +15,7 @@ int M = 100;
 int iter = 100000;
 
 string date = "211028";
-string ver = "_1_N_4";
+string ver = "_1_M_4";
 
 double r(double x){
   return pi/100*sin(x);

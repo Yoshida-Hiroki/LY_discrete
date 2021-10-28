@@ -8,9 +8,17 @@ using namespace std;
 
 double pi = 3.141592;
 
+int dt = 1;
+int N = 100;
+int M = 100;
+
+int iter = 100000;
+
+string date = "211028";
+string ver = "_1_N_4";
 
 double r(double x){
-  return pi/6*sin(x);
+  return pi/100*sin(x);
 }
 
 double phi_a(double x){
@@ -58,12 +66,6 @@ double sign(double x){
 int main(){
   clock_t start = clock();
 
-  int dt = 1;
-  int N = 100;
-  int M = 100;
-
-  int iter = 100000;
-
   vector<int> J_sim(4*M*N+1);
   vector<double> phi_sim(4*M*N+1);
 
@@ -101,8 +103,8 @@ int main(){
   }
 
   string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string file = "sim_211028_4.dat";
-  string filename = path + file;
+  string file = ".dat";
+  string filename = path+ "sim"+date+ver + file;
   ofstream writing_file;
   writing_file.open(filename, ios::out);
 

@@ -8,13 +8,13 @@ using namespace std;
 double pi = 3.141592;
 
 double dt = 1;
-int N = 100;
+int N = 5;
 
-string date = "211027";
-string ver = "_3_N";
+string date = "211028";
+string ver = "_1_N";
 
 double r(double x){
-  return pi/10*cos(x);
+  return pi/100*sin(x);
 }
 
 double phi_a(double x){

@@ -11,10 +11,10 @@ double dt = 1;
 int N = 100000;
 
 string date = "211028";
-string ver = "_4_2points_N";
+string ver = "_1_2points_2_N";
 
 double r(double x){
-  return pi/6*sin(x);
+  return pi/100*sin(x);
 }
 
 double phi_a(double x){
@@ -99,12 +99,12 @@ double rho1(double x){
 
 double x1min = -1000;
 double x1max = -17;
-int partnum1 = 100000;
+int partnum1 = 10000000;
 double dx1 = (double)(x1max-x1min)/partnum1;
 
 double x2min = -3;
 double x2max = 0;
-int partnum2 = 100000;
+int partnum2 = 10000000;
 double dx2 = (double)(x2max-x2min)/partnum2;
 
 vector<double> Rho1(partnum1),Rho2(partnum2);

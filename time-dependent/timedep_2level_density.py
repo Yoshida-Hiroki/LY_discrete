@@ -9,11 +9,11 @@ import cmath
 
 type = r"\time_density"
 date = "211028"
-ver = "2"
+ver = "3"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
-r = lambda x: np.pi/50*np.sin(x)
+r = lambda x: np.pi/10*np.sin(x)
 phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
 phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
 

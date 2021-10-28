@@ -8,7 +8,7 @@ using namespace std;
 double pi = 3.141592;
 
 double dt = 1;
-int N = 100;
+int N = 100000;
 
 string date = "211028";
 string ver = "_4_2points_N";

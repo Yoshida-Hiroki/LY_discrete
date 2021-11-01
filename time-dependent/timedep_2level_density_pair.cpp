@@ -8,10 +8,10 @@ using namespace std;
 double pi = 3.141592;
 
 double dt = 1;
-int N = 1000;
+int N = 5;
 
-string date = "211028";
-string ver = "_7_2points_2_N";
+string date = "211101";
+string ver = "_1_N";
 
 double r(double x){
   return pi/100*sin(x);
@@ -75,14 +75,21 @@ double z2(double x){
 // }
 
 vector<double> Z1(N),Z2(N);
-double z1_max=-100000,z2_min=100000;
 
 double ave_f(double x){
-  return 0.5*sqrt(-((x-z1_max)*(x-z2_min))/(x*(1-z1_max)*(1-z2_min)));
+  double sum =0.0;
+  for(int i = 0; i < N ; i++){
+    sum += 1/(double)N*0.5*sqrt(-((x-Z1[i])*(x-Z2[i]))/(x*(1-Z1[i])*(1-Z2[i])));
+  }
+  return sum;
 }
 
 double ave_g(double x){
-  return 0.5*sqrt(-((x-z1_max)*(x-z2_min))/(x*(1-z1_max)*(1-z2_min)))*(1/(x-z1_max)+1/(x-z2_min)-1/x);
+  double sum =0.0;
+  for(int i = 0; i < N ; i++){
+    sum += 1/(double)N*0.5*sqrt(-((x-Z1[i])*(x-Z2[i]))/(x*(1-Z1[i])*(1-Z2[i])))*(1/(x-Z1[i])+1/(x-Z2[i])-1/x);
+  }
+  return sum;
 }
 
 // double R(int i){
@@ -111,6 +118,8 @@ vector<double> Rho1(partnum1),Rho2(partnum2);
 
 double J(double z){
   double integ = 0;
+  dx1 = (double)(x1max-x1min)/partnum1;
+  dx2 = (double)(x2max-x2min)/partnum2;
   for(int i = 0 ; i< partnum1;i++){
     double x1 = x1min + (double)dx1*i;
     double temp = (double)dx1*Rho1[i]*z/(z-x1);
@@ -126,6 +135,8 @@ double J(double z){
 
 double phi(double z){
   double integ = 0;
+  dx1 = (double)(x1max-x1min)/partnum1;
+  dx2 = (double)(x2max-x2min)/partnum2;
   for(int i = 0 ; i< partnum1;i++){
     double x1 = x1min + (double)dx1*i;
     double temp = dx1*Rho1[i]*(log(z-x1)-log(1-x1));
@@ -148,40 +159,66 @@ int main(){
     Z2[i] = z2(theta);
   }
 
-  for(int i = 0 ; i < N ; i++){
-    if(z1_max < Z1[i]) z1_max = Z1[i];
-    if(z2_min > Z2[i]) z2_min = Z2[i];
-  }
-
   double f_min1=10000,f_min2=10000;
+  vector<double> f1(partnum1),f2(partnum2);
   for(int j = 0 ;j<partnum1;j++){
     double x1 = x1min + (double)dx1*j;
     Rho1[j] = abs(rho1(x1));
+    f1[j] = ave_f(x1);
     if(f_min1 > ave_f(x1)) f_min1 = ave_f(x1);
   }
   for(int j = 0 ;j<partnum2;j++){
     double x2 = x2min + (double)dx2*j;
     Rho2[j] = abs(rho1(x2));
+    f2[j] = ave_f(x2);
     if(f_min2 > ave_f(x2)) f_min2 = ave_f(x2);
   }
+
+  double f_min = max(f_min1,f_min2);
+  double minimize1=100,minimize2=100;
+  int index1,index2;
+  for(int i = 0 ; i < partnum1 ; i ++){
+    if(minimize1 > abs(f_min-f1[i])){
+      minimize1 = abs(f_min-f1[i]);
+      index1 = i;
+    }
+  }
+
+  for(int i = 0 ; i < partnum2 ; i ++){
+    if(minimize2 > abs(f_min-f2[i])){
+      minimize2 = abs(f_min-f2[i]);
+      index2 = i;
+    }
+  }
+
+  cout << f_min1 << endl;
+  cout << f_min2 << endl;
+  cout << f_min << endl;
+  cout << index1 << endl;
+  cout << index2 << endl;
+
 
   double x1,x2;
   x1 = 2/pi*atan(2*f_min1);
   x2 = 2/pi*atan(2*f_min2);
 
-  cout << z1_max << endl;
-  cout << z2_min << endl;
+  cout << endl;
+  x1max = x1min+dx1*index1;
+  x2min = x2min + dx2 * index2;
+
+  cout << x1 << endl;
+  cout << x2 << endl;
 
   //////////// J-phi(J) plot ////////////////////
   string path = "C:/Users/hyoshida/Desktop/timedep/";
   string ext = ".dat";
-  string filename = path + "phi_"+date+ver+ to_string(N) + ext;
+  string filename = path + "phi_"+date+ver + to_string(N) + ext;
   ofstream writing_file;
   writing_file.open(filename, ios::out);
 
   double chi_min = -4;
   double chi_max = 5;
-  int chi_part = 1000;
+  int chi_part = 100;
   for(int k = 0 ; k < chi_part ; k++){
     double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
     writing_file << exp(chi) << " "<< J(exp(chi)) << " " << phi(exp(chi)) << endl;
@@ -228,5 +265,5 @@ int main(){
 
   clock_t end = clock();
   cout << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-  Beep(750,200);
+  // Beep(750,1000);
 }

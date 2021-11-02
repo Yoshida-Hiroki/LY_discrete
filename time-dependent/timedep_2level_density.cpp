@@ -17,6 +17,10 @@ double r(double x){
   return pi/100*sin(x);
 }
 
+double r_prime(double x){
+  return pi/100*cos(x);
+}
+
 double phi_a(double x){
   return pi*3/4+pi/10*cos(x);
 }
@@ -146,79 +150,100 @@ double phi(double z){
   return 0.5*(integ-2*J(z)*log(z)-log(z));
 }
 
+double J_0(void){
+  double sum = 0 ;
+  for(int i = 0 ; i < 1000 ; i ++){
+    double theta = 2*pi/1000*i;
+    sum += 2*pi/1000*(b_L(theta)*a_R(theta)-a_L(theta)*b_R(theta));
+  }
+  return sum;
+}
+
+double J_1(void){
+  double sum = 0 ;
+  double omega = (double)2*pi/(N*dt);
+  for(int i = 0 ; i < 1000 ; i ++){
+    double theta = 2*pi/1000*i;
+    sum += 2*pi/1000*(a_R(theta)+b_R(theta))*r_prime(theta)*omega/2;
+  }
+  return sum;
+}
+
 int main(){
-  clock_t start = clock();
+  // clock_t start = clock();
 
-  for(int i = 0 ; i < N ; i++ ){
-    double theta = (double)2*pi/N*i;
-    Z1[i] = z1(theta);
-    Z2[i] = z2(theta);
-  }
-
-  double f_min1=10000,f_min2=10000;
-  for(int j = 0 ;j<partnum1;j++){
-    double x1 = x1min + (double)dx1*j;
-    Rho1[j] = abs(rho1(x1));
-    if(f_min1 > ave_f(x1)) f_min1 = ave_f(x1);
-  }
-  for(int j = 0 ;j<partnum2;j++){
-    double x2 = x2min + (double)dx2*j;
-    Rho2[j] = abs(rho1(x2));
-    if(f_min2 > ave_f(x2)) f_min2 = ave_f(x2);
-  }
-
-  cout << f_min1 << endl;
-  cout << f_min2 << endl;
-
-  double x1,x2;
-  x1 = 2/pi*atan(2*f_min1);
-  x2 = 2/pi*atan(2*f_min2);
-
-  cout << x1 << endl;
-  cout << x2 << endl;
-
-  //////////// J-phi(J) plot ////////////////////
-  string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string ext = ".dat";
-  string filename = path + "phi_"+date+ver + to_string(N) + ext;
-  ofstream writing_file;
-  writing_file.open(filename, ios::out);
-
-  double chi_min = -4;
-  double chi_max = 5;
-  int chi_part = 100;
-  for(int k = 0 ; k < chi_part ; k++){
-    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
-    writing_file << exp(chi) << " "<< J(exp(chi)) << " " << phi(exp(chi)) << endl;
-  }
+  // for(int i = 0 ; i < N ; i++ ){
+  //   double theta = (double)2*pi/N*i;
+  //   Z1[i] = z1(theta);
+  //   Z2[i] = z2(theta);
+  // }
   //
-  // ////////////// rho plot //////////////////
-  // string path = "C:/Users/hyoshida/Desktop/timedep/";
-  // string file2 = "rho_211026_16.dat";
-  // string filename2 = path + file2;
-  // ofstream writing_file2;
-  // writing_file2.open(filename2, ios::out);
+  // double f_min1=10000,f_min2=10000;
+  // for(int j = 0 ;j<partnum1;j++){
+  //   double x1 = x1min + (double)dx1*j;
+  //   Rho1[j] = abs(rho1(x1));
+  //   if(f_min1 > ave_f(x1)) f_min1 = ave_f(x1);
+  // }
+  // for(int j = 0 ;j<partnum2;j++){
+  //   double x2 = x2min + (double)dx2*j;
+  //   Rho2[j] = abs(rho1(x2));
+  //   if(f_min2 > ave_f(x2)) f_min2 = ave_f(x2);
+  // }
+
+
+
+  cout << J_0() << endl;
+  cout << J_1() << endl;
   //
-  // for(int l = 0 ; l < partnum1;l++){
-  //     double x1 = x1min + (double)dx1*l;
-  //     writing_file2 << x1 << " "<< abs(rho1(x1)) << endl;
-  //   }
-  // for(int l = 0 ; l < partnum2;l++){
-  //     double x2 = x2min + (double)dx2*l;
-  //     writing_file2 << x2 << " "<< abs(rho1(x2)) << endl;
-  //   }
+  // double x1,x2;
+  // x1 = 2/pi*atan(2*f_min1);
+  // x2 = 2/pi*atan(2*f_min2);
+  //
+  // cout << x1 << endl;
+  // cout << x2 << endl;
 
-  //////////// f(z) plot ///////////////
+  // //////////// J-phi(J) plot ////////////////////
   // string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string filename3 = path + "f_" + date+ ver + to_string(N) + ext;
-  ofstream writing_file3;
-  writing_file3.open(filename3, ios::out);
-
-  writing_file3 << -100 << " " << ave_f(-100) << " " << x1 << " " << x2 << endl;
-  for(int l = 1 ; l < 10000;l++){
-    double x = -100 + (double)100/10000*l;
-    writing_file3 << x << " "<< ave_f(x) << endl;
-  }
+  // string ext = ".dat";
+  // string filename = path + "phi_"+date+ver + to_string(N) + ext;
+  // ofstream writing_file;
+  // writing_file.open(filename, ios::out);
+  //
+  // double chi_min = -4;
+  // double chi_max = 5;
+  // int chi_part = 100;
+  // for(int k = 0 ; k < chi_part ; k++){
+  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
+  //   writing_file << exp(chi) << " "<< J(exp(chi)) << " " << phi(exp(chi)) << endl;
+  // }
+  // //
+  // // ////////////// rho plot //////////////////
+  // // string path = "C:/Users/hyoshida/Desktop/timedep/";
+  // // string file2 = "rho_211026_16.dat";
+  // // string filename2 = path + file2;
+  // // ofstream writing_file2;
+  // // writing_file2.open(filename2, ios::out);
+  // //
+  // // for(int l = 0 ; l < partnum1;l++){
+  // //     double x1 = x1min + (double)dx1*l;
+  // //     writing_file2 << x1 << " "<< abs(rho1(x1)) << endl;
+  // //   }
+  // // for(int l = 0 ; l < partnum2;l++){
+  // //     double x2 = x2min + (double)dx2*l;
+  // //     writing_file2 << x2 << " "<< abs(rho1(x2)) << endl;
+  // //   }
+  //
+  // //////////// f(z) plot ///////////////
+  // // string path = "C:/Users/hyoshida/Desktop/timedep/";
+  // string filename3 = path + "f_" + date+ ver + to_string(N) + ext;
+  // ofstream writing_file3;
+  // writing_file3.open(filename3, ios::out);
+  //
+  // writing_file3 << -100 << " " << ave_f(-100) << " " << x1 << " " << x2 << endl;
+  // for(int l = 1 ; l < 10000;l++){
+  //   double x = -100 + (double)100/10000*l;
+  //   writing_file3 << x << " "<< ave_f(x) << endl;
+  // }
 
 
   // FILE *gp;
@@ -231,7 +256,7 @@ int main(){
   // // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 1:($3>0 ? $3: 1/0) with line\n");
   // pclose(gp);
 
-  clock_t end = clock();
-  cout << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-  Beep(750,200);
+  // clock_t end = clock();
+  // cout << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+  // Beep(750,200);
 }

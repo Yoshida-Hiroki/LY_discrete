@@ -154,7 +154,7 @@ double J_0(void){
   double sum = 0 ;
   for(int i = 0 ; i < 1000 ; i ++){
     double theta = 2*pi/1000*i;
-    sum += 2*pi/1000*(b_L(theta)*a_R(theta)-a_L(theta)*b_R(theta));
+    sum += (double)1/1000*(b_L(theta)*a_R(theta)-a_L(theta)*b_R(theta));
   }
   return sum;
 }
@@ -164,7 +164,7 @@ double J_1(void){
   double omega = (double)2*pi/(N*dt);
   for(int i = 0 ; i < 1000 ; i ++){
     double theta = 2*pi/1000*i;
-    sum += 2*pi/1000*(a_R(theta)+b_R(theta))*r_prime(theta)*omega/2;
+    sum += (double)1/1000*(a_R(theta)+b_R(theta))*r_prime(theta)*omega/2;
   }
   return sum;
 }
@@ -194,6 +194,7 @@ int main(){
 
   cout << J_0() << endl;
   cout << J_1() << endl;
+  cout << J_0()/J_1() << endl;
   //
   // double x1,x2;
   // x1 = 2/pi*atan(2*f_min1);

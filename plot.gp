@@ -12,10 +12,12 @@ replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N5.dat' using 2:3 title "
 replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N10.dat' using 2:3 title "N=10" with line
 replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N50.dat' using 2:3 title "N=50" with line
 replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N100.dat' using 2:3 title "N=100" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N5.dat' using 2:3 title "N=5 pair" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N10.dat' using 2:3 title "N=10 pair" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N50.dat' using 2:3 title "N=50 pair" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N100.dat' using 2:3 title "N=100 pair" with line
+
+# replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N5.dat' using 2:3 title "N=5 pair" with line
+# replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N10.dat' using 2:3 title "N=10 pair" with line
+# replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N50.dat' using 2:3 title "N=50 pair" with line
+# replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N100.dat' using 2:3 title "N=100 pair" with line
+
 # replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_7_2points_N100.dat' using 2:3 title "2 points,N=100" with line
 # replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_7_2points_N100000.dat' using 2:3 title "2 points,partnum=10^5,N=10^5" with line
 replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_2points_2_N100000.dat' using 2:3 title "2 points" with line

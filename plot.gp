@@ -1,25 +1,25 @@
 # J-phi(J) plot for simulation and zero calculation
-set xrange [-0.5:0]
-set yrange [-0.005:0.001]
+set xrange [-0.3:-0.1]
+set yrange [-0.002:0.0001]
 set xzeroaxis
 set xlabel 'J'
 set ylabel '{/Symbol-Oblique j}(J)'
-plot 'C:/Users/hyoshida/Desktop/timedep/sim_211028_5.dat' title "sim N=100,M=100,iter=10^5"
+plot 'C:/Users/hyoshida/Desktop/timedep/sim_211028_1.dat' title "sim N=100,M=100,iter=10^5"
 # replot 'C:/Users/hyoshida/Desktop/timedep/sim_211028_71.dat' title "sim N=100,M=10,iter=10^5"
 # replot 'C:/Users/hyoshida/Desktop/timedep/sim_211028_72.dat' title "sim N=100,M=50,iter=10^5"
 # replot 'C:/Users/hyoshida/Desktop/timedep/sim_211028_73.dat' title "sim N=100,M=100,iter=10^5" */
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_5_N5.dat' using 2:3 title "N=5" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_5_N10.dat' using 2:3 title "N=10" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_5_N50.dat' using 2:3 title "N=50" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_5_N100.dat' using 2:3 title "N=100" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_1_N5.dat' using 2:3 title "N=5 pair" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_1_N10.dat' using 2:3 title "N=10 pair" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_1_N50.dat' using 2:3 title "N=50 pair" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_1_N100.dat' using 2:3 title "N=100 pair" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N5.dat' using 2:3 title "N=5" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N10.dat' using 2:3 title "N=10" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N50.dat' using 2:3 title "N=50" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N100.dat' using 2:3 title "N=100" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N5.dat' using 2:3 title "N=5 pair" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N10.dat' using 2:3 title "N=10 pair" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N50.dat' using 2:3 title "N=50 pair" with line
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211102_2_N100.dat' using 2:3 title "N=100 pair" with line
 # replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_7_2points_N100.dat' using 2:3 title "2 points,N=100" with line
 # replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_7_2points_N100000.dat' using 2:3 title "2 points,partnum=10^5,N=10^5" with line
-replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_5_2points_2_N100000.dat' using 2:3 title "2 points" with line
-set output "C:/Users/hyoshida/Desktop/timedep/phi_211102_1.png"
+replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_2points_2_N100000.dat' using 2:3 title "2 points" with line
+set output "C:/Users/hyoshida/Desktop/timedep/phi_211102_2.png"
 set terminal png
 set term png enhanced
 replot

@@ -1,5 +1,5 @@
 # J-phi(J) plot for simulation and zero calculation
-set xrange [-0.2:-0.05]
+set xrange [-0.25:-0.12]
 set yrange [-0.005:0.0001]
 set xzeroaxis
 set xlabel 'J'
@@ -16,7 +16,7 @@ replot for [i=1:10] 'C:/Users/hyoshida/Desktop/timedep/exact_zeros_211105_6_curr
 
 # replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_2points_2_N100000.dat' using 2:3 title "2 points" with line
 
-# set output "C:/Users/hyoshida/Desktop/timedep/phi_211105_6.png"
-# set terminal png
-# set term png enhanced
-# replot
+set output "C:/Users/hyoshida/Desktop/timedep/phi_211105_6.png"
+set terminal png
+set term png enhanced
+replot

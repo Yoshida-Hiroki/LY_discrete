@@ -17,9 +17,9 @@ p1 = 0.5
 p2 = 0.5
 
 # transition matrix elements
-a_R = 0.4
+a_R = 0.3
 a_L = 0.3
-b_R = 0.4
+b_R = 0.2
 b_L = 0.2
 # 1/(a+b)=0.77
 
@@ -30,9 +30,6 @@ b = b_R+b_L
 z1_cont = (-((b-a)**2/4+b_L*a_L+b_R*a_R)+np.sqrt(((b-a)**2/4+b_L*a_L+b_R*a_R)**2-4*a_R*a_L*b_R*b_L))/(2*a_R*b_L)
 z2_cont = (-((b-a)**2/4+b_L*a_L+b_R*a_R)-np.sqrt(((b-a)**2/4+b_L*a_L+b_R*a_R)**2-4*a_R*a_L*b_R*b_L))/(2*a_R*b_L)
 
-print(z1_cont)
-print(z2_cont)
-
 # discrete zeros
 a_z = a_L + a_R * z
 b_z = b_L + b_R / z
@@ -41,7 +38,7 @@ def w(s):
     # params
     T = 10*s
     M = s
-    dt = T/M
+    dt = 1
     X = np.array([[1-b*dt,a_L*dt],[b_L*dt,1-a*dt]])
     V1 = np.array([[0,1],[0,0]])
     V2 = np.array([[0,0],[1,0]])
@@ -52,10 +49,10 @@ def w(s):
         w_n = np.dot(w_n,w_z_1)
     return simplify(w_n)
 
-def Z(M):
-    return np.dot(np.dot([1,1],w(M)),[[p1],[p2]])[0]
+def Z(s):
+    return np.dot(np.dot([1,1],w(s)),[[p1],[p2]])[0]
 
-iter = 30
+iter = 10
 z_disc=[]
 for i in range(1,iter+1):
     z_disc.append(list(solveset(Z(i),z)))

@@ -9,32 +9,35 @@ import time
 
 type = r"\exact_zeros"
 date = "211105"
-ver = "1"
+ver = "6"
 
 z = Symbol('z')
-
-# initial distrib
-p1 = 0.5
-p2 = 0.5
 
 # transition matrix elements
 r = lambda x: np.pi/100*np.sin(x)
 phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
-phi_b = lambda x: np.pi/4+np.pi/10*np.sin(x)
+phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
 
-# a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
-# a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
-# b_L = lambda x: 1/2*(1-r(x))*np.sin(phi_b(x)/2)**2
-# b_R = lambda x: 1/2*(1-r(x))*np.cos(phi_b(x)/2)**2
-a_L = lambda x: 0.3
-a_R = lambda x: 0.3
-b_L = lambda x: 0.2
-b_R = lambda x: 0.2
+a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
+a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
+b_L = lambda x: 1/2*(1-r(x))*np.sin(phi_b(x)/2)**2
+b_R = lambda x: 1/2*(1-r(x))*np.cos(phi_b(x)/2)**2
+# a_L = lambda x: 0.3
+# a_R = lambda x: 0.3
+# b_L = lambda x: 0.2
+# b_R = lambda x: 0.2
 
 a = lambda x : a_R(x)+a_L(x)
 b = lambda x : b_R(x)+b_L(x)
 
-N=5
+# initial distrib
+p1 = 0.8
+p2 = 0.2
+# p1 = a(0)/(a(0)+b(0))
+# p2 = b(0)/(a(0)+b(0))
+print(p1,p2)
+
+N = 5
 M = 2
 iter = M*N
 dt = 1
@@ -72,7 +75,7 @@ f_zero.close()
 
 ########## current density #############
 
-Z = np.exp(np.linspace(-3,0.2,100))
+Z = np.exp(np.linspace(-3,2,100))
 J = [[0]*100 for i in range(N*M)]
 for j in range(N*M):
     n = 0

@@ -8,14 +8,14 @@ import time
 
 
 type = r"\exact_zeros"
-date = "211104"
+date = "211105"
 ver = "1"
 
 z = Symbol('z')
 
 # initial distrib
-p1 = 0.7
-p2 = 0.3
+p1 = 0.5
+p2 = 0.5
 
 # transition matrix elements
 r = lambda x: np.pi/100*np.sin(x)
@@ -61,40 +61,47 @@ z_disc=[]
 for i in range(iter):
     z_disc.append(list(solveset(Z[i],z)))
 
-f_zero = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r"zeros.dat",'w')
-for i in range(2*(int((N*M-1)/2)+1)):
-    f_zero.write(z_disc[i])
+f_zero = open(r"C:\Users\hyoshida\Desktop\timedep"+str(type)+"_"+str(date)+"_"+str(ver)+r"_zeros.dat",'w')
+for i in range(N*M):
+    for j in range(2*(int(i/2)+1)):
+        f_zero.write(str(z_disc[i][j]))
+        f_zero.write(' ')
     f_zero.write('\n')
 f_zero.close()
 
 
-# ########## current density #############
-#
-# Z = np.exp(np.linspace(-4,5,100))
-# J = []
-# for z in Z:
-#     sum = 0
-#     for i in range(2*(int((N*M-1)/2)+1)):
-#         sum += z/(z-z_disc[N*M-1][i])
-#     J.append(0.5*(sum-1))
-#
-# Phi = []
-# n = 0
-# for z in Z:
-#     sum = 0
-#     for i in range(2*(int((N*M-1)/2)+1)):
-#         sum += log((z-z_disc[N*M-1][i])/(1-z_disc[N*M-1][i]))
-#     Phi.append(0.5*(sum-2*J[n]*np.log(z)-np.log(z)))
-#     n += 1
-#
-# plt.plot(J,Phi)
+########## current density #############
+
+Z = np.exp(np.linspace(-3,0.2,100))
+J = [[0]*100 for i in range(N*M)]
+for j in range(N*M):
+    n = 0
+    for z in Z:
+        sum = 0
+        for i in range(2*(int(j/2)+1)):
+            sum += 2/(2*(int(j/2)+1))*z/(z-z_disc[j][i])
+        J[j][n] = 0.5*(sum-1)
+        n += 1
+
+Phi = [[0]*100 for i in range(N*M)]
+for j in range(N*M):
+    n = 0
+    for z in Z:
+        sum = 0
+        for i in range(2*(int(j/2)+1)):
+            sum += 2/(2*(int(j/2)+1))*log((z-z_disc[j][i])/(1-z_disc[j][i]))
+        Phi[j][n] = 0.5*(sum-2*J[j][n]*np.log(z)-np.log(z))
+        n += 1
+
+# fig,ax = plt.subplots()
+# for i in range(N*M):
+#     ax.plot(J[i],Phi[i],label=i)
+# plt.legend()
 # plt.show()
 
-# outfile = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".csv",'w', newline='')
-# writer = csv.writer(outfile)
-# writer.writerows(z_disc)
-# outfile.close()
-
-# f = open(r"G:\マイドライブ\research"+str(type)+"_"+str(date)+"_"+str(ver)+r".txt",'w')
-# f.write('p1='+str(p1)+'\n'+'p2='+str(p2)+'\n\n'+'a_R='+str(a_R)+'\n'+'a_L='+str(a_L)+'\n'+'b_R='+str(b_R)+'\n'+'b_L='+str(b_L)+'\n\n'+'T=0.5s'+'\n'+'N='+str(N)+'\n\n'+'s=1 to '+str(iter))
-# f.close()
+f_zero = open(r"C:\Users\hyoshida\Desktop\timedep"+str(type)+"_"+str(date)+"_"+str(ver)+r"_current.dat",'w')
+for j in range(100):
+    for i in range(N*M):
+        f_zero.write(str(J[i][j])+' '+str(Phi[i][j])+' ')
+    f_zero.write('\n')
+f_zero.close()

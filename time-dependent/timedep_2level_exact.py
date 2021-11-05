@@ -59,10 +59,11 @@ Z=[]
 for i in range(iter):
     Z.append(np.dot(np.dot([1,1],W[i+1]),[[p1],[p2]])[0])
 
-
+# start = time.time()
 z_disc=[]
 for i in range(iter):
     z_disc.append(list(solveset(Z[i],z)))
+# print(time.time()-start)
 
 f_zero = open(r"C:\Users\hyoshida\Desktop\timedep"+str(type)+"_"+str(date)+"_"+str(ver)+r"_zeros.dat",'w')
 for i in range(N*M):

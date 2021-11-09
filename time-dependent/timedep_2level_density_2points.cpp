@@ -10,19 +10,19 @@ double pi = 3.141592;
 double dt = 1;
 int N = 1000;
 
-string date = "211028";
-string ver = "_7_2points_2_N";
+string date = "211109";
+string ver = "_1_2points_2_N";
 
 double r(double x){
   return pi/100*sin(x);
 }
 
 double phi_a(double x){
-  return pi*3/4+pi/10*cos(x);
+  return pi/4+pi/10*cos(x);
 }
 
 double phi_b(double x){
-  return pi/4+pi/10*sin(x);
+  return pi/4+pi/10*cos(x);
 }
 
 double a_L(double x){
@@ -203,17 +203,17 @@ int main(){
   //     writing_file2 << x2 << " "<< abs(rho1(x2)) << endl;
   //   }
 
-  //////////// f(z) plot ///////////////
-  // string path = "C:/Users/hyoshida/Desktop/timedep/";
-  string filename3 = path + "f_" + date+ ver + to_string(N) + ext;
-  ofstream writing_file3;
-  writing_file3.open(filename3, ios::out);
-
-  writing_file3 << -100 << " " << ave_f(-100) << " " << x1 << " " << x2 << endl;
-  for(int l = 1 ; l < 10000;l++){
-    double x = -100 + (double)100/10000*l;
-    writing_file3 << x << " "<< ave_f(x) << endl;
-  }
+  // //////////// f(z) plot ///////////////
+  // // string path = "C:/Users/hyoshida/Desktop/timedep/";
+  // string filename3 = path + "f_" + date+ ver + to_string(N) + ext;
+  // ofstream writing_file3;
+  // writing_file3.open(filename3, ios::out);
+  //
+  // writing_file3 << -100 << " " << ave_f(-100) << " " << x1 << " " << x2 << endl;
+  // for(int l = 1 ; l < 10000;l++){
+  //   double x = -100 + (double)100/10000*l;
+  //   writing_file3 << x << " "<< ave_f(x) << endl;
+  // }
 
 
   // FILE *gp;

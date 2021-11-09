@@ -14,7 +14,7 @@ ver = "1"
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
 r = lambda x: np.pi/4*np.sin(x)
-phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
+phi_a = lambda x: np.pi/4+np.pi/10*np.cos(x)
 phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
 
 r_prime = lambda x: np.pi/100*np.cos(x)

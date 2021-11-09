@@ -14,7 +14,7 @@ int M = 100;
 
 int iter = 100000;
 
-string date = "211105";
+string date = "211109";
 string ver = "_1";
 
 double r(double x){
@@ -22,31 +22,31 @@ double r(double x){
 }
 
 double phi_a(double x){
-  return pi*3/4+pi/10*cos(x);
+  return pi/4+pi/10*cos(x);
 }
 
 double phi_b(double x){
-  return pi/4+pi/10*sin(x);
+  return pi/4+pi/10*cos(x);
 }
 
 double a_L(double x){
-  // return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
-  return 0.3;
+  return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
+  // return 0.3;
 }
 
 double a_R(double x){
-  // return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
-  return 0.3;
+  return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
+  // return 0.3;
 }
 
 double b_L(double x){
-  // return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
-  return 0.2;
+  return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
+  // return 0.2;
 }
 
 double b_R(double x){
-  // return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
-  return 0.2;
+  return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
+  // return 0.2;
 }
 
 double a(double x){
@@ -60,8 +60,6 @@ double b(double x){
 double sign(double x){
   return (x>0)-(x<0);
 }
-
-
 
 int main(){
   clock_t start = clock();

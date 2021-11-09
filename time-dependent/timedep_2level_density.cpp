@@ -11,10 +11,10 @@ double dt = 1;
 int N = 100;
 
 string date = "211109";
-string ver = "_1_N";
+string ver = "_2_N";
 
 double r(double x){
-  return pi/100*sin(x);
+  return pi/4*sin(x);
 }
 
 // double r_prime(double x){

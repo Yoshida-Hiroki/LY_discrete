@@ -15,10 +15,10 @@ int M = 100;
 int iter = 100000;
 
 string date = "211109";
-string ver = "_1";
+string ver = "_2";
 
 double r(double x){
-  return pi/100*sin(x);
+  return pi/4*sin(x);
 }
 
 double phi_a(double x){

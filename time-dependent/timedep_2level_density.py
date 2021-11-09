@@ -8,16 +8,16 @@ import cmath
 
 
 type = r"\time_density"
-date = "211028"
-ver = "7"
+date = "211109"
+ver = "1"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
-r = lambda x: np.pi/100*np.sin(x)
+r = lambda x: np.pi/4*np.sin(x)
 phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
-phi_b = lambda x: np.pi/4+np.pi/10*np.sin(x)
+phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
 
-# r_prime = lambda x: np.pi/4*np.cos(x)
+r_prime = lambda x: np.pi/100*np.cos(x)
 # phi_a_prime = lambda x: -np.pi/4*np.sin(x)
 # phi_b_prime = lambda x: np.pi/4*np.cos(x)
 
@@ -37,48 +37,92 @@ x = np.linspace(0,2*np.pi,1000)
 z_p = np.max(z1(x))
 z_m = np.min(z2(x))
 
-print(z_p)
-print(z_m)
-
-######################## function checking (moving zeros plot) ################################
-
-fig = plt.figure()
-ax1 = plt.subplot2grid((1,2),(0,0))
-ax2 = plt.subplot2grid((1,2),(0,1))
-
-ax1.set_title("moving zeros")
-ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
-ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
-ax1.legend()
-ax1.set_xlabel(r"$\theta$")
-ax1.set_ylabel("$z$")
-ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-# ax1.set_xlim([-10,0])
-ax1.hlines(0,0,2*np.pi,color="gray")
-# ax1.set_yscale("log")
-
-ax2.set_title("$z_1z_2$")
-# ax2.set_yscale("log")
-ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
-ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
-ax2.set_xlabel(r"$\theta$")
-# ax2.plot(x,1/(a_R(x)*b_L(x)),label="$1/(a_Rb_L)$")
-# ax2.plot(x,(a(x)+b(x))**2/(4*a_R(x)*b_L(x))-1-z1(x)*z2(x),label=r"$(\frac{a+b}{4a_Rb_L}-1-z_1z_2)$",color="black")
-ax2.legend()
-ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-plt.tight_layout()
-# plt.show()
+# print(z_p)
+# print(z_m)
 #
-# ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s")
-# ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s")
-
-plt.savefig(r"C:/Users/hyoshida/Desktop/timedep/z_"+str(date)+"_"+str(ver)+".png")
-plt.clf()
-plt.close()
+# ######################## function checking (moving zeros plot) ################################
+#
+# fig = plt.figure()
+# ax1 = plt.subplot2grid((1,2),(0,0))
+# ax2 = plt.subplot2grid((1,2),(0,1))
+#
+# ax1.set_title("moving zeros")
+# ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
+# ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
+# ax1.legend()
+# ax1.set_xlabel(r"$\theta$")
+# ax1.set_ylabel("$z$")
+# ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+# ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+# # ax1.set_xlim([-10,0])
+# ax1.hlines(0,0,2*np.pi,color="gray")
+# # ax1.set_yscale("log")
+#
+# ax2.set_title("$z_1z_2$")
+# # ax2.set_yscale("log")
+# ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
+# ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
+# ax2.set_xlabel(r"$\theta$")
+# # ax2.plot(x,1/(a_R(x)*b_L(x)),label="$1/(a_Rb_L)$")
+# # ax2.plot(x,(a(x)+b(x))**2/(4*a_R(x)*b_L(x))-1-z1(x)*z2(x),label=r"$(\frac{a+b}{4a_Rb_L}-1-z_1z_2)$",color="black")
+# ax2.legend()
+# ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+# plt.tight_layout()
+# # plt.show()
+# #
+# # ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s")
+# # ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s")
+#
+# plt.savefig(r"C:/Users/hyoshida/Desktop/timedep/z_"+str(date)+"_"+str(ver)+".png")
+# plt.clf()
+# plt.close()
 # # plt.show()
 
+################### current calculation ###############
+#### dynamical current ####
+j0 = lambda x: (a_R(x)*b_L(x)-a_L(x)*b_R(x))/(a(x)+b(x))
+Jd = 1/(2*np.pi)*integrate.quad(j0, 0, 2*np.pi)[0]
+
+#### adiabatic current ####
+j1 = lambda x : (a_R(x)+b_R(x))/(a(x)+b(x))*r_prime(x)/2
+Jad = 1/(100)*integrate.quad(j1, 0, 2*np.pi)[0]
+
+#### non-adiabatic current ####
+omega = 2*np.pi/100
+phi = 50*2*np.pi
+theta_N = 100
+dtheta = 2*np.pi/theta_N
+
+def f(x,y):
+    return -(b(x)+a(x))*y/omega-r_prime(x)/2
+delta = []
+x = 0.0
+
+calc_range = np.arange(0,phi+2*np.pi,dtheta)
+for t in calc_range:
+    delta.append(x)
+    k1 = dtheta*f(t,x)
+    k2 = dtheta*f(t+0.5*dtheta,x+0.5*k1)
+    k3 = dtheta*f(t+0.5*dtheta,x+0.5*k2)
+    k4 = dtheta*f(t+dtheta,x+k3)
+    x += (k1+2*k2+2*k3+k4)/6
+
+del delta[:len(delta)-theta_N]
+Delta = np.array(delta)
+
+jnad = lambda x,y : -(a_R(x)+b_R(x))*y*dtheta/(2*np.pi)
+integ_range = np.linspace(phi,phi+2*np.pi,theta_N)
+Jnad = jnad(integ_range,Delta)
+JNAD = sum(Jnad)
+
+J_g = Jad+JNAD
+
+print(Jd)
+print(Jad)
+print(JNAD)
+print(J_g)
+print(J_g/Jd)
 #################### zero density definition #########################
 
 # M=100
@@ -108,7 +152,7 @@ plt.close()
 #
 #
 #
-# ###################################################
+# ###################### f(z) plot ############################
 #
 # # def LHS(x):
 # #     sum = 0

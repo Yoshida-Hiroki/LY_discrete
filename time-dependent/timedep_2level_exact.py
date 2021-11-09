@@ -8,15 +8,15 @@ import time
 
 
 type = r"\exact_zeros"
-date = "211105"
-ver = "7"
+date = "211109"
+ver = "2"
 
 z = Symbol('z')
 
 # transition matrix elements
 r = lambda x: np.pi/100*np.sin(x)
-phi_a = lambda x: np.pi*3/4+np.pi/50*np.cos(x)
-phi_b = lambda x: np.pi/4+np.pi/50*np.sin(x)
+phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
+phi_b = lambda x: np.pi/4+np.pi/10*np.sin(x)
 
 a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
 a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
@@ -37,8 +37,8 @@ p1 = a(0)/(a(0)+b(0))
 p2 = b(0)/(a(0)+b(0))
 print(p1,p2)
 
-N = 5
-M = 2
+N = 1
+M = 10
 iter = M*N
 dt = 1
 W = [np.eye(2)]

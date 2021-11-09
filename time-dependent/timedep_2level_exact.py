@@ -9,7 +9,7 @@ import time
 
 type = r"\exact_zeros"
 date = "211109"
-ver = "2"
+ver = "3"
 
 z = Symbol('z')
 
@@ -47,7 +47,7 @@ V2 = np.array([[0,0],[1,0]])
 
 
 for s in range(iter):
-    theta = (2*np.pi/N*s)%(2*np.pi)
+    theta = np.pi
 
     X = np.array([[1-b(theta)*dt,a_L(theta)*dt],[b_L(theta)*dt,1-a(theta)*dt]])
     w_z_1 = X +z*a_R(theta)*dt*V1+1/z*b_R(theta)*dt*V2    # normal way of definition is not good.

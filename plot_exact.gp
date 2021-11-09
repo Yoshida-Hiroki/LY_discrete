@@ -1,5 +1,5 @@
 # J-phi(J) plot for simulation and zero calculation
-set xrange [-0.2:-0.08]
+set xrange [-0.25:-0.1]
 set yrange [-0.01:0.0001]
 set xzeroaxis
 set xlabel 'J'
@@ -7,7 +7,7 @@ set ylabel '{/Symbol-Oblique j}(J)'
 
 plot 'C:/Users/hyoshida/Desktop/timedep/sim_211028_7.dat' title "sim N=100,M=100,iter=10^5"
 
-replot for [i=1:10] 'C:/Users/hyoshida/Desktop/timedep/exact_zeros_211109_2_current.dat' u 2*i-1:2*i title sprintf("t=%d",i) w line
+replot for [i=1:10] 'C:/Users/hyoshida/Desktop/timedep/exact_zeros_211109_3_current.dat' u 2*i-1:2*i title sprintf("t=%d",i) w line
 
 # replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N5.dat' using 2:3 title "N=5" with line
 # replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_N10.dat' using 2:3 title "N=10" with line
@@ -16,7 +16,7 @@ replot for [i=1:10] 'C:/Users/hyoshida/Desktop/timedep/exact_zeros_211109_2_curr
 
 # replot 'C:/Users/hyoshida/Desktop/timedep/phi_211028_1_2points_2_N100000.dat' using 2:3 title "2 points" with line
 
-set output "C:/Users/hyoshida/Desktop/timedep/exact_211109_2.png"
+set output "C:/Users/hyoshida/Desktop/timedep/exact_211109_3.png"
 set terminal png
 set term png enhanced
 replot

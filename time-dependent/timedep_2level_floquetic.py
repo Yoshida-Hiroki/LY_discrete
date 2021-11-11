@@ -8,7 +8,7 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211109"
+date = "211111"
 ver = "1"
 
 z = Symbol('z')
@@ -18,90 +18,96 @@ z = Symbol('z')
 # phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
 # phi_b = lambda x: np.pi/4+np.pi/10*np.sin(x)
 #
-# a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
-# a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
-# b_L = lambda x: 1/2*(1-r(x))*np.sin(phi_b(x)/2)**2
-# b_R = lambda x: 1/2*(1-r(x))*np.cos(phi_b(x)/2)**2
-#
-# a = lambda x : a_R(x)+a_L(x)
-# b = lambda x : b_R(x)+b_L(x)
-#
+a1_L = lambda x: 0.3
+a1_R = lambda x: 0.3
+b1_L = lambda x: 0.2
+b1_R = lambda x: 0.2
+
+a1 = lambda x : a1_R(x)+a1_L(x)
+b1 = lambda x : b1_R(x)+b1_L(x)
+
+a2_L = lambda x: 0.1
+a2_R = lambda x: 0.1
+b2_L = lambda x: 0.4
+b2_R = lambda x: 0.4
+
+a2 = lambda x : a2_R(x)+a2_L(x)
+b2 = lambda x : b2_R(x)+b2_L(x)
+
 # N = 1
 # M = 10
 # iter = M*N
-# dt = 1
-# W = [np.eye(2)]
-# V1 = np.array([[0,1],[0,0]])
-# V2 = np.array([[0,0],[1,0]])
-#
-# for s in range(iter):
-#     theta = np.pi
-#
-#     X = np.array([[1-b(theta)*dt,a_L(theta)*dt],[b_L(theta)*dt,1-a(theta)*dt]])
-#     w_z_1 = X +z*a_R(theta)*dt*V1+1/z*b_R(theta)*dt*V2    # normal way of definition is not good.
-#
-#     W.append(np.dot(W[-1],w_z_1))
+dt = 1
+W = [np.eye(2)]
+V1 = np.array([[0,1],[0,0]])
+V2 = np.array([[0,0],[1,0]])
 
-W = []
-W.append([[-0.5,0.3+0.2*z],[0.3+0.2/z,-0.5]])
-W.append([[-0.5,0.2*0.3*z],[0.2+0.3/z,-0.5]])
+theta = np.pi
 
-U = np.eye(2)
-for i in range(len(W)):
-    W[i] = np.matrix(W[i])
-    U = U * W[i]
+W_1 = lambda z : np.array([[1-b1(theta)*dt,a1_L(theta)*dt+a1_R(theta)*dt*z],[b1_L(theta)*dt+b1_R(theta)*dt/z,1-a1(theta)*dt]])
+W_2 = lambda z : np.array([[1-b2(theta)*dt,a2_L(theta)*dt+a2_R(theta)*dt*z],[b2_L(theta)*dt+b2_R(theta)*dt/z,1-a2(theta)*dt]])
 
-Z=[]
-for i in range(iter):
-    Z.append(np.dot(np.dot([1,1],W[i+1]),[[p1],[p2]])[0])
+U_2 = lambda z : np.dot(W_2(z),W_1(z))
+U_2(z)
 
-# start = time.time()
-z_disc=[]
-for i in range(iter):
-    z_disc.append(list(solveset(Z[i],z)))
-# print(time.time()-start)
+Trace = lambda z : np.trace(U_2(z))
+Det = lambda z : U_2(z)[0][0]*U_2(z)[1][1]-U_2(z)[0][1]*U_2(z)[1][0]
 
-f_zero = open(r"C:\Users\hyoshida\Desktop\timedep"+str(type)+"_"+str(date)+"_"+str(ver)+r"_zeros.dat",'w')
-for i in range(N*M):
-    for j in range(2*(int(i/2)+1)):
-        f_zero.write(str(z_disc[i][j]))
-        f_zero.write(' ')
-    f_zero.write('\n')
-f_zero.close()
+z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
 
+z_disc = np.array(z_disc)
+z_disc = z_disc.astype(np.float64)
+z_disc
 
-########## current density #############
+def R(x):
+    return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*2/Trace(x)
 
-Z = np.exp(np.linspace(-3,2,100))
-J = [[0]*100 for i in range(N*M)]
-for j in range(N*M):
-    n = 0
-    for z in Z:
-        sum = 0
-        for i in range(2*(int(j/2)+1)):
-            sum += 2/(2*(int(j/2)+1))*z/(z-z_disc[j][i])
-        J[j][n] = 0.5*(sum-1)
-        n += 1
+def root(x):
+    return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
 
-Phi = [[0]*100 for i in range(N*M)]
-for j in range(N*M):
-    n = 0
-    for z in Z:
-        sum = 0
-        for i in range(2*(int(j/2)+1)):
-            sum += 2/(2*(int(j/2)+1))*log((z-z_disc[j][i])/(1-z_disc[j][i]))
-        Phi[j][n] = 0.5*(sum-2*J[j][n]*np.log(z)-np.log(z))
-        n += 1
+def rho(x):
+    temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-(a1_R(theta)*b2_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*2/Trace(x))
+    if (np.imag(temp)!=0):
+        # return str(nan)
+        return 0
+    else:
+        return np.abs(temp)
 
-# fig,ax = plt.subplots()
-# for i in range(N*M):
-#     ax.plot(J[i],Phi[i],label=i)
-# plt.legend()
-# plt.show()
+N=10000
+Z = np.linspace(-22,-0.001,N)
+Rho = []
+for z in Z:
+    Rho.append(rho(z))
 
-f_zero = open(r"C:\Users\hyoshida\Desktop\timedep"+str(type)+"_"+str(date)+"_"+str(ver)+r"_current.dat",'w')
+def J(z):
+    sum = 0
+    i = 0
+    for x in Z:
+        sum += 1/N*Rho[i]*z/(z-x)
+        i += 1
+    return 0.5*(sum-1)
+
+Chi = np.linspace(-4,5,100)
+J_dat = []
+for chi in Chi:
+    J_dat.append(J(np.exp(chi)))
+
+def integ(z):
+    sum = 0
+    i = 0
+    for x in Z:
+        sum += 1/N*Rho[i]*np.log((z-x)/(1-x))
+        i += 1
+    return 0.5*sum
+
+Phi_dat = []
+i = 0
+for chi in Chi:
+    Phi_dat.append(integ(np.exp(chi))-(J_dat[i]+0.5)*chi)
+    i += 1
+
+f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic"+str(type)+"_"+str(date)+"_"+str(ver)+r"_current.dat",'w')
 for j in range(100):
-    for i in range(N*M):
-        f_zero.write(str(J[i][j])+' '+str(Phi[i][j])+' ')
+    f_zero.write(str(J_dat[j])+' '+str(Phi_dat[j]))
     f_zero.write('\n')
 f_zero.close()

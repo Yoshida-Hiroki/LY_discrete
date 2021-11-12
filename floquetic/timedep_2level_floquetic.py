@@ -79,6 +79,10 @@ Rho = []
 for z in Z:
     Rho.append(rho(z))
 
+# plt.ylim([0,5])
+# plt.plot(Z,Rho)
+# plt.show()
+
 def J(z):
     sum = 0
     i = 0

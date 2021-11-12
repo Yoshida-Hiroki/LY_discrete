@@ -110,7 +110,7 @@ for chi in Chi:
     Phi_dat.append(integ(np.exp(chi))-(J_dat[i]+0.5)*chi)
     i += 1
 
-f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic"+str(type)+"_"+str(date)+"_"+str(ver)+r"_current.dat",'w')
+f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\phi_"+str(date)+"_"+str(ver)+r".dat",'w')
 for j in range(100):
     f_zero.write(str(J_dat[j])+' '+str(Phi_dat[j]))
     f_zero.write('\n')

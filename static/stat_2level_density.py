@@ -29,16 +29,25 @@ z2 = (-((b-a)**2/4+b_L*a_L+b_R*a_R)-np.sqrt(((b-a)**2/4+b_L*a_L+b_R*a_R)**2-4*a_
 
 dt = 1
 R = (a+b)/2*dt/(1-(a+b)/2*dt)
-
+R
 def root(x):
-    return np.sqrt(-(x-z1)*(x-z2)/(x*(1-z1)*(1-z2)))
-
+    return np.real(np.complex(sqrt(-(x-z1)*(x-z2)/(x*(1-z1)*(1-z2)))))
+root(-0.1)
 def rho1(x):
     return R*root(x)/(np.pi*(1+R**2*root(x)**2))*(1/(x-z1)+1/(x-z2)-1/x)
-
+rho1(-0.5)
 def rho2(x):
     return -R*root(x)/(np.pi*(1+R**2*root(x)**2))*(1/(x-z1)+1/(x-z2)-1/x)
-
+N=10000
+Z = np.linspace(-2,-0.001,N)
+Rho = []
+for z in Z:
+    Rho.append(np.abs(rho1(z)))
+Rho[9000]
+plt.ylim([0,5])
+plt.xlim([-2,0])
+plt.plot(Z,Rho)
+plt.show()
 #################################################
 
 dx = 0.00001
@@ -57,7 +66,7 @@ def integ4(x,z):
 
 def J(z):
     return (integrate.quad(integ3,z1+dx,0-dx,args=z)[0]+integrate.quad(integ4,-1000,z2-dx,args=z)[0]-1)*0.5
-
+J(1)
 def phi(z):
     return (integrate.quad(integ1,z1+dx,0-dx,args=z)[0]+integrate.quad(integ2,-1000,z2-dx,args=z)[0]-np.log(z))*0.5-J(z)*np.log(z)
 
@@ -67,7 +76,7 @@ phi_dat=[]
 for chi in Chi:
     J_dat.append(J(np.exp(chi)))
     phi_dat.append(phi(np.exp(chi)))
-
+J_dat
 ######################## simulation ####################################
 iter = 100000
 M = 100

@@ -58,11 +58,12 @@ z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
 z_disc
 def R(x):
-    return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*2/Trace(x)
-
+    # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*2/Trace(x)
+    return np.abs(Trace(1)-2)/Trace(x)
+R(1)
 def root(x):
     return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
-
+root(-0.1)
 def rho(x):
     temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-(a1_R(theta)*b2_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*2/Trace(x))
     if (np.imag(temp)!=0):
@@ -70,13 +71,13 @@ def rho(x):
         return 0
     else:
         return np.abs(temp)
-
+rho(-1.5)
 N=10000
-Z = np.linspace(-22,-0.001,N)
+Z = np.linspace(-2,-0.001,N)
 Rho = []
 for z in Z:
     Rho.append(rho(z))
-
+Rho[9000]
 plt.ylim([0,5])
 plt.plot(Z,Rho)
 plt.show()

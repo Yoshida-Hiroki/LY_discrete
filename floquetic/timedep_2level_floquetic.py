@@ -8,7 +8,7 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211111"
+date = "211112"
 ver = "1"
 
 z = Symbol('z')
@@ -26,10 +26,10 @@ b1_R = lambda x: 0.2
 a1 = lambda x : a1_R(x)+a1_L(x)
 b1 = lambda x : b1_R(x)+b1_L(x)
 
-a2_L = lambda x: 0.1
-a2_R = lambda x: 0.1
-b2_L = lambda x: 0.4
-b2_R = lambda x: 0.4
+a2_L = lambda x: 0.31
+a2_R = lambda x: 0.31
+b2_L = lambda x: 0.19
+b2_R = lambda x: 0.19
 
 a2 = lambda x : a2_R(x)+a2_L(x)
 b2 = lambda x : b2_R(x)+b2_L(x)
@@ -48,7 +48,6 @@ W_1 = lambda z : np.array([[1-b1(theta)*dt,a1_L(theta)*dt+a1_R(theta)*dt*z],[b1_
 W_2 = lambda z : np.array([[1-b2(theta)*dt,a2_L(theta)*dt+a2_R(theta)*dt*z],[b2_L(theta)*dt+b2_R(theta)*dt/z,1-a2(theta)*dt]])
 
 U_2 = lambda z : np.dot(W_2(z),W_1(z))
-U_2(z)
 
 Trace = lambda z : np.trace(U_2(z))
 Det = lambda z : U_2(z)[0][0]*U_2(z)[1][1]-U_2(z)[0][1]*U_2(z)[1][0]
@@ -58,7 +57,6 @@ z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
 z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
 z_disc
-
 def R(x):
     return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*2/Trace(x)
 
@@ -79,9 +77,9 @@ Rho = []
 for z in Z:
     Rho.append(rho(z))
 
-# plt.ylim([0,5])
-# plt.plot(Z,Rho)
-# plt.show()
+plt.ylim([0,5])
+plt.plot(Z,Rho)
+plt.show()
 
 def J(z):
     sum = 0

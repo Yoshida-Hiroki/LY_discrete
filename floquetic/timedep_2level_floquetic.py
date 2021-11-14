@@ -9,7 +9,7 @@ import time
 
 type = r"\floquetic_zeros"
 date = "211114"
-ver = "1"
+ver = "2"
 
 z = Symbol('z')
 
@@ -62,26 +62,33 @@ z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
 z_disc
 def R(x):
-    # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*2/Trace(x)
+    # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
     return np.abs(Trace(1)-2)/Trace(x)
 R(1)
 def root(x):
     return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
 root(-0.1)
 def rho(x):
-    temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-(a1_R(theta)*b2_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*2/Trace(x))
+    temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-2*(a1_R(theta)*b2_L(theta)+a2_R(theta)*b1_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*dt**2/Trace(x))
     if (np.imag(temp)!=0):
         # return str(nan)
         return 0
     else:
         return np.abs(temp)
-rho(-1.5)
+rho(-0.5)
 N=10000
-Z = np.linspace(-2,-0.001,N)
+dx = 0.00001
+Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)
+Z2 = np.linspace(z_disc[2]-dx,z_disc[3]+dx,N)
 Rho = []
-for z in Z:
+for z in Z1:
     Rho.append(rho(z))
-Rho[9000]
+# sum(Rho)*(Z1[1]-Z1[0])
+for z in Z2:
+    Rho.append(rho(z))
+# sum(Rho)*(Z2[1]-Z2[0])
+
+# Z = np.append(Z1,Z2)
 # plt.ylim([0,5])
 # plt.plot(Z,Rho)
 # plt.show()
@@ -99,10 +106,13 @@ Rho[9000]
 def J(z):
     sum = 0
     i = 0
-    for x in Z:
-        sum += 1/N*Rho[i]*z/(z-x)
+    for x in Z1:
+        sum += (z_disc[1]-z_disc[0])/N*Rho[i]*z/(z-x)
         i += 1
-    return 0.5*(sum-1)
+    for x in Z2:
+        sum += (z_disc[3]-z_disc[2])/N*Rho[i]*z/(z-x)
+        i += 1
+    return sum-1
 
 Chi = np.linspace(-4,5,100)
 J_dat = []
@@ -112,18 +122,21 @@ for chi in Chi:
 def integ(z):
     sum = 0
     i = 0
-    for x in Z:
-        sum += 1/N*Rho[i]*np.log((z-x)/(1-x))
+    for x in Z1:
+        sum += (z_disc[1]-z_disc[0])/N*Rho[i]*np.log((z-x)/(1-x))
         i += 1
-    return 0.5*sum
+    for x in Z2:
+        sum += (z_disc[3]-z_disc[2])/N*Rho[i]*np.log((z-x)/(1-x))
+        i += 1
+    return sum
 
 Phi_dat = []
 i = 0
 for chi in Chi:
-    Phi_dat.append(integ(np.exp(chi))-(J_dat[i]+0.5)*chi)
+    Phi_dat.append(integ(np.exp(chi))-(J_dat[i]+1)*chi)
     i += 1
 
-plt.xlim([-0.6,0.2])
+# plt.xlim([-0.6,0.2])
 plt.ylim([-0.005,0.0001])
 plt.plot(J_dat,Phi_dat)
 plt.show()

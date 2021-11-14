@@ -4,10 +4,10 @@ set yrange [-0.01:0.0001]
 set xzeroaxis
 set xlabel 'J'
 set ylabel '{/Symbol-Oblique j}(J)'
-plot 'C:/Users/hyoshida/Desktop/floquetic/sim_211114_1.dat' title "sim rep = 2*10^4,iter=10^5"
-replot 'C:/Users/hyoshida/Desktop/floquetic/phi_211114_2.dat' using 1:2 title "" with line
+plot 'C:/Users/hyoshida/Desktop/floquetic/sim_211114_3.dat' title "sim rep = 2*10^4,iter=10^5"
+replot 'C:/Users/hyoshida/Desktop/floquetic/phi_211114_3.dat' using 1:2 title "" with line
 
-set output "C:/Users/hyoshida/Desktop/floquetic/phi_211114_2.png"
+set output "C:/Users/hyoshida/Desktop/floquetic/phi_211114_3.png"
 set terminal png
 set term png enhanced
 replot

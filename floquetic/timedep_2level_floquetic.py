@@ -9,7 +9,7 @@ import time
 
 type = r"\floquetic_zeros"
 date = "211114"
-ver = "2"
+ver = "3"
 
 z = Symbol('z')
 
@@ -26,10 +26,10 @@ b1_R = lambda x: 0.2
 a1 = lambda x : a1_R(x)+a1_L(x)
 b1 = lambda x : b1_R(x)+b1_L(x)
 
-a2_L = lambda x: 0.1
-a2_R = lambda x: 0.1
-b2_L = lambda x: 0.4
-b2_R = lambda x: 0.4
+a2_L = lambda x: 0.31
+a2_R = lambda x: 0.31
+b2_L = lambda x: 0.19
+b2_R = lambda x: 0.19
 
 a2 = lambda x : a2_R(x)+a2_L(x)
 b2 = lambda x : b2_R(x)+b2_L(x)
@@ -137,12 +137,12 @@ for chi in Chi:
     i += 1
 
 # plt.xlim([-0.6,0.2])
-plt.ylim([-0.005,0.0001])
-plt.plot(J_dat,Phi_dat)
-plt.show()
+# plt.ylim([-0.005,0.0001])
+# plt.plot(J_dat,Phi_dat)
+# plt.show()
 
-# f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\phi_"+str(date)+"_"+str(ver)+r".dat",'w')
-# for j in range(100):
-#     f_zero.write(str(J_dat[j])+' '+str(Phi_dat[j]))
-#     f_zero.write('\n')
-# f_zero.close()
+f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\phi_"+str(date)+"_"+str(ver)+r".dat",'w')
+for j in range(100):
+    f_zero.write(str(J_dat[j])+' '+str(Phi_dat[j]))
+    f_zero.write('\n')
+f_zero.close()

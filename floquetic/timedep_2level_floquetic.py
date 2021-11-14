@@ -8,7 +8,7 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211112"
+date = "211114"
 ver = "1"
 
 z = Symbol('z')
@@ -26,10 +26,10 @@ b1_R = lambda x: 0.2
 a1 = lambda x : a1_R(x)+a1_L(x)
 b1 = lambda x : b1_R(x)+b1_L(x)
 
-a2_L = lambda x: 0.31
-a2_R = lambda x: 0.31
-b2_L = lambda x: 0.19
-b2_R = lambda x: 0.19
+a2_L = lambda x: 0.1
+a2_R = lambda x: 0.1
+b2_L = lambda x: 0.4
+b2_R = lambda x: 0.4
 
 a2 = lambda x : a2_R(x)+a2_L(x)
 b2 = lambda x : b2_R(x)+b2_L(x)
@@ -51,9 +51,13 @@ U_2 = lambda z : np.dot(W_2(z),W_1(z))
 
 Trace = lambda z : np.trace(U_2(z))
 Det = lambda z : U_2(z)[0][0]*U_2(z)[1][1]-U_2(z)[0][1]*U_2(z)[1][0]
+z_1 = list(solveset(np.trace(W_1(z))**2-4*(W_1(z)[0][0]*W_1(z)[1][1]-W_1(z)[0][1]*W_1(z)[1][0]),z))
+z_2 = list(solveset(np.trace(W_2(z))**2-4*(W_2(z)[0][0]*W_2(z)[1][1]-W_2(z)[0][1]*W_2(z)[1][0]),z))
 
 z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
 
+z_1
+z_2
 z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
 z_disc
@@ -78,9 +82,19 @@ Rho = []
 for z in Z:
     Rho.append(rho(z))
 Rho[9000]
-plt.ylim([0,5])
-plt.plot(Z,Rho)
-plt.show()
+# plt.ylim([0,5])
+# plt.plot(Z,Rho)
+# plt.show()
+
+# plt.figure(figsize=(4,3))
+# plt.xlim([-4.1,0])
+# plt.yticks([0,1,2],["0","1","2"])
+# plt.xlabel(r"$\Re (z)$")
+# plt.plot(z_1,[2,2],label=r"$W_1$ only", linestyle="None",marker="+",color="blue")
+# plt.plot(z_2,[1,1],label=r"$W_2$ only", linestyle="None",marker="*",color = "blue")
+# plt.plot(z_disc,[0,0,0,0],label=r"$U_2$", linestyle="None",marker=".",color="red")
+# plt.legend()
+# plt.show()
 
 def J(z):
     sum = 0
@@ -109,8 +123,13 @@ for chi in Chi:
     Phi_dat.append(integ(np.exp(chi))-(J_dat[i]+0.5)*chi)
     i += 1
 
-f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\phi_"+str(date)+"_"+str(ver)+r".dat",'w')
-for j in range(100):
-    f_zero.write(str(J_dat[j])+' '+str(Phi_dat[j]))
-    f_zero.write('\n')
-f_zero.close()
+plt.xlim([-0.6,0.2])
+plt.ylim([-0.005,0.0001])
+plt.plot(J_dat,Phi_dat)
+plt.show()
+
+# f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\phi_"+str(date)+"_"+str(ver)+r".dat",'w')
+# for j in range(100):
+#     f_zero.write(str(J_dat[j])+' '+str(Phi_dat[j]))
+#     f_zero.write('\n')
+# f_zero.close()

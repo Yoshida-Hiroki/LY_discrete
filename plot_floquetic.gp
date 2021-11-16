@@ -1,6 +1,6 @@
 # J-phi(J) plot for simulation and zero calculation
-set xrange [-0.05:0.05]
-set yrange [-0.005:0.0001]
+set xrange [-0.2:0.2]
+set yrange [-0.3:0.0001]
 set xzeroaxis
 set xlabel 'J'
 set ylabel '{/Symbol-Oblique j}(J)'

@@ -9,10 +9,10 @@ using namespace std;
 double pi = 3.141592;
 
 int dt = 1;
-int N = 100;
+int N = 1;
 int M = 100;
 
-int iter = 100000;
+int iter = 1000000;
 
 string date = "211116";
 string ver = "_4";

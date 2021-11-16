@@ -2,6 +2,7 @@
 import numpy as np
 from sympy import *
 import matplotlib.pyplot as plt
+from scipy import integrate
 import csv
 import cmath
 import time
@@ -9,7 +10,7 @@ import time
 
 type = r"\floquetic_zeros"
 date = "211116"
-ver = "1"
+ver = "3"
 
 z = Symbol('z')
 
@@ -61,6 +62,10 @@ z_2
 z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
 z_disc
+Trace(0.1)
+f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
+f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3]))
+f_zero.close()
 def R(x):
     # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
     return np.abs(Trace(1)-2)/Trace(x)
@@ -76,73 +81,89 @@ def rho(x):
     else:
         return np.abs(temp)
 rho(-0.5)
-N=100000
-dx = 0.00001
-Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)
-Z2 = np.linspace(z_disc[2]-dx,z_disc[3]+dx,N)
-Rho = []
-for z in Z1:
-    Rho.append(rho(z))
-# sum(Rho)*(Z1[1]-Z1[0])
-for z in Z2:
-    Rho.append(rho(z))
-# sum(Rho)*(Z2[1]-Z2[0])
+# N=100000
+# dx = 0.00001
+# Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)
+# Z2 = np.linspace(z_disc[2]-dx,z_disc[3]+dx,N)
+# # Rho = []
+# # for z in Z1:
+# #     Rho.append(rho(z))
+# # # sum(Rho)*(Z1[1]-Z1[0])
+# # for z in Z2:
+# #     Rho.append(rho(z))
+# # # sum(Rho)*(Z2[1]-Z2[0])
+#
+# # Z = np.append(Z1,Z2)
+# # plt.ylim([0,5])
+# # plt.plot(Z,Rho)
+# # plt.show()
+#
+# # plt.figure(figsize=(4,3))
+# # plt.xlim([-4.1,0])
+# # plt.yticks([0,1,2],["0","1","2"])
+# # plt.xlabel(r"$\Re (z)$")
+# # plt.plot(z_1,[2,2],label=r"$W_1$ only", linestyle="None",marker="+",color="blue")
+# # plt.plot(z_2,[1,1],label=r"$W_2$ only", linestyle="None",marker="*",color = "blue")
+# # plt.plot(z_disc,[0,0,0,0],label=r"$U_2$", linestyle="None",marker=".",color="red")
+# # plt.legend()
+# # plt.show()
+#
+# def integ1(x,z):
+#     return rho(x)*np.log((z-x)/(1-x))
+#
+# def integ2(x,z):
+#     return rho(x)*z/(z-x)
+#
+# def J(z):
+#     return (integrate.quad(integ2,z_disc[2]+dx,z_disc[3]-dx,args=z)[0]+integrate.quad(integ2,z_disc[0]+dx,z_disc[1]-dx,args=z)[0])*0.5-1
+#
+# def phi(z):
+#     return (integrate.quad(integ1,z_disc[2]+dx,z_disc[3]-dx,args=z)[0]+integrate.quad(integ1,z_disc[0]+dx,z_disc[1]-dx,args=z)[0])*0.5-np.log(z)-J(z)*np.log(z)
+#
+#
+#
+# # def J(z):
+# #     sum = 0
+# #     i = 0
+# #     for x in Z1:
+# #         sum += (z_disc[1]-z_disc[0])/N*Rho[i]*z/(z-x)
+# #         i += 1
+# #     for x in Z2:
+# #         sum += (z_disc[3]-z_disc[2])/N*Rho[i]*z/(z-x)
+# #         i += 1
+# #     return 0.5*sum-1
+#
+# Chi = np.linspace(-4,5,200)
+# J_dat = []
+# phi_dat=[]
+# for chi in Chi:
+#     J_dat.append(J(np.exp(chi)))
+#     phi_dat.append(phi(np.exp(chi)))
+#
+# # def integ(z):
+# #     sum = 0
+# #     i = 0
+# #     for x in Z1:
+# #         sum += (z_disc[1]-z_disc[0])/N*Rho[i]*np.log((z-x)/(1-x))
+# #         i += 1
+# #     for x in Z2:
+# #         sum += (z_disc[3]-z_disc[2])/N*Rho[i]*np.log((z-x)/(1-x))
+# #         i += 1
+# #     return sum
+# #
+# # Phi_dat = []
+# # i = 0
+# # for chi in Chi:
+# #     Phi_dat.append(0.5*integ(np.exp(chi))-(J_dat[i]+1)*chi)
+# #     i += 1
+#
+# # plt.xlim([-0.6,0.2])
+# # plt.ylim([-0.005,0.0001])
+# # plt.plot(J_dat,Phi_dat)
+# # plt.show()
 
-# Z = np.append(Z1,Z2)
-# plt.ylim([0,5])
-# plt.plot(Z,Rho)
-# plt.show()
-
-# plt.figure(figsize=(4,3))
-# plt.xlim([-4.1,0])
-# plt.yticks([0,1,2],["0","1","2"])
-# plt.xlabel(r"$\Re (z)$")
-# plt.plot(z_1,[2,2],label=r"$W_1$ only", linestyle="None",marker="+",color="blue")
-# plt.plot(z_2,[1,1],label=r"$W_2$ only", linestyle="None",marker="*",color = "blue")
-# plt.plot(z_disc,[0,0,0,0],label=r"$U_2$", linestyle="None",marker=".",color="red")
-# plt.legend()
-# plt.show()
-
-def J(z):
-    sum = 0
-    i = 0
-    for x in Z1:
-        sum += (z_disc[1]-z_disc[0])/N*Rho[i]*z/(z-x)
-        i += 1
-    for x in Z2:
-        sum += (z_disc[3]-z_disc[2])/N*Rho[i]*z/(z-x)
-        i += 1
-    return 0.5*sum-1
-
-Chi = np.linspace(-4,5,100)
-J_dat = []
-for chi in Chi:
-    J_dat.append(J(np.exp(chi)))
-
-def integ(z):
-    sum = 0
-    i = 0
-    for x in Z1:
-        sum += (z_disc[1]-z_disc[0])/N*Rho[i]*np.log((z-x)/(1-x))
-        i += 1
-    for x in Z2:
-        sum += (z_disc[3]-z_disc[2])/N*Rho[i]*np.log((z-x)/(1-x))
-        i += 1
-    return sum
-
-Phi_dat = []
-i = 0
-for chi in Chi:
-    Phi_dat.append(0.5*integ(np.exp(chi))-(J_dat[i]+1)*chi)
-    i += 1
-
-# plt.xlim([-0.6,0.2])
-# plt.ylim([-0.005,0.0001])
-# plt.plot(J_dat,Phi_dat)
-# plt.show()
-
-f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\phi_"+str(date)+"_"+str(ver)+r".dat",'w')
-for j in range(100):
-    f_zero.write(str(J_dat[j])+' '+str(Phi_dat[j]))
-    f_zero.write('\n')
-f_zero.close()
+# f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\phi_"+str(date)+"_"+str(ver)+r".dat",'w')
+# for j in range(100):
+#     f_zero.write(str(J_dat[j])+' '+str(phi_dat[j]))
+#     f_zero.write('\n')
+# f_zero.close()

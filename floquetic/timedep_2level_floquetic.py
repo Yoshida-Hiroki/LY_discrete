@@ -8,8 +8,8 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211114"
-ver = "3"
+date = "211116"
+ver = "1"
 
 z = Symbol('z')
 
@@ -76,7 +76,7 @@ def rho(x):
     else:
         return np.abs(temp)
 rho(-0.5)
-N=10000
+N=100000
 dx = 0.00001
 Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)
 Z2 = np.linspace(z_disc[2]-dx,z_disc[3]+dx,N)
@@ -112,7 +112,7 @@ def J(z):
     for x in Z2:
         sum += (z_disc[3]-z_disc[2])/N*Rho[i]*z/(z-x)
         i += 1
-    return sum-1
+    return 0.5*sum-1
 
 Chi = np.linspace(-4,5,100)
 J_dat = []
@@ -133,7 +133,7 @@ def integ(z):
 Phi_dat = []
 i = 0
 for chi in Chi:
-    Phi_dat.append(integ(np.exp(chi))-(J_dat[i]+1)*chi)
+    Phi_dat.append(0.5*integ(np.exp(chi))-(J_dat[i]+1)*chi)
     i += 1
 
 # plt.xlim([-0.6,0.2])

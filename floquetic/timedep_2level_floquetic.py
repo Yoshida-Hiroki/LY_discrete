@@ -10,7 +10,7 @@ import time
 
 type = r"\floquetic_zeros"
 date = "211116"
-ver = "3"
+ver = "4"
 
 z = Symbol('z')
 
@@ -27,10 +27,10 @@ b1_R = lambda x: 0.2
 a1 = lambda x : a1_R(x)+a1_L(x)
 b1 = lambda x : b1_R(x)+b1_L(x)
 
-a2_L = lambda x: 0.31
-a2_R = lambda x: 0.31
-b2_L = lambda x: 0.19
-b2_R = lambda x: 0.19
+a2_L = lambda x: 0.1
+a2_R = lambda x: 0.1
+b2_L = lambda x: 0.4
+b2_R = lambda x: 0.4
 
 a2 = lambda x : a2_R(x)+a2_L(x)
 b2 = lambda x : b2_R(x)+b2_L(x)
@@ -66,21 +66,21 @@ Trace(0.1)
 f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
 f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3]))
 f_zero.close()
-def R(x):
-    # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
-    return np.abs(Trace(1)-2)/Trace(x)
-R(1)
-def root(x):
-    return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
-root(-0.1)
-def rho(x):
-    temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-2*(a1_R(theta)*b2_L(theta)+a2_R(theta)*b1_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*dt**2/Trace(x))
-    if (np.imag(temp)!=0):
-        # return str(nan)
-        return 0
-    else:
-        return np.abs(temp)
-rho(-0.5)
+# def R(x):
+#     # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
+#     return np.abs(Trace(1)-2)/Trace(x)
+# R(1)
+# def root(x):
+#     return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
+# root(-0.1)
+# def rho(x):
+#     temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-2*(a1_R(theta)*b2_L(theta)+a2_R(theta)*b1_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*dt**2/Trace(x))
+#     if (np.imag(temp)!=0):
+#         # return str(nan)
+#         return 0
+#     else:
+#         return np.abs(temp)
+# rho(-0.5)
 # N=100000
 # dx = 0.00001
 # Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)

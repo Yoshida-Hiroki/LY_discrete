@@ -95,7 +95,7 @@ for z in Z2:
 
 Z = np.append(Z1,Z2)
 plt.ylim([0,5])
-plt.xlim([-25,0])
+plt.xlim([-5,0])
 plt.plot(Z,Rho)
 plt.show()
 #

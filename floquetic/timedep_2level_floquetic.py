@@ -10,7 +10,7 @@ import time
 
 type = r"\floquetic_zeros"
 date = "211117"
-ver = "1"
+ver = "2"
 
 z = Symbol('z')
 
@@ -27,10 +27,10 @@ b1_R = lambda x: 0.2
 a1 = lambda x : a1_R(x)+a1_L(x)
 b1 = lambda x : b1_R(x)+b1_L(x)
 
-a2_L = lambda x: 0.1
-a2_R = lambda x: 0.1
-b2_L = lambda x: 0.4
-b2_R = lambda x: 0.4
+a2_L = lambda x: 0.3
+a2_R = lambda x: 0.4
+b2_L = lambda x: 0.2
+b2_R = lambda x: 0.1
 
 a2 = lambda x : a2_R(x)+a2_L(x)
 b2 = lambda x : b2_R(x)+b2_L(x)

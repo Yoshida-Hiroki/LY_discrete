@@ -15,7 +15,7 @@ int M = 10000;
 int iter = 100000;
 
 string date = "211117";
-string ver = "_1";
+string ver = "_2";
 
 // double r(double x){
 //   return pi/4*sin(x);
@@ -59,22 +59,22 @@ double b1(double x){
 
 double a2_L(double x){
   // return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
-  return 0.1;
+  return 0.3;
 }
 
 double a2_R(double x){
   // return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
-  return 0.1;
+  return 0.4;
 }
 
 double b2_L(double x){
   // return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
-  return 0.4;
+  return 0.2;
 }
 
 double b2_R(double x){
   // return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
-  return 0.4;
+  return 0.1;
 }
 
 double a2(double x){

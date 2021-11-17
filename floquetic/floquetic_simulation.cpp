@@ -10,12 +10,12 @@ double pi = 3.141592;
 
 int dt = 1;
 int N = 1;
-int M = 10000;
+int M = 1000;
 
-int iter = 100000;
+int iter = 1000000;
 
 string date = "211117";
-string ver = "_2";
+string ver = "_2_2";
 
 // double r(double x){
 //   return pi/4*sin(x);

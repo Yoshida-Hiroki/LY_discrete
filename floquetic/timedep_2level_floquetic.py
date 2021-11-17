@@ -10,7 +10,7 @@ import time
 
 type = r"\floquetic_zeros"
 date = "211117"
-ver = "2"
+ver = "3"
 
 z = Symbol('z')
 
@@ -19,10 +19,10 @@ z = Symbol('z')
 # phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
 # phi_b = lambda x: np.pi/4+np.pi/10*np.sin(x)
 #
-a1_L = lambda x: 0.3
-a1_R = lambda x: 0.3
+a1_L = lambda x: 0.4
+a1_R = lambda x: 0.1
 b1_L = lambda x: 0.2
-b1_R = lambda x: 0.2
+b1_R = lambda x: 0.3
 
 a1 = lambda x : a1_R(x)+a1_L(x)
 b1 = lambda x : b1_R(x)+b1_L(x)

@@ -12,16 +12,16 @@ double dt = 1;
 int N = 100;
 
 string date = "211117";
-string ver = "_2";
+string ver = "_3";
 
 double a1_L(double x){
   // return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
-  return 0.3;
+  return 0.4;
 }
 
 double a1_R(double x){
   // return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
-  return 0.3;
+  return 0.1;
 }
 
 double b1_L(double x){
@@ -31,7 +31,7 @@ double b1_L(double x){
 
 double b1_R(double x){
   // return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
-  return 0.2;
+  return 0.3;
 }
 
 double a1(double x){

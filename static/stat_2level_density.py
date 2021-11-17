@@ -8,7 +8,7 @@ import cmath
 
 
 type = r"\static_density"
-date = "211014"
+date = "211117"
 ver = "1"
 
 # initial distrib
@@ -16,10 +16,10 @@ p1 = 0.5
 p2 = 0.5
 
 # transition matrix elements
-a_R = 0.3
-a_L = 0.3
-b_R = 0.2
+a_L = 0.4
+a_R = 0.1
 b_L = 0.2
+b_R = 0.3
 
 a = a_R+a_L
 b = b_R+b_L
@@ -39,13 +39,13 @@ rho1(-0.5)
 def rho2(x):
     return -R*root(x)/(np.pi*(1+R**2*root(x)**2))*(1/(x-z1)+1/(x-z2)-1/x)
 N=10000
-Z = np.linspace(-2,-0.001,N)
+Z = np.linspace(-5,-0.001,N)
 Rho = []
 for z in Z:
     Rho.append(np.abs(rho1(z)))
 Rho[9000]
 plt.ylim([0,5])
-plt.xlim([-2,0])
+plt.xlim([-5,0])
 plt.plot(Z,Rho)
 plt.show()
 #################################################
@@ -106,7 +106,7 @@ ax1 = plt.subplot2grid((1,1),(0,0))
 
 ax1.plot(J_dat,phi_dat)
 ax1.set_xlim([-0.2,0.2])
-ax1.set_ylim([-0.3,0.05])
+ax1.set_ylim([-0.1,0.0001])
 ax1.plot(np.linspace(-1,1,4*M+1),phi_sim,linestyle="None",marker="s")
 ax1.hlines(0,-0.2,0.2,color="gray")
 ax1.vlines(0,-0.3,0.05,color="gray")

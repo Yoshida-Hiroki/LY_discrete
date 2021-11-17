@@ -9,8 +9,8 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211116"
-ver = "4"
+date = "211117"
+ver = "1"
 
 z = Symbol('z')
 
@@ -66,37 +66,38 @@ Trace(0.1)
 f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
 f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3]))
 f_zero.close()
-# def R(x):
-#     # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
-#     return np.abs(Trace(1)-2)/Trace(x)
-# R(1)
-# def root(x):
-#     return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
-# root(-0.1)
-# def rho(x):
-#     temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-2*(a1_R(theta)*b2_L(theta)+a2_R(theta)*b1_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*dt**2/Trace(x))
-#     if (np.imag(temp)!=0):
-#         # return str(nan)
-#         return 0
-#     else:
-#         return np.abs(temp)
-# rho(-0.5)
-# N=100000
-# dx = 0.00001
-# Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)
-# Z2 = np.linspace(z_disc[2]-dx,z_disc[3]+dx,N)
-# # Rho = []
-# # for z in Z1:
-# #     Rho.append(rho(z))
-# # # sum(Rho)*(Z1[1]-Z1[0])
-# # for z in Z2:
-# #     Rho.append(rho(z))
-# # # sum(Rho)*(Z2[1]-Z2[0])
-#
-# # Z = np.append(Z1,Z2)
-# # plt.ylim([0,5])
-# # plt.plot(Z,Rho)
-# # plt.show()
+def R(x):
+    # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
+    return np.abs(Trace(1)-2)/Trace(x)
+R(1)
+def root(x):
+    return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
+root(-0.1)
+def rho(x):
+    temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-2*(a1_R(theta)*b2_L(theta)+a2_R(theta)*b1_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*dt**2/Trace(x))
+    if (np.imag(temp)!=0):
+        # return str(nan)
+        return 0
+    else:
+        return np.abs(temp)
+rho(-0.5)
+N=100000
+dx = 0.00001
+Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)
+Z2 = np.linspace(z_disc[2]-dx,z_disc[3]+dx,N)
+Rho = []
+for z in Z1:
+    Rho.append(rho(z))
+# sum(Rho)*(Z1[1]-Z1[0])
+for z in Z2:
+    Rho.append(rho(z))
+# sum(Rho)*(Z2[1]-Z2[0])
+
+Z = np.append(Z1,Z2)
+plt.ylim([0,5])
+plt.xlim([-25,0])
+plt.plot(Z,Rho)
+plt.show()
 #
 # # plt.figure(figsize=(4,3))
 # # plt.xlim([-4.1,0])

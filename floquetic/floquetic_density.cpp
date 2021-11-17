@@ -11,8 +11,8 @@ double pi = 3.141592;
 double dt = 1;
 int N = 100;
 
-string date = "211116";
-string ver = "_4";
+string date = "211117";
+string ver = "_1";
 
 double a1_L(double x){
   // return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);

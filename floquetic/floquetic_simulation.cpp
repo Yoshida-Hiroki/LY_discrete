@@ -10,12 +10,12 @@ double pi = 3.141592;
 
 int dt = 1;
 int N = 1;
-int M = 1000;
+int M = 10000;
 
 int iter = 1000000;
 
 string date = "211117";
-string ver = "_2_2";
+string ver = "_2_3";
 
 // double r(double x){
 //   return pi/4*sin(x);
@@ -133,7 +133,8 @@ int main(){
     phi_sim[i] = log((double)J_sim[i]/(double)iter)/(2*(double)M*(double)N);
   }
 
-  string path = "C:/Users/hyoshida/Desktop/floquetic/";
+  // string path = "C:/Users/hyoshida/Desktop/floquetic/";
+  string path = "C:/Users/288B/Desktop/";
   string file = ".dat";
   string filename = path+ "sim_"+date+ver + file;
   ofstream writing_file;

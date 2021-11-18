@@ -12,10 +12,10 @@ int dt = 1;
 int N = 1;
 int M = 1000;
 
-int iter = 1000000;
+int iter = 100000;
 
-string date = "211117";
-string ver = "_3";
+string date = "211118";
+string ver = "_1";
 
 // double r(double x){
 //   return pi/4*sin(x);
@@ -113,19 +113,14 @@ int main(){
     int j = 0;
 
     for(int l = 0 ; l < 2*M*N ; l++){
-      double rnd = (double)rand()/RAND_MAX;
+      for(int i = 0;i < 2;i++){
+        double rnd = (double)rand()/RAND_MAX;
 
-      n_after = (1-n_before)*0.5*(1+sign(B[0]*dt-rnd))+n_before*0.5*(1-sign(A[0]*dt-rnd));
-      j += -(1-n_before)*0.5*(1+sign(B_R[0]*dt-rnd))+n_before*0.5*(1+sign(A_R[0]*dt-rnd));
+        n_after = (1-n_before)*0.5*(1+sign(B[i]*dt-rnd))+n_before*0.5*(1-sign(A[i]*dt-rnd));
+        j += -(1-n_before)*0.5*(1+sign(B_R[i]*dt-rnd))+n_before*0.5*(1+sign(A_R[i]*dt-rnd));
 
-      n_before = n_after;
-
-      double rnd2 = (double)rand()/RAND_MAX;
-
-      n_after = (1-n_before)*0.5*(1+sign(B[1]*dt-rnd2))+n_before*0.5*(1-sign(A[1]*dt-rnd2));
-      j += -(1-n_before)*0.5*(1+sign(B_R[1]*dt-rnd2))+n_before*0.5*(1+sign(A_R[1]*dt-rnd2));
-
-      n_before = n_after;
+        n_before = n_after;
+      }
     }
     J_sim[(int)(j+2*M*N)] += 1;
   }

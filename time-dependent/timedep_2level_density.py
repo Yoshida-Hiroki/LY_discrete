@@ -8,14 +8,14 @@ import cmath
 
 
 type = r"\time_density"
-date = "211109"
+date = "211118"
 ver = "1"
 
 # definitions of functions
 # R = lambda x: np.ones_like(x)*1
-r = lambda x: np.pi/4*np.sin(x)
-phi_a = lambda x: np.pi/4+np.pi/10*np.cos(x)
-phi_b = lambda x: np.pi/4+np.pi/10*np.cos(x)
+r = lambda x: 0.5+1/3*np.sin(x)
+phi_a = lambda x: np.pi*0.5+np.pi/3*np.cos(x)
+phi_b = lambda x: phi_a(x)
 
 r_prime = lambda x: np.pi/100*np.cos(x)
 # phi_a_prime = lambda x: -np.pi/4*np.sin(x)
@@ -42,42 +42,42 @@ z_m = np.min(z2(x))
 #
 # ######################## function checking (moving zeros plot) ################################
 #
-# fig = plt.figure()
-# ax1 = plt.subplot2grid((1,2),(0,0))
-# ax2 = plt.subplot2grid((1,2),(0,1))
+fig = plt.figure()
+ax1 = plt.subplot2grid((1,2),(0,0))
+ax2 = plt.subplot2grid((1,2),(0,1))
+
+ax1.set_title("moving zeros")
+ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
+ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
+ax1.legend()
+ax1.set_xlabel(r"$\theta$")
+ax1.set_ylabel("$z$")
+ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+# ax1.set_xlim([-10,0])
+ax1.hlines(0,0,2*np.pi,color="gray")
+# ax1.set_yscale("log")
+
+ax2.set_title("$z_1z_2$")
+# ax2.set_yscale("log")
+ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
+ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
+ax2.set_xlabel(r"$\theta$")
+# ax2.plot(x,1/(a_R(x)*b_L(x)),label="$1/(a_Rb_L)$")
+# ax2.plot(x,(a(x)+b(x))**2/(4*a_R(x)*b_L(x))-1-z1(x)*z2(x),label=r"$(\frac{a+b}{4a_Rb_L}-1-z_1z_2)$",color="black")
+ax2.legend()
+ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+plt.tight_layout()
+# plt.show()
 #
-# ax1.set_title("moving zeros")
-# ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
-# ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
-# ax1.legend()
-# ax1.set_xlabel(r"$\theta$")
-# ax1.set_ylabel("$z$")
-# ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-# ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-# # ax1.set_xlim([-10,0])
-# ax1.hlines(0,0,2*np.pi,color="gray")
-# # ax1.set_yscale("log")
-#
-# ax2.set_title("$z_1z_2$")
-# # ax2.set_yscale("log")
-# ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
-# ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
-# ax2.set_xlabel(r"$\theta$")
-# # ax2.plot(x,1/(a_R(x)*b_L(x)),label="$1/(a_Rb_L)$")
-# # ax2.plot(x,(a(x)+b(x))**2/(4*a_R(x)*b_L(x))-1-z1(x)*z2(x),label=r"$(\frac{a+b}{4a_Rb_L}-1-z_1z_2)$",color="black")
-# ax2.legend()
-# ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-# plt.tight_layout()
-# # plt.show()
-# #
-# # ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s")
-# # ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s")
-#
+# ax1.plot(np.real(z1(x)),np.imag(z1(x)),linestyle="None",marker="s")
+# ax1.plot(np.real(z2(x)),np.imag(z2(x)),linestyle="None",marker="s")
+
 # plt.savefig(r"C:/Users/hyoshida/Desktop/timedep/z_"+str(date)+"_"+str(ver)+".png")
 # plt.clf()
 # plt.close()
-# # plt.show()
+plt.show()
 
 ################### current calculation ###############
 #### dynamical current ####

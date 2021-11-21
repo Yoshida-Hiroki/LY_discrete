@@ -10,19 +10,25 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211121"
-ver = "20"
+ver = "21"
 
 z = Symbol('z')
 
 # transition matrix elements
-r_base = 0.5
-r_coef = 0.4999
-phi_coef = 2.1
-r = lambda x: r_base+r_coef*np.sin(x)
-phi_a = lambda x: np.pi*0.5+np.pi/phi_coef*np.cos(x)
+# r_base = 0.5
+# r_coef = 0.4
+# phi_coef = 4
+# r = lambda x: r_base+r_coef*np.sin(x-np.pi/3)
+# phi_a = lambda x: np.pi*0.5+np.pi/phi_coef*np.cos(x)
+# phi_b = lambda x: phi_a(x)
+
+
+r = lambda x : 1/(np.cos(x)+2)
+phi_a = lambda x : 1/(np.sin(x)+2)
 phi_b = lambda x: phi_a(x)
 
-r_prime = lambda x: r_coef*np.cos(x)
+# r_prime = lambda x: r_coef*np.cos(x)
+r_prime = lambda x: -np.sin(x)/(np.cos(x)+2)**2
 
 a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
 a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
@@ -69,7 +75,7 @@ ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
 ax2 = plt.subplot2grid((2,2),(0,1))
 ax3 = plt.subplot2grid((2,2),(1,1))
 
-ax1.set_title(f"$r={r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.2g}\cos$")
+# ax1.set_title(f"$r={r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.2g}\cos$")
 ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
 ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
 ax1.legend()

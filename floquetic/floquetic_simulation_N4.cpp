@@ -14,15 +14,15 @@ int M = 1000;
 
 int iter = 10000;
 
-string date = "211118";
+string date = "211121";
 string ver = "_1";
 
 double r(double x){
-  return 0.5+1/3*sin(x);
+  return 0.5+sin(x)/3;
 }
 
 double phi(double x){
-  return pi*0.5+pi/3*cos(x);
+  return pi*0.5+(double)pi/3*cos(x);
 }
 
 
@@ -52,7 +52,6 @@ double sign(double x){
 
 int main(){
   clock_t start = clock();
-
   vector<int> J_sim(4*M*N+1);
   vector<double> phi_sim(4*M*N+1);
 
@@ -97,14 +96,6 @@ int main(){
   for(int i = 0; i < 4*M*N+1;i++){
     writing_file << (double)(-2*M*N + i)/(2*M*N) << " " << phi_sim[i] << endl;
   }
-
-  // FILE *gp;
-  // gp = _popen(GNUPLOT_PATH, "w");
-  // fprintf(gp,"set terminal png\n");
-  // fprintf(gp,"set output 'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026.png'\n");
-  // fprintf(gp,"plot [-0.45:0][-0.3:0.05]'C:/Users/hyoshida/Desktop/timedep/time_simulation_211026.dat'\n");
-  // // fprintf(gp,"replot 'C:/Users/hyoshida/Desktop/timedep/time_density_211026.dat' using 2:3 with line lc 2\n");
-  // pclose(gp);
 
   clock_t end = clock();
   cout << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;

@@ -10,14 +10,19 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211121"
-ver = "1"
+ver = "2"
 
 z = Symbol('z')
 
 # transition matrix elements
-r = lambda x: 0.5+1/3*np.sin(x)
-phi_a = lambda x: np.pi*0.5+np.pi/3*np.cos(x)
+r_base = 0.5
+r_coef = 0.499
+phi_coef = 5
+r = lambda x: r_base+r_coef*np.sin(x)
+phi_a = lambda x: np.pi*0.5+np.pi/phi_coef*np.cos(x)
 phi_b = lambda x: phi_a(x)
+
+r_prime = lambda x: r_coef*np.cos(x)
 
 a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
 a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
@@ -26,6 +31,9 @@ b_R = lambda x: 1/2*(1-r(x))*np.cos(phi_b(x)/2)**2
 
 a = lambda x : a_R(x)+a_L(x)
 b = lambda x : b_R(x)+b_L(x)
+
+z1 = lambda x : (-((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))+np.sqrt(((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))**2-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x))
+z2 = lambda x : (-((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))-np.sqrt(((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))**2-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x))
 
 dt = 1
 W = [np.eye(2)]
@@ -50,6 +58,58 @@ z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
 z_disc
 
+############### adiabatic current ################
+j_ad = lambda x : r_prime(x)*np.cos(phi_a(x))/(8*np.pi)
+J_ad = integrate.quad(j_ad,0,2*np.pi)[0]
+
+############### graph plot #######################
+x = np.linspace(0,2*np.pi,1000)
+fig = plt.figure()
+ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
+ax2 = plt.subplot2grid((2,2),(0,1))
+ax3 = plt.subplot2grid((2,2),(1,1))
+
+ax1.set_title(f"$r={r_base:.2f}+{r_coef:.3f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.1g}\cos$")
+ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
+ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
+ax1.legend()
+ax1.set_xlabel(r"$\theta$")
+ax1.set_ylabel("$z$")
+ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+ax1.hlines(0,0,2*np.pi,color="gray")
+
+ax2.set_title(f"$J_ad=${J_ad:.2g}")
+ax2.plot(phi_a(x),r(x))
+ax2.set_xlabel(r"$\phi(\theta)$")
+ax2.set_ylabel(r"$r(\theta)$")
+ax2.set_xlim([0,np.pi])
+ax2.set_xticks([0,np.pi/2,np.pi])
+ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+
+ax3.text(0.1, 1, f"z0={z_disc[0]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.6, 1, f"z1={z_disc[1]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.1, 0.66, f"z2={z_disc[2]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.6, 0.66, f"z3={z_disc[3]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.1, 0.33, f"z4={z_disc[4]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.6, 0.33, f"z5={z_disc[5]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.1, 0, f"z6={z_disc[6]:.3e}" , va="center", ha="center",size=10)
+ax3.text(0.6, 0, f"z7={z_disc[7]:.3e}" , va="center", ha="center",size=10)
+ax3.tick_params(labelbottom=False, labelleft=False)
+ax3.spines['right'].set_visible(False)
+ax3.spines['top'].set_visible(False)
+ax3.spines['bottom'].set_visible(False)
+ax3.spines['left'].set_visible(False)
+ax3.tick_params('x', length=0, which='major')
+ax3.tick_params('y', length=0, which='major')
+
+plt.tight_layout()
+plt.savefig(r"C:/Users/hyoshida/Desktop/floquetic/z_"+str(date)+"_"+str(ver)+".png")
+plt.clf()
+plt.close()
+# plt.show()
+
+################## Trace ############################
 simplify(diff(log(Trace(z))))
 simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,0)
 simplify(Trace(z))
@@ -59,7 +119,8 @@ denom = []
 for i in range(5):
     nume.append(simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,4-i))
     denom.append(simplify(Trace(z)*z**2).coeff(z,4-i))
-sum(denom)
+
+################## file make ##########################
 f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
 f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3])+" "+str(z_disc[4])+" "+str(z_disc[5])+" "+str(z_disc[6])+" "+str(z_disc[7])+" ")
 f_zero.write(str(nume[0])+" "+str(nume[1])+" "+str(0)+" "+str(nume[3])+" "+str(nume[4])+" ")

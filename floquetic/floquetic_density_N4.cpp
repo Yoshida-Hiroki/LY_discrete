@@ -12,7 +12,7 @@ double dt = 1;
 int N = 100;
 
 string date = "211121";
-string ver = "_1";
+string ver = "_2";
 
 //////////////////////////////////////
 vector<double> z_disc(8);
@@ -37,7 +37,7 @@ double rho1(double x){
 
 
 double x1min,x1max,dx1,x2min,x2max,dx2,x3min,x3max,dx3,x4min,x4max,dx4;
-long long partnum1 = 100000000,partnum2 = 100000,partnum3 = 10000,partnum4 = 1000;
+long long partnum1 = 10000000,partnum2 = 1000000,partnum3 = 10000,partnum4 = 1000;
 vector<double> Rho1(partnum1),Rho2(partnum2),Rho3(partnum3),Rho4(partnum4);
 vector<double> J_dat;
 
@@ -112,54 +112,57 @@ int main(){
   x4max = z_disc[7];
   dx4 = (double)(x4max-x4min)/partnum4;
 
+
+
   clock_t start = clock();
 
   for(int j = 0 ;j<partnum1;j++){
     double x1 = x1min + (double)dx1*j;
     Rho1[j] = abs(rho1(x1));
   }
-  // long long s1=0;
-  // for(int i = 0 ; i < partnum1;i++){
-  //   s1 += Rho1[i]*dx1;
-  // }
-  // cout << dx1 << endl;
-  // cout << s1 << endl;
+  long long s1=0;
+  for(int i = 0 ; i < partnum1;i++){
+    s1 += Rho1[i];
+  }
+  cout << dx1 << endl;
+  cout << s1 << endl;
+  cout << s1*dx1 << endl;
 
   for(int j = 0 ;j<partnum2;j++){
     double x2 = x2min + (double)dx2*j;
     Rho2[j] = abs(rho1(x2));
   }
-  // long long s2=0;
-  // for(int i = 0 ; i < partnum2;i++){
-  //   s2 += Rho2[i];
-  // }
-  // cout << dx2 << endl;
-  // cout << s2 << endl;
-  // cout << dx2*s2 << endl;
+  long long s2=0;
+  for(int i = 0 ; i < partnum2;i++){
+    s2 += Rho2[i];
+  }
+  cout << dx2 << endl;
+  cout << s2 << endl;
+  cout << dx2*s2 << endl;
 
   for(int j = 0 ;j<partnum3;j++){
     double x3 = x3min + (double)dx3*j;
     Rho3[j] = abs(rho1(x3));
   }
-  // long long s3=0;
-  // for(int i = 0 ; i < partnum3;i++){
-  //   s3 += Rho3[i];
-  // }
-  // cout << dx3 << endl;
-  // cout << s3 << endl;
-  // cout << dx3*s3 << endl;
+  long long s3=0;
+  for(int i = 0 ; i < partnum3;i++){
+    s3 += Rho3[i];
+  }
+  cout << dx3 << endl;
+  cout << s3 << endl;
+  cout << dx3*s3 << endl;
 
   for(int j = 0 ;j<partnum4;j++){
     double x4 = x4min + (double)dx4*j;
     Rho4[j] = abs(rho1(x4));
   }
-  // long long s4=0;
-  // for(int i = 0 ; i < partnum4;i++){
-  //   s4 += Rho4[i];
-  // }
-  // cout << dx4 << endl;
-  // cout << s4 << endl;
-  // cout << dx4*s4 << endl;
+  long long s4=0;
+  for(int i = 0 ; i < partnum4;i++){
+    s4 += Rho4[i];
+  }
+  cout << dx4 << endl;
+  cout << s4 << endl;
+  cout << dx4*s4 << endl;
 
   clock_t end = clock();
   cout << "Rho : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;

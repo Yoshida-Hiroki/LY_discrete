@@ -10,14 +10,14 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211121"
-ver = "6"
+ver = "7"
 
 z = Symbol('z')
 
 # transition matrix elements
-r_base = 0.5
-r_coef = 0.499
-phi_coef = 2.1
+r_base = 0.2
+r_coef = 0.1
+phi_coef = 5
 r = lambda x: r_base+r_coef*np.sin(x)
 phi_a = lambda x: np.pi*0.5+np.pi/phi_coef*np.cos(x)
 phi_b = lambda x: phi_a(x)
@@ -84,6 +84,7 @@ ax2.plot(phi_a(x),r(x))
 ax2.set_xlabel(r"$\phi(\theta)$")
 ax2.set_ylabel(r"$r(\theta)$")
 ax2.set_xlim([0,np.pi])
+ax2.set_ylim([0,1])
 ax2.set_xticks([0,np.pi/2,np.pi])
 ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
 

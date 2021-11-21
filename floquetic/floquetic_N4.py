@@ -10,12 +10,12 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211121"
-ver = "8"
+ver = "9"
 
 z = Symbol('z')
 
 # transition matrix elements
-r_base = 0.3
+r_base = 0.5
 r_coef = 0.1
 phi_coef = 5
 r = lambda x: r_base+r_coef*np.sin(x)

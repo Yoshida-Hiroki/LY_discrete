@@ -10,13 +10,13 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211121"
-ver = "15"
+ver = "16"
 
 z = Symbol('z')
 
 # transition matrix elements
 r_base = 0.5
-r_coef = 0.499
+r_coef = 0.4999
 phi_coef = 5
 r = lambda x: r_base+r_coef*np.sin(x)
 phi_a = lambda x: np.pi*0.5+np.pi/phi_coef*np.cos(x)
@@ -69,7 +69,7 @@ ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
 ax2 = plt.subplot2grid((2,2),(0,1))
 ax3 = plt.subplot2grid((2,2),(1,1))
 
-ax1.set_title(f"$r={r_base:.2f}+{r_coef:.3f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.2g}\cos$")
+ax1.set_title(f"$r={r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.2g}\cos$")
 ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
 ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
 ax1.legend()

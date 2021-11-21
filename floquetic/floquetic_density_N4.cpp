@@ -12,7 +12,7 @@ double dt = 1;
 int N = 100;
 
 string date = "211121";
-string ver = "_2";
+string ver = "_3";
 
 //////////////////////////////////////
 vector<double> z_disc(8);

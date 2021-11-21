@@ -9,7 +9,7 @@ import time
 
 
 type = r"\floquetic_N4_zeros"
-date = "211118"
+date = "211121"
 ver = "1"
 
 z = Symbol('z')
@@ -53,7 +53,7 @@ z_disc
 simplify(diff(log(Trace(z))))
 simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,0)
 simplify(Trace(z))
-R(1)
+
 nume = []
 denom = []
 for i in range(5):

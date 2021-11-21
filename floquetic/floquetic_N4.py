@@ -10,14 +10,14 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211121"
-ver = "2"
+ver = "1"
 
 z = Symbol('z')
 
 # transition matrix elements
 r_base = 0.5
 r_coef = 0.499
-phi_coef = 5
+phi_coef = 100
 r = lambda x: r_base+r_coef*np.sin(x)
 phi_a = lambda x: np.pi*0.5+np.pi/phi_coef*np.cos(x)
 phi_b = lambda x: phi_a(x)
@@ -79,7 +79,7 @@ ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
 ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
 ax1.hlines(0,0,2*np.pi,color="gray")
 
-ax2.set_title(f"$J_ad=${J_ad:.2g}")
+ax2.set_title(f"$J_{{ad}}=${J_ad:.2g}")
 ax2.plot(phi_a(x),r(x))
 ax2.set_xlabel(r"$\phi(\theta)$")
 ax2.set_ylabel(r"$r(\theta)$")
@@ -104,28 +104,28 @@ ax3.tick_params('x', length=0, which='major')
 ax3.tick_params('y', length=0, which='major')
 
 plt.tight_layout()
-plt.savefig(r"C:/Users/hyoshida/Desktop/floquetic/z_"+str(date)+"_"+str(ver)+".png")
+plt.savefig(r"C:/Users/hyoshida/Desktop/floquetic/z_protocol_"+str(date)+"_"+str(ver)+".png")
 plt.clf()
 plt.close()
 # plt.show()
 
-################## Trace ############################
-simplify(diff(log(Trace(z))))
-simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,0)
-simplify(Trace(z))
-
-nume = []
-denom = []
-for i in range(5):
-    nume.append(simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,4-i))
-    denom.append(simplify(Trace(z)*z**2).coeff(z,4-i))
-
-################## file make ##########################
-f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
-f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3])+" "+str(z_disc[4])+" "+str(z_disc[5])+" "+str(z_disc[6])+" "+str(z_disc[7])+" ")
-f_zero.write(str(nume[0])+" "+str(nume[1])+" "+str(0)+" "+str(nume[3])+" "+str(nume[4])+" ")
-f_zero.write(str(denom[0])+" "+str(denom[1])+" "+str(denom[2])+" "+str(denom[3])+" "+str(denom[4]))
-f_zero.close()
+# ################## Trace ############################
+# simplify(diff(log(Trace(z))))
+# simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,0)
+# simplify(Trace(z))
+#
+# nume = []
+# denom = []
+# for i in range(5):
+#     nume.append(simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,4-i))
+#     denom.append(simplify(Trace(z)*z**2).coeff(z,4-i))
+#
+# ################## file make ##########################
+# f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
+# f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3])+" "+str(z_disc[4])+" "+str(z_disc[5])+" "+str(z_disc[6])+" "+str(z_disc[7])+" ")
+# f_zero.write(str(nume[0])+" "+str(nume[1])+" "+str(0)+" "+str(nume[3])+" "+str(nume[4])+" ")
+# f_zero.write(str(denom[0])+" "+str(denom[1])+" "+str(denom[2])+" "+str(denom[3])+" "+str(denom[4]))
+# f_zero.close()
 
 
 # def R(x):

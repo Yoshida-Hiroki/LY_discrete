@@ -28,7 +28,7 @@ phi_a = lambda x : 1.4*np.pi/(np.sin(x)+2)-0.45*np.pi
 phi_b = lambda x: phi_a(x)
 
 # r_prime = lambda x: r_coef*np.cos(x)
-r_prime = lambda x: -np.sin(x)/(np.cos(x)+2)**2
+r_prime = lambda x: -1.4*np.sin(x)/(np.cos(x)+2)**2
 
 a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
 a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2

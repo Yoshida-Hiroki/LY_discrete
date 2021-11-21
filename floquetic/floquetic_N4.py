@@ -10,7 +10,7 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211121"
-ver = "21"
+ver = "22"
 
 z = Symbol('z')
 
@@ -23,8 +23,8 @@ z = Symbol('z')
 # phi_b = lambda x: phi_a(x)
 
 
-r = lambda x : 1/(np.cos(x)+2)
-phi_a = lambda x : 1/(np.sin(x)+2)
+r = lambda x : 1.4/(np.cos(x)+2)-0.4
+phi_a = lambda x : 1.4*np.pi/(np.sin(x)+2)-0.45*np.pi
 phi_b = lambda x: phi_a(x)
 
 # r_prime = lambda x: r_coef*np.cos(x)
@@ -60,9 +60,9 @@ Det = lambda z : U_4(z)[0][0]*U_4(z)[1][1]-U_4(z)[0][1]*U_4(z)[1][0]
 
 z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
 
+z_disc
 z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
-z_disc
 
 ############### adiabatic current ################
 j_ad = lambda x : r_prime(x)*np.cos(phi_a(x))/(8*np.pi)

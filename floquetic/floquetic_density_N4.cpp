@@ -195,29 +195,29 @@ int main(){
   end = clock();
   cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
-  // ////////////// rho plot //////////////////
-  // path = "C:/Users/hyoshida/Desktop/floquetic/";
-  // ext = ".dat";
-  // filename = path + "rho_"+date+ver + ext;
-  // ofstream writing_file2;
-  // writing_file2.open(filename, ios::out);
-  //
-  // for(int l = 0 ; l < partnum1;l++){
-  //   double x1 = x1min + (double)dx1*l;
-  //   writing_file2 << x1 << " "<< Rho1[l] << endl;
-  // }
-  // for(int l = 0 ; l < partnum2;l++){
-  //   double x2 = x2min + (double)dx2*l;
-  //   writing_file2 << x2 << " "<< Rho2[l] << endl;
-  // }
-  // for(int l = 0 ; l < partnum3;l++){
-  //   double x3 = x3min + (double)dx3*l;
-  //   writing_file2 << x3 << " "<< Rho3[l] << endl;
-  // }
-  // for(int l = 0 ; l < partnum4;l++){
-  //   double x4 = x4min + (double)dx4*l;
-  //   writing_file2 << x4 << " "<< Rho4[l] << endl;
-  // }
+  ////////////// rho plot //////////////////
+  path = "C:/Users/hyoshida/Desktop/floquetic/";
+  ext = ".dat";
+  filename = path + "rho_"+date+ver + ext;
+  ofstream writing_file2;
+  writing_file2.open(filename, ios::out);
+
+  for(int l = 0 ; l < partnum1;l++){
+    double x1 = x1min + (double)dx1*l;
+    writing_file2 << x1 << " "<< Rho1[l] << endl;
+  }
+  for(int l = 0 ; l < partnum2;l++){
+    double x2 = x2min + (double)dx2*l;
+    writing_file2 << x2 << " "<< Rho2[l] << endl;
+  }
+  for(int l = 0 ; l < partnum3;l++){
+    double x3 = x3min + (double)dx3*l;
+    writing_file2 << x3 << " "<< Rho3[l] << endl;
+  }
+  for(int l = 0 ; l < partnum4;l++){
+    double x4 = x4min + (double)dx4*l;
+    writing_file2 << x4 << " "<< Rho4[l] << endl;
+  }
 
   Beep(750,200);
 }

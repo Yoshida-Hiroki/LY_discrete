@@ -116,17 +116,17 @@ int main(){
 
   clock_t start = clock();
 
-  for(int j = 0 ;j<partnum1;j++){
-    double x1 = x1min + (double)dx1*j;
-    Rho1[j] = abs(rho1(x1));
-  }
-  long long s1=0;
-  for(int i = 0 ; i < partnum1;i++){
-    s1 += Rho1[i];
-  }
-  cout << dx1 << endl;
-  cout << s1 << endl;
-  cout << s1*dx1 << endl;
+  // for(int j = 0 ;j<partnum1;j++){
+  //   double x1 = x1min + (double)dx1*j;
+  //   Rho1[j] = abs(rho1(x1));
+  // }
+  // long long s1=0;
+  // for(int i = 0 ; i < partnum1;i++){
+  //   s1 += Rho1[i];
+  // }
+  // cout << dx1 << endl;
+  // cout << s1 << endl;
+  // cout << s1*dx1 << endl;
 
   for(int j = 0 ;j<partnum2;j++){
     double x2 = x2min + (double)dx2*j;
@@ -169,43 +169,43 @@ int main(){
 
 
 
-  start = clock();
-  //////////// J-phi(J) plot ////////////////////
+  // start = clock();
+  // //////////// J-phi(J) plot ////////////////////
   string path = "C:/Users/hyoshida/Desktop/floquetic/";
   string ext = ".dat";
   string filename = path + "phi_"+date+ver + ext;
-  ofstream writing_file;
-  writing_file.open(filename, ios::out);
-
-  double chi_min = -4;
-  double chi_max = 5;
-  int chi_part = 500;
-  for(int j = 0 ; j < chi_part;j++){
-    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*j;
-    J_dat.push_back(J(exp(chi)));
-  }
-  end = clock();
-  cout << "J : "<<(double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-
-  start = clock();
-  for(int k = 0 ; k < chi_part ; k++){
-    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
-    writing_file << exp(chi) << " "<< J_dat[k] << " " << phi(exp(chi),k) << endl;
-  }
-  end = clock();
-  cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+  // ofstream writing_file;
+  // writing_file.open(filename, ios::out);
+  //
+  // double chi_min = -4;
+  // double chi_max = 5;
+  // int chi_part = 500;
+  // for(int j = 0 ; j < chi_part;j++){
+  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*j;
+  //   J_dat.push_back(J(exp(chi)));
+  // }
+  // end = clock();
+  // cout << "J : "<<(double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+  //
+  // start = clock();
+  // for(int k = 0 ; k < chi_part ; k++){
+  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
+  //   writing_file << exp(chi) << " "<< J_dat[k] << " " << phi(exp(chi),k) << endl;
+  // }
+  // end = clock();
+  // cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
   ////////////// rho plot //////////////////
   path = "C:/Users/hyoshida/Desktop/floquetic/";
-  ext = ".dat";
+  ext = "_2.dat";
   filename = path + "rho_"+date+ver + ext;
   ofstream writing_file2;
   writing_file2.open(filename, ios::out);
 
-  for(int l = 0 ; l < partnum1;l++){
-    double x1 = x1min + (double)dx1*l;
-    writing_file2 << x1 << " "<< Rho1[l] << endl;
-  }
+  // for(int l = 0 ; l < partnum1;l++){
+  //   double x1 = x1min + (double)dx1*l;
+  //   writing_file2 << x1 << " "<< Rho1[l] << endl;
+  // }
   for(int l = 0 ; l < partnum2;l++){
     double x2 = x2min + (double)dx2*l;
     writing_file2 << x2 << " "<< Rho2[l] << endl;

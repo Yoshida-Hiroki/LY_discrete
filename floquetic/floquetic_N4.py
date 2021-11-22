@@ -10,14 +10,14 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211122"
-ver = "2"
+ver = "3"
 
 z = Symbol('z')
 
 # transition matrix elements
 r_base = 0.9
 r_coef = 0
-phi_coef = 3.42
+phi_coef = 3.58
 r = lambda x: r_base+r_coef*np.sin(x)
 phi_a = lambda x: 2/3*np.pi+np.pi/phi_coef*np.cos(x)
 phi_b = lambda x: 1/3*np.pi+np.pi/phi_coef*np.cos(x)
@@ -52,18 +52,19 @@ Det = lambda z : U_4(z)[0][0]*U_4(z)[1][1]-U_4(z)[0][1]*U_4(z)[1][0]
 # z_1 = list(solveset(np.trace(W_1(z))**2-4*(W_1(z)[0][0]*W_1(z)[1][1]-W_1(z)[0][1]*W_1(z)[1][0]),z))
 # z_2 = list(solveset(np.trace(W_2(z))**2-4*(W_2(z)[0][0]*W_2(z)[1][1]-W_2(z)[0][1]*W_2(z)[1][0]),z))
 
-# z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
-# simplify((Trace(z)**2-4*Det(z))*z**4)
+z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
+# simplify((Trace(z)**2-4*Det(z)))
 # simplify(Trace(z))
 # simplify(Det(z))
 
-coeff = [0]*9
-for i in range(9):
-    coeff[i] = simplify((Trace(z)**2-4*Det(z))*z**4).coeff(z,8-i)
-z_disc = np.roots(coeff)
+# coeff = [0]*9
+# for i in range(9):
+#     coeff[i] = simplify((Trace(z)**2-4*Det(z))*z**4).coeff(z,8-i)
+# z_disc = np.roots(coeff)
 
-# z_disc = np.array(z_disc)
-# z_disc = z_disc.astype(np.float64)
+z_disc = np.array(z_disc)
+z_disc = z_disc.astype(np.float64)
+z_disc = np.append(z_disc,0)
 z_disc
 
 ############### adiabatic current ################
@@ -80,7 +81,7 @@ ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
 ax2 = plt.subplot2grid((2,2),(0,1))
 ax3 = plt.subplot2grid((2,2),(1,1))
 
-ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=2\pi/3+$"+f"$\pi/{phi_coef:.2g}\cos$"+"\n"+r"$\phi_b=\pi/3+$"+f"$\pi/{phi_coef:.2g}\cos$")
+ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=2\pi/3+$"+f"$\pi/{phi_coef:.3g}\cos$"+"\n"+r"$\phi_b=\pi/3+$"+f"$\pi/{phi_coef:.3g}\cos$")
 ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
 ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
 ax1.legend()

@@ -9,18 +9,18 @@ import time
 
 
 type = r"\floquetic_N4_zeros"
-date = "211121"
-ver = "3"
+date = "211122"
+ver = "1"
 
 z = Symbol('z')
 
 # transition matrix elements
 r_base = 0.5
-r_coef = 0.4999
-phi_coef = 10
+r_coef = 0
+phi_coef = 3.5
 r = lambda x: r_base+r_coef*np.sin(x)
-phi_a = lambda x: np.pi*0.5+np.pi/phi_coef*np.cos(x)
-phi_b = lambda x: phi_a(x)
+phi_a = lambda x: 2/3*np.pi+np.pi/phi_coef*np.cos(x)
+phi_b = lambda x: 1/3*np.pi+np.pi/phi_coef*np.cos(x)
 
 r_prime = lambda x: r_coef*np.cos(x)
 
@@ -53,12 +53,20 @@ Det = lambda z : U_4(z)[0][0]*U_4(z)[1][1]-U_4(z)[0][1]*U_4(z)[1][0]
 # z_2 = list(solveset(np.trace(W_2(z))**2-4*(W_2(z)[0][0]*W_2(z)[1][1]-W_2(z)[0][1]*W_2(z)[1][0]),z))
 
 z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
+# simplify((Trace(z)**2-4*Det(z))*z**4)
+coeff = [0]*9
+for i in range(9):
+    coeff[i] = simplify((Trace(z)**2-4*Det(z))*z**4).coeff(z,8-i)
+z_disc = np.roots(coeff)
 
-z_disc = np.array(z_disc)
-z_disc = z_disc.astype(np.float64)
+# z_disc = np.array(z_disc)
+# z_disc = z_disc.astype(np.float64)
 z_disc
 
 ############### adiabatic current ################
+j_d = lambda x : (1-r(x)**2)/(16*np.pi)*(np.cos(phi_a(x))-np.cos(phi_b(x)))
+J_d = integrate.quad(j_d,0,2*np.pi)[0]
+
 j_ad = lambda x : r_prime(x)*np.cos(phi_a(x))/(8*np.pi)
 J_ad = integrate.quad(j_ad,0,2*np.pi)[0]
 
@@ -69,7 +77,7 @@ ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
 ax2 = plt.subplot2grid((2,2),(0,1))
 ax3 = plt.subplot2grid((2,2),(1,1))
 
-ax1.set_title(f"$r={r_base:.2f}+{r_coef:.3f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.1g}\cos$")
+ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=2\pi/3+$"+f"$\pi/{phi_coef:.2g}\cos$"+"\n"+r"$\phi_b=\pi/3+$"+f"$\pi/{phi_coef:.2g}\cos$")
 ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
 ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
 ax1.legend()
@@ -79,22 +87,33 @@ ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
 ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
 ax1.hlines(0,0,2*np.pi,color="gray")
 
-ax2.set_title(f"$J_ad=${J_ad:.2g}")
-ax2.plot(phi_a(x),r(x))
-ax2.set_xlabel(r"$\phi(\theta)$")
-ax2.set_ylabel(r"$r(\theta)$")
-ax2.set_xlim([0,np.pi])
-ax2.set_xticks([0,np.pi/2,np.pi])
-ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+ax2.set_title(f"$J_d=${J_d:.2g}"+"\n"+f"$J_{{ad}}=${J_ad:.2g}")
+########### r-phi ################
+# ax2.plot(phi_a(x),r(x))
+# ax2.set_xlabel(r"$\phi(\theta)$")
+# ax2.set_ylabel(r"$r(\theta)$")
+# ax2.set_xlim([0,np.pi])
+# ax2.set_xticks([0,np.pi/2,np.pi])
+# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
 
-ax3.text(0.1, 1, f"z0={z_disc[0]:.3f}" , va="center", ha="center",size=10)
-ax3.text(0.6, 1, f"z1={z_disc[1]:.3f}" , va="center", ha="center",size=10)
+############ affinity #############
+# ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
+ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
+ax2.set_ylim([-5,5])
+ax2.set_xlabel(r"$\theta$")
+ax2.legend()
+ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+
+
+ax3.text(0.1, 1, f"z0={z_disc[0]:.2e}" , va="center", ha="center",size=10)
+ax3.text(0.6, 1, f"z1={z_disc[1]:.2e}" , va="center", ha="center",size=10)
 ax3.text(0.1, 0.66, f"z2={z_disc[2]:.3f}" , va="center", ha="center",size=10)
 ax3.text(0.6, 0.66, f"z3={z_disc[3]:.3f}" , va="center", ha="center",size=10)
 ax3.text(0.1, 0.33, f"z4={z_disc[4]:.3f}" , va="center", ha="center",size=10)
 ax3.text(0.6, 0.33, f"z5={z_disc[5]:.3f}" , va="center", ha="center",size=10)
-ax3.text(0.1, 0, f"z6={z_disc[6]:.3e}" , va="center", ha="center",size=10)
-ax3.text(0.6, 0, f"z7={z_disc[7]:.3e}" , va="center", ha="center",size=10)
+ax3.text(0.1, 0, f"z6={z_disc[6]:.2e}" , va="center", ha="center",size=10)
+ax3.text(0.6, 0, f"z7={z_disc[7]:.2e}" , va="center", ha="center",size=10)
 ax3.tick_params(labelbottom=False, labelleft=False)
 ax3.spines['right'].set_visible(False)
 ax3.spines['top'].set_visible(False)
@@ -110,9 +129,9 @@ plt.close()
 # plt.show()
 
 ################## Trace ############################
-simplify(diff(log(Trace(z))))
-simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,0)
-simplify(Trace(z))
+# simplify(diff(log(Trace(z))))
+# simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,0)
+# simplify(Trace(z))
 
 nume = []
 denom = []

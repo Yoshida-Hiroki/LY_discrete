@@ -14,29 +14,33 @@ int M = 1000;
 
 int iter = 10000;
 
-string date = "211121";
-string ver = "_3";
+string date = "211122";
+string ver = "_1";
 
 double r(double x){
-  return 0.5+sin(x)*0.4999;
+  return 0.5;
 }
 
-double phi(double x){
-  return pi*0.5+(double)pi/10*cos(x);
+double phi_a(double x){
+  return pi*0.6666+(double)pi/3.5*cos(x);
+}
+
+double phi_b(double x){
+  return pi*0.3333+(double)pi/3.5*cos(x);
 }
 
 
 double a_L(double x){
-  return 0.5*(1+r(x))*pow(sin(phi(x)/2),2.0);
+  return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
 }
 double a_R(double x){
-  return 0.5*(1+r(x))*pow(cos(phi(x)/2),2.0);
+  return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
 }
 double b_L(double x){
-  return 0.5*(1-r(x))*pow(sin(phi(x)/2),2.0);
+  return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
 }
 double b_R(double x){
-  return 0.5*(1-r(x))*pow(cos(phi(x)/2),2.0);
+  return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
 }
 double a(double x){
   return a_R(x)+a_L(x);

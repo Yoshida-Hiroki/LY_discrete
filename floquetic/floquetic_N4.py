@@ -10,14 +10,14 @@ import time
 
 type = r"\floquetic_N4_zeros"
 date = "211122"
-ver = "1"
+ver = "2"
 
 z = Symbol('z')
 
 # transition matrix elements
-r_base = 0.5
+r_base = 0.9
 r_coef = 0
-phi_coef = 3.5
+phi_coef = 3.42
 r = lambda x: r_base+r_coef*np.sin(x)
 phi_a = lambda x: 2/3*np.pi+np.pi/phi_coef*np.cos(x)
 phi_b = lambda x: 1/3*np.pi+np.pi/phi_coef*np.cos(x)
@@ -52,8 +52,11 @@ Det = lambda z : U_4(z)[0][0]*U_4(z)[1][1]-U_4(z)[0][1]*U_4(z)[1][0]
 # z_1 = list(solveset(np.trace(W_1(z))**2-4*(W_1(z)[0][0]*W_1(z)[1][1]-W_1(z)[0][1]*W_1(z)[1][0]),z))
 # z_2 = list(solveset(np.trace(W_2(z))**2-4*(W_2(z)[0][0]*W_2(z)[1][1]-W_2(z)[0][1]*W_2(z)[1][0]),z))
 
-z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
+# z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
 # simplify((Trace(z)**2-4*Det(z))*z**4)
+# simplify(Trace(z))
+# simplify(Det(z))
+
 coeff = [0]*9
 for i in range(9):
     coeff[i] = simplify((Trace(z)**2-4*Det(z))*z**4).coeff(z,8-i)

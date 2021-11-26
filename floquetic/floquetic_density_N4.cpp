@@ -12,7 +12,7 @@ double dt = 1;
 int N = 100;
 
 string date = "211126";
-string ver = "_1";
+string ver = "_2";
 
 //////////////////////////////////////
 vector<double> z_disc(8);
@@ -45,7 +45,7 @@ double rhog(double x){
 
 
 double x1min,x1max,dx1,x2min,x2max,dx2,x3min,x3max,dx3,x4min,x4max,dx4;
-long long partnum1 = 10000000,partnum2 = 10000000,partnum3 = 100000,partnum4 = 100000;
+long long partnum1 = 100000000,partnum2 = 1000000,partnum3 = 100000,partnum4 = 10000;
 vector<double> Rho1(partnum1),Rho2(partnum2),Rho3(partnum3),Rho4(partnum4);
 vector<double> Rhod1(partnum1),Rhod2(partnum2),Rhod3(partnum3),Rhod4(partnum4);
 vector<double> Rhog1(partnum1),Rhog2(partnum2),Rhog3(partnum3),Rhog4(partnum4);
@@ -121,7 +121,7 @@ double Jg(double z){
     double temp = (double)dx4*Rhog4[i]*z/(z-x4);
     integ += (temp==temp) ? temp : 0;
   }
-  return 0.5*integ -2.0;
+  return 0.5*integ;
 }
 
 double phi(double z,int j){
@@ -261,29 +261,33 @@ int main(){
   // end = clock();
   // cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
+  start = clock();
   ////////////// rho plot //////////////////
-  // path = "C:/Users/hyoshida/Desktop/floquetic/";
-  // ext = ".dat";
-  // filename = path + "rho_"+date+ver + ext;
-  // ofstream writing_file2;
-  // writing_file2.open(filename, ios::out);
-  //
-  // for(int l = 0 ; l < partnum1;l++){
-  //   double x1 = x1min + (double)dx1*l;
-  //   writing_file2 << x1 << " "<< Rho1[l] << " "<< Rhod1[l] << " "<< Rhog1[l] << endl;
-  // }
-  // for(int l = 0 ; l < partnum2;l++){
-  //   double x2 = x2min + (double)dx2*l;
-  //   writing_file2 << x2 << " "<< Rho2[l] << " "<< Rhod2[l] << " "<< Rhog2[l] << endl;
-  // }
-  // for(int l = 0 ; l < partnum3;l++){
-  //   double x3 = x3min + (double)dx3*l;
-  //   writing_file2 << x3 << " "<< Rho3[l] << " "<< Rhod3[l] << " "<< Rhog3[l] << endl;
-  // }
-  // for(int l = 0 ; l < partnum4;l++){
-  //   double x4 = x4min + (double)dx4*l;
-  //   writing_file2 << x4 << " "<< Rho4[l] << " "<< Rhod4[l] << " "<< Rhog4[l] << endl;
-  // }
+  path = "C:/Users/hyoshida/Desktop/floquetic/";
+  ext = ".dat";
+  filename = path + "rho_"+date+ver + ext;
+  ofstream writing_file2;
+  writing_file2.open(filename, ios::out);
+
+  for(int l = 0 ; l < partnum1;l++){
+    double x1 = x1min + (double)dx1*l;
+    writing_file2 << x1 << " "<< Rho1[l] << " "<< Rhod1[l] << " "<< Rhog1[l] << endl;
+  }
+  for(int l = 0 ; l < partnum2;l++){
+    double x2 = x2min + (double)dx2*l;
+    writing_file2 << x2 << " "<< Rho2[l] << " "<< Rhod2[l] << " "<< Rhog2[l] << endl;
+  }
+  for(int l = 0 ; l < partnum3;l++){
+    double x3 = x3min + (double)dx3*l;
+    writing_file2 << x3 << " "<< Rho3[l] << " "<< Rhod3[l] << " "<< Rhog3[l] << endl;
+  }
+  for(int l = 0 ; l < partnum4;l++){
+    double x4 = x4min + (double)dx4*l;
+    writing_file2 << x4 << " "<< Rho4[l] << " "<< Rhod4[l] << " "<< Rhog4[l] << endl;
+  }
+  end = clock();
+  cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+
 
   cout << J(1) << endl;
   cout << Jd(1) << endl;

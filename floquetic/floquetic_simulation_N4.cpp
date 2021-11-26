@@ -14,19 +14,19 @@ int M = 1000;
 
 int iter = 10000;
 
-string date = "211122";
-string ver = "_3";
+string date = "211126";
+string ver = "_2";
 
 double r(double x){
-  return 0.9;
+  return 0.01;
 }
 
 double phi_a(double x){
-  return pi*0.6666+(double)pi/3.58*cos(x);
+  return pi*0.75+(double)pi/4.01*cos(x);
 }
 
 double phi_b(double x){
-  return pi*0.3333+(double)pi/3.58*cos(x);
+  return pi*0.5+(double)pi/2.005*cos(x);
 }
 
 

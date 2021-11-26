@@ -1,12 +1,18 @@
 ################# rho plot ####################
-set xrange [-5:0]
-set yrange [-0.01:2000]
+set xrange [1.0e-3:1]
+set yrange [-0.1:10]
 set xzeroaxis
 set yzeroaxis
+# set logscale xy
+# set format y "%1.1e"
 set xlabel 'z'
 set ylabel '{/Symbol-Oblique r}(z)'
-plot 'C:/Users/hyoshida/Desktop/floquetic/rho_211121_3_2.dat'
-set output "C:/Users/hyoshida/Desktop/floquetic/rho_211121_3_2.png"
+plot 'C:/Users/hyoshida/Desktop/floquetic/rho_211126_1.dat' u (abs($1)):($2) title "rho"
+replot 'C:/Users/hyoshida/Desktop/floquetic/rho_211126_1.dat' u (abs($1)):($3) title "rho_d"
+replot 'C:/Users/hyoshida/Desktop/floquetic/rho_211126_1.dat' u (abs($1)):($4) title "rho_g"
+set output "C:/Users/hyoshida/Desktop/floquetic/rho_211126_1.png"
 set terminal png
 set term png enhanced
 replot
+unset logscale xy
+unset format

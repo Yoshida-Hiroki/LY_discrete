@@ -9,18 +9,18 @@ import time
 
 
 type = r"\floquetic_N4_zeros"
-date = "211122"
-ver = "3"
+date = "211126"
+ver = "1"
 
 z = Symbol('z')
 
 # transition matrix elements
-r_base = 0.9
+r_base = 0.2
 r_coef = 0
-phi_coef = 3.58
+phi_coef = 100
 r = lambda x: r_base+r_coef*np.sin(x)
-phi_a = lambda x: 2/3*np.pi+np.pi/phi_coef*np.cos(x)
-phi_b = lambda x: 1/3*np.pi+np.pi/phi_coef*np.cos(x)
+phi_a = lambda x: 1/2*np.pi+np.pi/phi_coef*np.cos(x)
+phi_b = lambda x: 1/5*np.pi+np.pi/phi_coef*np.cos(x)
 
 r_prime = lambda x: r_coef*np.cos(x)
 
@@ -52,19 +52,19 @@ Det = lambda z : U_4(z)[0][0]*U_4(z)[1][1]-U_4(z)[0][1]*U_4(z)[1][0]
 # z_1 = list(solveset(np.trace(W_1(z))**2-4*(W_1(z)[0][0]*W_1(z)[1][1]-W_1(z)[0][1]*W_1(z)[1][0]),z))
 # z_2 = list(solveset(np.trace(W_2(z))**2-4*(W_2(z)[0][0]*W_2(z)[1][1]-W_2(z)[0][1]*W_2(z)[1][0]),z))
 
-z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
+# z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
 # simplify((Trace(z)**2-4*Det(z)))
 # simplify(Trace(z))
 # simplify(Det(z))
 
-# coeff = [0]*9
-# for i in range(9):
-#     coeff[i] = simplify((Trace(z)**2-4*Det(z))*z**4).coeff(z,8-i)
-# z_disc = np.roots(coeff)
+coeff = [0]*9
+for i in range(9):
+    coeff[i] = simplify((Trace(z)**2-4*Det(z))*z**4).coeff(z,8-i)
+z_disc = np.roots(coeff)
 
 z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
-z_disc = np.append(z_disc,0)
+# z_disc = np.append(z_disc,0)
 z_disc
 
 ############### adiabatic current ################
@@ -74,6 +74,8 @@ J_d = integrate.quad(j_d,0,2*np.pi)[0]
 j_ad = lambda x : r_prime(x)*np.cos(phi_a(x))/(8*np.pi)
 J_ad = integrate.quad(j_ad,0,2*np.pi)[0]
 
+J_d
+J_ad
 ############### graph plot #######################
 x = np.linspace(0,2*np.pi,1000)
 fig = plt.figure()

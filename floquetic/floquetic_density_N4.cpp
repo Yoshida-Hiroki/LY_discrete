@@ -28,7 +28,7 @@ double R(double x){
 }
 
 double root(double x){
-  return sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])*(x-z_disc[4])*(x-z_disc[5])*(x-z_disc[6])*(x-z_disc[7])/(pow(x,2.0)*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3])*(1-z_disc[4])*(1-z_disc[5])*(1-z_disc[6])*(1-z_disc[7])));
+  return sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])*(x-z_disc[4])*(x-z_disc[5])*(x-z_disc[6])*(x-z_disc[7])/(pow(x,4.0)*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3])*(1-z_disc[4])*(1-z_disc[5])*(1-z_disc[6])*(1-z_disc[7])));
 }
 
 double rho1(double x){

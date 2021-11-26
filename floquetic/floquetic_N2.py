@@ -9,44 +9,35 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211117"
-ver = "3"
+date = "211126"
+ver = "N2_1"
 
 z = Symbol('z')
 
-# # transition matrix elements
-# r = lambda x: np.pi/100*np.sin(x)
-# phi_a = lambda x: np.pi*3/4+np.pi/10*np.cos(x)
-# phi_b = lambda x: np.pi/4+np.pi/10*np.sin(x)
-#
-a1_L = lambda x: 0.4
-a1_R = lambda x: 0.1
-b1_L = lambda x: 0.2
-b1_R = lambda x: 0.3
+r_base = 0.01
+r_coef = 0
+phi_coef = 4.01
+r = lambda x: r_base+r_coef*np.sin(x)
+phi_a = lambda x: 3/4*np.pi+np.pi/phi_coef*np.cos(x)
+phi_b = lambda x: 1/2*np.pi+2*np.pi/phi_coef*np.sin(x)
 
-a1 = lambda x : a1_R(x)+a1_L(x)
-b1 = lambda x : b1_R(x)+b1_L(x)
+r_prime = lambda x: r_coef*np.cos(x)
 
-a2_L = lambda x: 0.3
-a2_R = lambda x: 0.4
-b2_L = lambda x: 0.2
-b2_R = lambda x: 0.1
+a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
+a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
+b_L = lambda x: 1/2*(1-r(x))*np.sin(phi_b(x)/2)**2
+b_R = lambda x: 1/2*(1-r(x))*np.cos(phi_b(x)/2)**2
 
-a2 = lambda x : a2_R(x)+a2_L(x)
-b2 = lambda x : b2_R(x)+b2_L(x)
+a = lambda x : a_R(x)+a_L(x)
+b = lambda x : b_R(x)+b_L(x)
 
-# N = 1
-# M = 10
-# iter = M*N
 dt = 1
 W = [np.eye(2)]
 V1 = np.array([[0,1],[0,0]])
 V2 = np.array([[0,0],[1,0]])
 
-theta = np.pi
-
-W_1 = lambda z : np.array([[1-b1(theta)*dt,a1_L(theta)*dt+a1_R(theta)*dt*z],[b1_L(theta)*dt+b1_R(theta)*dt/z,1-a1(theta)*dt]])
-W_2 = lambda z : np.array([[1-b2(theta)*dt,a2_L(theta)*dt+a2_R(theta)*dt*z],[b2_L(theta)*dt+b2_R(theta)*dt/z,1-a2(theta)*dt]])
+W_1 = lambda z : np.array([[1-b(0)*dt,a_L(0)*dt+a_R(0)*dt*z],[b_L(0)*dt+b_R(0)*dt/z,1-a(0)*dt]])
+W_2 = lambda z : np.array([[1-b(np.pi)*dt,a_L(np.pi)*dt+a_R(np.pi)*dt*z],[b_L(np.pi)*dt+b_R(np.pi)*dt/z,1-a(np.pi)*dt]])
 
 U_2 = lambda z : np.dot(W_2(z),W_1(z))
 
@@ -57,47 +48,71 @@ z_2 = list(solveset(np.trace(W_2(z))**2-4*(W_2(z)[0][0]*W_2(z)[1][1]-W_2(z)[0][1
 
 z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
 
-z_1
-z_2
-z_disc = np.array(z_disc)
-z_disc = z_disc.astype(np.float64)
-z_disc
-Trace(0.1)
-f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
-f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3]))
-f_zero.close()
-def R(x):
-    # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
-    return np.abs(Trace(1)-2)/Trace(x)
-R(1)
-def root(x):
-    return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
-root(-0.1)
-def rho(x):
-    temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-2*(a1_R(theta)*b2_L(theta)+a2_R(theta)*b1_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*dt**2/Trace(x))
-    if (np.imag(temp)!=0):
-        # return str(nan)
-        return 0
-    else:
-        return np.abs(temp)
-rho(-0.5)
-N=100000
-dx = 0.00001
-Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)
-Z2 = np.linspace(z_disc[2]-dx,z_disc[3]+dx,N)
-Rho = []
-for z in Z1:
-    Rho.append(rho(z))
-# sum(Rho)*(Z1[1]-Z1[0])
-for z in Z2:
-    Rho.append(rho(z))
-# sum(Rho)*(Z2[1]-Z2[0])
+coeff = [0]*5
+for i in range(5):
+    coeff[i] = simplify((Trace(z)**2-4*Det(z))*z**2).coeff(z,4-i)
+z_disc = np.roots(coeff)
 
-Z = np.append(Z1,Z2)
-plt.ylim([0,5])
-plt.xlim([-5,0])
-plt.plot(Z,Rho)
-plt.show()
+# z_disc = np.array(z_disc)
+# z_disc = z_disc.astype(np.float64)
+# z_disc = np.append(z_disc,0)
+z_disc
+
+j_d = lambda x : (1-r(x)**2)/(16*np.pi)*(np.cos(phi_a(x))-np.cos(phi_b(x)))
+J_d = integrate.quad(j_d,0,2*np.pi)[0]
+
+j_ad = lambda x : r_prime(x)*np.cos(phi_a(x))/(8*np.pi)
+J_ad = integrate.quad(j_ad,0,2*np.pi)[0]
+
+J_d
+J_ad
+
+nume = []
+denom = []
+for i in range(3):
+    nume.append(simplify(diff(log(Trace(z)))*Trace(z)*z**2).coeff(z,2-i))
+    denom.append(simplify(Trace(z)*z).coeff(z,2-i))
+nume
+denom
+################## file make ##########################
+f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
+f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3])+" ")
+f_zero.write(str(nume[0])+" "+str(nume[1])+" "+str(nume[2])+" ")
+f_zero.write(str(denom[0])+" "+str(denom[1])+" "+str(denom[2]))
+f_zero.close()
+
+# def R(x):
+#     # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
+#     return np.abs(Trace(1)-2)/Trace(x)
+# R(1)
+# def root(x):
+#     return np.complex(sqrt(-(x-z_disc[0])*(x-z_disc[1])*(x-z_disc[2])*(x-z_disc[3])/(x**2*(1-z_disc[0])*(1-z_disc[1])*(1-z_disc[2])*(1-z_disc[3]))))
+# root(-0.1)
+# def rho(x):
+#     temp = 1/np.pi*(R(x)*root(x))/(1+R(x)**2*root(x)**2)*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])-2/x-2*(a1_R(theta)*b2_L(theta)+a2_R(theta)*b1_L(theta)-(a1_L(theta)*b2_R(theta)+a2_L(theta)*b1_R(theta))/x**2)*dt**2/Trace(x))
+#     if (np.imag(temp)!=0):
+#         # return str(nan)
+#         return 0
+#     else:
+#         return np.abs(temp)
+# rho(-0.5)
+# N=100000
+# dx = 0.00001
+# Z1 = np.linspace(z_disc[0]-dx,z_disc[1]+dx,N)
+# Z2 = np.linspace(z_disc[2]-dx,z_disc[3]+dx,N)
+# Rho = []
+# for z in Z1:
+#     Rho.append(rho(z))
+# # sum(Rho)*(Z1[1]-Z1[0])
+# for z in Z2:
+#     Rho.append(rho(z))
+# # sum(Rho)*(Z2[1]-Z2[0])
+#
+# Z = np.append(Z1,Z2)
+# plt.ylim([0,5])
+# plt.xlim([-5,0])
+# plt.plot(Z,Rho)
+# plt.show()
 #
 # plt.figure(figsize=(4,3))
 # plt.xlim([-4.1,0])

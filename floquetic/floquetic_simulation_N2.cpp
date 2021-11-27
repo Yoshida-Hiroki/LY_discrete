@@ -14,39 +14,39 @@ int M = 1000;
 
 int iter = 100000;
 
-string date = "211118";
-string ver = "_1";
+string date = "211127";
+string ver = "_N2_1";
 
-// double r(double x){
-//   return pi/4*sin(x);
-// }
-//
-// double phi_a(double x){
-//   return pi/4+pi/10*cos(x);
-// }
-//
-// double phi_b(double x){
-//   return pi/4+pi/10*cos(x);
-// }
+double r(double x){
+  return 0.01;
+}
+
+double phi_a(double x){
+  return pi*0.75+pi/4.01*cos(x);
+}
+
+double phi_b(double x){
+  return pi*0.5+pi/2.005*sin(x);
+}
 
 double a1_L(double x){
-  // return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
-  return 0.4;
+  return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
+  // return 0.4;
 }
 
 double a1_R(double x){
-  // return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
-  return 0.1;
+  return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
+  // return 0.1;
 }
 
 double b1_L(double x){
-  // return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
-  return 0.2;
+  return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
+  // return 0.2;
 }
 
 double b1_R(double x){
-  // return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
-  return 0.3;
+  return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
+  // return 0.3;
 }
 
 double a1(double x){
@@ -57,33 +57,6 @@ double b1(double x){
   return b1_R(x)+b1_L(x);
 }
 
-double a2_L(double x){
-  // return 0.5*(1+r(x))*pow(sin(phi_a(x)/2),2.0);
-  return 0.3;
-}
-
-double a2_R(double x){
-  // return 0.5*(1+r(x))*pow(cos(phi_a(x)/2),2.0);
-  return 0.4;
-}
-
-double b2_L(double x){
-  // return 0.5*(1-r(x))*pow(sin(phi_b(x)/2),2.0);
-  return 0.2;
-}
-
-double b2_R(double x){
-  // return 0.5*(1-r(x))*pow(cos(phi_b(x)/2),2.0);
-  return 0.1;
-}
-
-double a2(double x){
-  return a2_R(x)+a2_L(x);
-}
-
-double b2(double x){
-  return b2_R(x)+b2_L(x);
-}
 
 double sign(double x){
   return (x>0)-(x<0);
@@ -96,15 +69,14 @@ int main(){
   vector<double> phi_sim(4*M*N+1);
 
   vector<double> B(2),A(2),B_R(2),A_R(2);
-  double theta = pi;
-  A[0] = a1(theta);
-  B[0] = b1(theta);
-  A_R[0] = a1_R(theta);
-  B_R[0] = b1_R(theta);
-  A[1] = a2(theta);
-  B[1] = b2(theta);
-  A_R[1] = a2_R(theta);
-  B_R[1] = b2_R(theta);
+  A[0] = a1(0);
+  B[0] = b1(0);
+  A_R[0] = a1_R(0);
+  B_R[0] = b1_R(0);
+  A[1] = a1(pi);
+  B[1] = b1(pi);
+  A_R[1] = a1_R(pi);
+  B_R[1] = b1_R(pi);
 
   srand(time(NULL));
   for(int i = 0 ; i < iter;i++){

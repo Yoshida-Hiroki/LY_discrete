@@ -9,18 +9,18 @@ import time
 
 
 type = r"\floquetic_N4_zeros"
-date = "211126"
-ver = "2"
+date = "211128"
+ver = "N4_1"
 
 z = Symbol('z')
 
 # transition matrix elements
-r_base = 0.01
-r_coef = 0
-phi_coef = 4.01
+r_base = 0.5
+r_coef = 0.4999
+phi_coef = 10
 r = lambda x: r_base+r_coef*np.sin(x)
-phi_a = lambda x: 3/4*np.pi+np.pi/phi_coef*np.cos(x)
-phi_b = lambda x: 1/2*np.pi+2*np.pi/phi_coef*np.sin(x)
+phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
+phi_b = lambda x: phi_a(x)
 
 r_prime = lambda x: r_coef*np.cos(x)
 
@@ -83,33 +83,38 @@ ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
 ax2 = plt.subplot2grid((2,2),(0,1))
 ax3 = plt.subplot2grid((2,2),(1,1))
 
-ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=2\pi/3+$"+f"$\pi/{phi_coef:.3g}\cos$"+"\n"+r"$\phi_b=\pi/3+$"+f"$\pi/{phi_coef:.3g}\cos$")
-ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
-ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
-ax1.legend()
-ax1.set_xlabel(r"$\theta$")
-ax1.set_ylabel("$z$")
-ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-ax1.hlines(0,0,2*np.pi,color="gray")
+# ###### J_ad = 0 ############
+# ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=2\pi/3+$"+f"$\pi/{phi_coef:.3g}\cos$"+"\n"+r"$\phi_b=\pi/3+$"+f"$\pi/{phi_coef:.3g}\cos$")
+
+###### J_d = 0 ############
+ax1.set_title(f"$r = {r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.3g}\cos$")
+
+# ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
+# ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
+# ax1.legend()
+# ax1.set_xlabel(r"$\theta$")
+# ax1.set_ylabel("$z$")
+# ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+# ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+# ax1.hlines(0,0,2*np.pi,color="gray")
 
 ax2.set_title(f"$J_d=${J_d:.2g}"+"\n"+f"$J_{{ad}}=${J_ad:.2g}")
-########### r-phi ################
-# ax2.plot(phi_a(x),r(x))
-# ax2.set_xlabel(r"$\phi(\theta)$")
-# ax2.set_ylabel(r"$r(\theta)$")
-# ax2.set_xlim([0,np.pi])
-# ax2.set_xticks([0,np.pi/2,np.pi])
-# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+########## r-phi ################
+ax2.plot(phi_a(x),r(x))
+ax2.set_xlabel(r"$\phi(\theta)$")
+ax2.set_ylabel(r"$r(\theta)$")
+ax2.set_xlim([0,np.pi])
+ax2.set_xticks([0,np.pi/2,np.pi])
+ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
 
 ############ affinity #############
 # ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
-ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
-ax2.set_ylim([-5,5])
-ax2.set_xlabel(r"$\theta$")
-ax2.legend()
-ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+# ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
+# ax2.set_ylim([-5,5])
+# ax2.set_xlabel(r"$\theta$")
+# ax2.legend()
+# ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
 
 
 ax3.text(0.1, 1, f"z0={z_disc[0]:.2e}" , va="center", ha="center",size=10)

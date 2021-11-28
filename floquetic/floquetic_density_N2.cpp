@@ -11,8 +11,8 @@ double pi = 3.141592;
 double dt = 1;
 int N = 100;
 
-string date = "211127";
-string ver = "_N2_2";
+string date = "211128";
+string ver = "_N2_1";
 
 vector<double> z_disc(4);
 vector<double> nume(3);
@@ -45,8 +45,8 @@ double rhog(double x){
 
 double x1min,x1max,dx1;
 double x2min,x2max,dx2;
-int partnum1 = 10000000;
-int partnum2 = 100000;
+int partnum1 = 100000000;
+int partnum2 = 1000000;
 vector<double> Rho1(partnum1),Rho2(partnum2);
 // vector<double> Rhod1(partnum1),Rhod2(partnum2);
 // vector<double> Rhog1(partnum1),Rhog2(partnum2);
@@ -180,34 +180,34 @@ int main(){
   end = clock();
   cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
-  start = clock();
-  ////////////// rho plot //////////////////
-  path = "C:/Users/hyoshida/Desktop/floquetic/";
-  ext = ".dat";
-  filename = path + "rho_"+date+ver + ext;
-  ofstream writing_file2;
-  writing_file2.open(filename, ios::out);
-
+  // start = clock();
+  // ////////////// rho plot //////////////////
+  // path = "C:/Users/hyoshida/Desktop/floquetic/";
+  // ext = ".dat";
+  // filename = path + "rho_"+date+ver + ext;
+  // ofstream writing_file2;
+  // writing_file2.open(filename, ios::out);
+  //
+  // // for(int l = 0 ; l < partnum1;l++){
+  // //   double x1 = x1min + (double)dx1*l;
+  // //   writing_file2 << x1 << " "<< Rho1[l] << " "<< Rhod1[l] << " "<< Rhog1[l] << endl;
+  // // }
+  // // for(int l = 0 ; l < partnum2;l++){
+  // //   double x2 = x2min + (double)dx2*l;
+  // //   writing_file2 << x2 << " "<< Rho2[l] << " "<< Rhod2[l] << " "<< Rhog2[l] << endl;
+  // // }
+  //
   // for(int l = 0 ; l < partnum1;l++){
   //   double x1 = x1min + (double)dx1*l;
-  //   writing_file2 << x1 << " "<< Rho1[l] << " "<< Rhod1[l] << " "<< Rhog1[l] << endl;
+  //   writing_file2 << x1 << " "<< Rho1[l] << endl;
   // }
   // for(int l = 0 ; l < partnum2;l++){
   //   double x2 = x2min + (double)dx2*l;
-  //   writing_file2 << x2 << " "<< Rho2[l] << " "<< Rhod2[l] << " "<< Rhog2[l] << endl;
+  //   writing_file2 << x2 << " "<< Rho2[l] << endl;
   // }
-
-  for(int l = 0 ; l < partnum1;l++){
-    double x1 = x1min + (double)dx1*l;
-    writing_file2 << x1 << " "<< Rho1[l] << endl;
-  }
-  for(int l = 0 ; l < partnum2;l++){
-    double x2 = x2min + (double)dx2*l;
-    writing_file2 << x2 << " "<< Rho2[l] << endl;
-  }
-
-  end = clock();
-  cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+  //
+  // end = clock();
+  // cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
   // cout << J(1) << endl;
   // cout << Jd(1) << endl;

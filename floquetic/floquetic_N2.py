@@ -9,8 +9,8 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211127"
-ver = "N2_2"
+date = "211128"
+ver = "N2_1"
 
 z = Symbol('z')
 
@@ -81,6 +81,78 @@ f_zero.write(str(nume[0])+" "+str(nume[1])+" "+str(nume[2])+" ")
 f_zero.write(str(denom[0])+" "+str(denom[1])+" "+str(denom[2]))
 f_zero.close()
 
+############### graph plot #######################
+x = np.linspace(0,2*np.pi,1000)
+fig = plt.figure()
+ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
+ax2 = plt.subplot2grid((2,2),(0,1))
+ax3 = plt.subplot2grid((2,2),(1,1))
+
+# ###### J_ad = 0 ############
+# ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=2\pi/3+$"+f"$\pi/{phi_coef:.3g}\cos$"+"\n"+r"$\phi_b=\pi/3+$"+f"$\pi/{phi_coef:.3g}\cos$")
+
+###### J_d = 0 ############
+ax1.set_title(f"$r = {r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.3g}\cos$")
+
+# ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
+# ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
+# ax1.legend()
+# ax1.set_xlabel(r"$\theta$")
+# ax1.set_ylabel("$z$")
+# ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+# ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+# ax1.hlines(0,0,2*np.pi,color="gray")
+
+ax2.set_title(f"$J_d=${J_d:.2g}"+"\n"+f"$J_{{ad}}=${J_ad:.2g}")
+# ########### phi_a-phi_b ################
+# ax2.plot(phi_a(x),phi_b(x))
+# ax2.set_xlabel(r"$\phi_a(\theta)$")
+# ax2.set_ylabel(r"$\phi_b(\theta)$")
+# ax2.set_xlim([0,np.pi])
+# ax2.set_xticks([0,np.pi/2,np.pi])
+# ax2.set_ylim([0,np.pi])
+# ax2.set_yticks([0,np.pi/2,np.pi])
+# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+# ax2.set_yticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+
+
+########### r-phi ################
+ax2.plot(phi_a(x),r(x))
+ax2.set_xlabel(r"$\phi_a(\theta)$")
+ax2.set_ylabel(r"$r(\theta)$")
+ax2.set_xlim([0,np.pi])
+ax2.set_xticks([0,np.pi/2,np.pi])
+ax2.set_ylim([0,1])
+ax2.set_yticks([0,1/2,1])
+ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+ax2.set_yticklabels([r"$0$",r"$\frac{1}{2}$",r"$1$"])
+
+############ affinity #############
+# ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
+# ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
+# ax2.set_ylim([-5,5])
+# ax2.set_xlabel(r"$\theta$")
+# ax2.legend()
+# ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+
+
+ax3.text(0.2, 0.66, f"z0={z_disc[0]:.2e}" , va="center", ha="center",size=10)
+ax3.text(0.7, 0.66, f"z1={z_disc[1]:.2e}" , va="center", ha="center",size=10)
+ax3.text(0.2, 0.33, f"z2={z_disc[2]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.7, 0.33, f"z3={z_disc[3]:.3f}" , va="center", ha="center",size=10)
+ax3.tick_params(labelbottom=False, labelleft=False)
+ax3.spines['right'].set_visible(False)
+ax3.spines['top'].set_visible(False)
+ax3.spines['bottom'].set_visible(False)
+ax3.spines['left'].set_visible(False)
+ax3.tick_params('x', length=0, which='major')
+ax3.tick_params('y', length=0, which='major')
+
+plt.tight_layout()
+plt.savefig(r"C:/Users/hyoshida/Desktop/floquetic/z_"+str(date)+"_"+str(ver)+".png")
+plt.clf()
+plt.close()
 # def R(x):
 #     # return (a1(theta)*(1-b2(theta)*dt)+a2(theta)*(1-a1(theta)*dt)+b1(theta)*(1-a2(theta)*dt)+b2(theta)*(1-b1(theta)*dt))*dt/Trace(x)
 #     return np.abs(Trace(1)-2)/Trace(x)

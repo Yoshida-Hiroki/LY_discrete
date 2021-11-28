@@ -12,10 +12,10 @@ int dt = 1;
 int N = 1;
 int M = 1000;
 
-int iter = 100000;
+int iter = 1000000;
 
-string date = "211127";
-string ver = "_N2_2";
+string date = "211128";
+string ver = "_N2_1";
 
 double r(double x){
   return 0.5+0.4999*sin(x);

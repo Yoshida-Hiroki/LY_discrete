@@ -10,16 +10,16 @@ import time
 
 type = r"\floquetic_zeros"
 date = "211129"
-ver = "N2_2"
+ver = "N2_3"
 
 z = Symbol('z')
 
-r_base = 0.01
+r_base = 0.5
 r_coef = 0
-phi_coef = 4.01
+phi_coef = 4
 r = lambda x: r_base+r_coef*np.sin(x)
-phi_a = lambda x: 3/4*np.pi+np.pi/phi_coef*np.cos(x)
-phi_b = lambda x: 1/2*np.pi+2*np.pi/phi_coef*np.sin(x)
+phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
+phi_b = lambda x: phi_a(x)
 
 r_prime = lambda x: r_coef*np.cos(x)
 
@@ -89,10 +89,10 @@ ax2 = plt.subplot2grid((2,2),(0,1))
 ax3 = plt.subplot2grid((2,2),(1,1))
 
 # ###### J_ad = 0 ############
-ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=3\pi/4+$"+f"$\pi/{phi_coef:.3g}\cos$"+"\n"+r"$\phi_b=\pi/2+$"+f"2$\pi/{phi_coef:.3g}\sin$")
+# ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=3\pi/4+$"+f"$\pi/{phi_coef:.3g}\cos$"+"\n"+r"$\phi_b=\pi/2+$"+f"2$\pi/{phi_coef:.3g}\sin$")
 
 ###### J_d = 0 ############
-# ax1.set_title(f"$r = {r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.3g}\cos$")
+ax1.set_title(f"$r = {r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.3g}\cos$")
 
 # ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
 # ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
@@ -105,27 +105,27 @@ ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=3\pi/4+$"+f"$\pi/{phi_coef:.3
 
 ax2.set_title(f"$J_d=${J_d:.2g}"+"\n"+f"$J_{{ad}}=${J_ad:.2g}")
 # ########### phi_a-phi_b ################
-ax2.plot(phi_a(x),phi_b(x))
-ax2.set_xlabel(r"$\phi_a(\theta)$")
-ax2.set_ylabel(r"$\phi_b(\theta)$")
-ax2.set_xlim([0,np.pi])
-ax2.set_xticks([0,np.pi/2,np.pi])
-ax2.set_ylim([0,np.pi])
-ax2.set_yticks([0,np.pi/2,np.pi])
-ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
-ax2.set_yticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+# ax2.plot(phi_a(x),phi_b(x))
+# ax2.set_xlabel(r"$\phi_a(\theta)$")
+# ax2.set_ylabel(r"$\phi_b(\theta)$")
+# ax2.set_xlim([0,np.pi])
+# ax2.set_xticks([0,np.pi/2,np.pi])
+# ax2.set_ylim([0,np.pi])
+# ax2.set_yticks([0,np.pi/2,np.pi])
+# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+# ax2.set_yticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
 
 
 ########### r-phi ################
-# ax2.plot(phi_a(x),r(x))
-# ax2.set_xlabel(r"$\phi_a(\theta)$")
-# ax2.set_ylabel(r"$r(\theta)$")
-# ax2.set_xlim([0,np.pi])
-# ax2.set_xticks([0,np.pi/2,np.pi])
-# ax2.set_ylim([0,1])
-# ax2.set_yticks([0,1/2,1])
-# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
-# ax2.set_yticklabels([r"$0$",r"$\frac{1}{2}$",r"$1$"])
+ax2.plot(phi_a(x),r(x))
+ax2.set_xlabel(r"$\phi_a(\theta)$")
+ax2.set_ylabel(r"$r(\theta)$")
+ax2.set_xlim([0,np.pi])
+ax2.set_xticks([0,np.pi/2,np.pi])
+ax2.set_ylim([0,1])
+ax2.set_yticks([0,1/2,1])
+ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+ax2.set_yticklabels([r"$0$",r"$\frac{1}{2}$",r"$1$"])
 
 ############ affinity #############
 # ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")

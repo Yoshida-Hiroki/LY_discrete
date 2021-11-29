@@ -14,15 +14,15 @@ int M = 1000;
 
 int iter = 1000000;
 
-string date = "211128";
-string ver = "_N2_1";
+string date = "211129";
+string ver = "_N2_3";
 
 double r(double x){
-  return 0.5+0.4999*sin(x);
+  return 0.5;
 }
 
 double phi_a(double x){
-  return pi*0.5+pi/10*cos(x);
+  return pi*0.5+pi/4*cos(x);
 }
 
 double phi_b(double x){

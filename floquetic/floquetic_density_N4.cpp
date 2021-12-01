@@ -11,7 +11,7 @@ double pi = 3.141592;
 double dt = 1;
 int N = 100;
 
-string date = "211128";
+string date = "211201";
 string ver = "_N4_1";
 
 //////////////////////////////////////
@@ -45,7 +45,7 @@ double rhog(double x){
 
 
 double x1min,x1max,dx1,x2min,x2max,dx2,x3min,x3max,dx3,x4min,x4max,dx4;
-long long partnum1 = 100000000,partnum2 = 1000000,partnum3 = 100000,partnum4 = 10000;
+long long partnum1 = 10000,partnum2 = 10000,partnum3 = 10000,partnum4 = 10000;
 vector<double> Rho1(partnum1),Rho2(partnum2),Rho3(partnum3),Rho4(partnum4);
 // vector<double> Rhod1(partnum1),Rhod2(partnum2),Rhod3(partnum3),Rhod4(partnum4);
 // vector<double> Rhog1(partnum1),Rhog2(partnum2),Rhog3(partnum3),Rhog4(partnum4);
@@ -150,10 +150,10 @@ double phi(double z,int j){
 }
 
 int main(){
-  ifstream fin("C:/Users/hyoshida/Desktop/floquetic/zero_"+date+ver+".dat");
+  ifstream fin("C:/Users/NeRi/Desktop/floquetic/zero_"+date+ver+".dat");
   fin >> z_disc[0] >> z_disc[1] >> z_disc[2] >> z_disc[3] >>z_disc[4] >>z_disc[5] >>z_disc[6] >>z_disc[7] >> nume[0] >> nume[1] >> nume[2] >> nume[3] >>nume[4] >> deno[0] >> deno[1] >> deno[2] >> deno[3] >>deno[4];
 
-  double dx = 1.0e-10;
+  double dx = 0;
   x1min = z_disc[0]+dx;
   x1max = z_disc[1];
   dx1 = (double)(x1max-x1min)/partnum1;
@@ -203,68 +203,67 @@ int main(){
   cout << "Rho : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
 
-  long long s1=0;
-  for(int i = 0 ; i < partnum1;i++){
-    s1 += Rho1[i];
-  }
-  cout << dx1 << endl;
-  cout << s1*dx1 << endl;
+  // long long s1=0;
+  // for(int i = 0 ; i < partnum1;i++){
+  //   s1 += Rho1[i];
+  // }
+  // cout << dx1 << endl;
+  // cout << s1*dx1 << endl;
+  //
+  // long long s2=0;
+  // for(int i = 0 ; i < partnum2;i++){
+  //   s2 += Rho2[i];
+  // }
+  // cout << dx2 << endl;
+  // cout << dx2*s2 << endl;
+  //
+  // long long s3=0;
+  // for(int i = 0 ; i < partnum3;i++){
+  //   s3 += Rho3[i];
+  // }
+  // cout << dx3 << endl;
+  // cout << dx3*s3 << endl;
+  //
+  // long long s4=0;
+  // for(int i = 0 ; i < partnum4;i++){
+  //   s4 += Rho4[i];
+  // }
+  // cout << dx4 << endl;
+  // cout << dx4*s4 << endl;
 
-  long long s2=0;
-  for(int i = 0 ; i < partnum2;i++){
-    s2 += Rho2[i];
-  }
-  cout << dx2 << endl;
-  cout << dx2*s2 << endl;
-
-  long long s3=0;
-  for(int i = 0 ; i < partnum3;i++){
-    s3 += Rho3[i];
-  }
-  cout << dx3 << endl;
-  cout << dx3*s3 << endl;
-
-  long long s4=0;
-  for(int i = 0 ; i < partnum4;i++){
-    s4 += Rho4[i];
-  }
-  cout << dx4 << endl;
-  cout << dx4*s4 << endl;
-
-  start = clock();
-  //////////// J-phi(J) plot ////////////////////
-  string path = "C:/Users/hyoshida/Desktop/floquetic/";
+  string path = "C:/Users/NeRi/Desktop/floquetic/";
   string ext = ".dat";
-  string filename = path + "phi_"+date+ver + ext;
-  ofstream writing_file;
-  writing_file.open(filename, ios::out);
-
-  double chi_min = -4;
-  double chi_max = 5;
-  int chi_part = 500;
-  for(int j = 0 ; j < chi_part;j++){
-    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*j;
-    J_dat.push_back(J(exp(chi)));
-  }
-  end = clock();
-  cout << "J : "<<(double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-
-  start = clock();
-  for(int k = 0 ; k < chi_part ; k++){
-    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
-    writing_file << exp(chi) << " "<< J_dat[k] << " " << phi(exp(chi),k) << endl;
-  }
-  end = clock();
-  cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
   // start = clock();
-  // ////////////// rho plot //////////////////
-  // path = "C:/Users/hyoshida/Desktop/floquetic/";
-  // ext = ".dat";
-  // filename = path + "rho_"+date+ver + ext;
-  // ofstream writing_file2;
-  // writing_file2.open(filename, ios::out);
+  // //////////// J-phi(J) plot ////////////////////
+  // string filename = path + "phi_"+date+ver + ext;
+  // ofstream writing_file;
+  // writing_file.open(filename, ios::out);
   //
+  // double chi_min = -4;
+  // double chi_max = 5;
+  // int chi_part = 500;
+  // for(int j = 0 ; j < chi_part;j++){
+  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*j;
+  //   J_dat.push_back(J(exp(chi)));
+  // }
+  // end = clock();
+  // cout << "J : "<<(double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+  //
+  // start = clock();
+  // for(int k = 0 ; k < chi_part ; k++){
+  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
+  //   writing_file << exp(chi) << " "<< J_dat[k] << " " << phi(exp(chi),k) << endl;
+  // }
+  // end = clock();
+  // cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+
+  start = clock();
+  ////////////// rho plot //////////////////
+  string filename2 = path + "rho_"+date+ver + ext;
+  ofstream writing_file2;
+  writing_file2.open(filename2, ios::out);
+
   // for(int l = 0 ; l < partnum1;l++){
   //   double x1 = x1min + (double)dx1*l;
   //   writing_file2 << x1 << " "<< Rho1[l] << " "<< Rhod1[l] << " "<< Rhog1[l] << endl;
@@ -281,8 +280,26 @@ int main(){
   //   double x4 = x4min + (double)dx4*l;
   //   writing_file2 << x4 << " "<< Rho4[l] << " "<< Rhod4[l] << " "<< Rhog4[l] << endl;
   // }
-  // end = clock();
-  // cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+
+  for(int l = 0 ; l < partnum1;l++){
+    double x1 = x1min + (double)dx1*l;
+    writing_file2 << x1 << " "<< Rho1[l] << endl;
+  }
+  for(int l = 0 ; l < partnum2;l++){
+    double x2 = x2min + (double)dx2*l;
+    writing_file2 << x2 << " "<< Rho2[l] << endl;
+  }
+  for(int l = 0 ; l < partnum3;l++){
+    double x3 = x3min + (double)dx3*l;
+    writing_file2 << x3 << " "<< Rho3[l] << endl;
+  }
+  for(int l = 0 ; l < partnum4;l++){
+    double x4 = x4min + (double)dx4*l;
+    writing_file2 << x4 << " "<< Rho4[l] << endl;
+  }
+
+  end = clock();
+  cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
 
   cout << J(1) << endl;

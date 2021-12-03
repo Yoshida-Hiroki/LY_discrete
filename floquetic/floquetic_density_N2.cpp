@@ -11,7 +11,7 @@ double pi = 3.141592;
 double dt = 1;
 
 string date = "211203";
-string ver = "_N2_1";
+string ver = "_N2_2";
 
 vector<double> z_disc(4);
 vector<double> nume(3);
@@ -21,8 +21,8 @@ vector<double> z_2(2);
 
 double xU_1min,xU_1max,dxU_1;
 double xU_2min,xU_2max,dxU_2;
-int partnum1 = 1000000;
-int partnum2 = 1000000;
+int partnum1 = 1.0e+06;
+int partnum2 = 1.0e+06;
 vector<double> RhoU(partnum1),RhoU2(partnum2);
 vector<double> JU_dat;
 

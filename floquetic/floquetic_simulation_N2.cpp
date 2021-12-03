@@ -12,17 +12,17 @@ int dt = 1;
 int N = 1;
 int M = 1000;
 
-int iter = 1000000;
+int iter = 10000;
 
-string date = "211129";
-string ver = "_N2_3";
+string date = "211203";
+string ver = "_N2_1";
 
 double r(double x){
-  return 0.5;
+  return 0.5+0.4999*sin(x);
 }
 
 double phi_a(double x){
-  return pi*0.5+pi/4*cos(x);
+  return pi*0.5+pi/10*cos(x);
 }
 
 double phi_b(double x){

@@ -9,7 +9,7 @@ import time
 
 
 type = r"\floquetic_N4_zeros"
-date = "211128"
+date = "211203"
 ver = "N4_1"
 
 z = Symbol('z')
@@ -36,21 +36,22 @@ z1 = lambda x : (-((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))+np.sqrt(((b(x)-
 z2 = lambda x : (-((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))-np.sqrt(((b(x)-a(x))**2/4+b_L(x)*a_L(x)+b_R(x)*a_R(x))**2-4*a_R(x)*a_L(x)*b_R(x)*b_L(x)))/(2*a_R(x)*b_L(x))
 
 dt = 1
-W = [np.eye(2)]
-V1 = np.array([[0,1],[0,0]])
-V2 = np.array([[0,0],[1,0]])
+theta = 0
 
-W_1 = lambda z : np.array([[1-b(0)*dt,a_L(0)*dt+a_R(0)*dt*z],[b_L(0)*dt+b_R(0)*dt/z,1-a(0)*dt]])
-W_2 = lambda z : np.array([[1-b(np.pi*0.5)*dt,a_L(np.pi*0.5)*dt+a_R(np.pi*0.5)*dt*z],[b_L(np.pi*0.5)*dt+b_R(np.pi*0.5)*dt/z,1-a(np.pi*0.5)*dt]])
-W_3 = lambda z : np.array([[1-b(np.pi)*dt,a_L(np.pi)*dt+a_R(np.pi)*dt*z],[b_L(np.pi)*dt+b_R(np.pi)*dt/z,1-a(np.pi)*dt]])
-W_4 = lambda z : np.array([[1-b(np.pi*1.5)*dt,a_L(np.pi*1.5)*dt+a_R(np.pi*1.5)*dt*z],[b_L(np.pi*1.5)*dt+b_R(np.pi*1.5)*dt/z,1-a(np.pi*1.5)*dt]])
+W_1 = lambda z : np.array([[1-b(theta+0)*dt,a_L(theta+0)*dt+a_R(theta+0)*dt*z],[b_L(theta+0)*dt+b_R(theta+0)*dt/z,1-a(theta+0)*dt]])
+W_2 = lambda z : np.array([[1-b(theta+np.pi*0.5)*dt,a_L(theta+np.pi*0.5)*dt+a_R(theta+np.pi*0.5)*dt*z],[b_L(theta+np.pi*0.5)*dt+b_R(theta+np.pi*0.5)*dt/z,1-a(theta+np.pi*0.5)*dt]])
+W_3 = lambda z : np.array([[1-b(theta+np.pi)*dt,a_L(theta+np.pi)*dt+a_R(theta+np.pi)*dt*z],[b_L(theta+np.pi)*dt+b_R(theta+np.pi)*dt/z,1-a(theta+np.pi)*dt]])
+W_4 = lambda z : np.array([[1-b(theta+np.pi*1.5)*dt,a_L(theta+np.pi*1.5)*dt+a_R(theta+np.pi*1.5)*dt*z],[b_L(theta+np.pi*1.5)*dt+b_R(theta+np.pi*1.5)*dt/z,1-a(theta+np.pi*1.5)*dt]])
 
 U_4 = lambda z : np.dot(W_4(z),np.dot(W_3(z),np.dot(W_2(z),W_1(z))))
 
 Trace = lambda z : np.trace(U_4(z))
 Det = lambda z : U_4(z)[0][0]*U_4(z)[1][1]-U_4(z)[0][1]*U_4(z)[1][0]
-# z_1 = list(solveset(np.trace(W_1(z))**2-4*(W_1(z)[0][0]*W_1(z)[1][1]-W_1(z)[0][1]*W_1(z)[1][0]),z))
-# z_2 = list(solveset(np.trace(W_2(z))**2-4*(W_2(z)[0][0]*W_2(z)[1][1]-W_2(z)[0][1]*W_2(z)[1][0]),z))
+
+z_1 = list(solveset(np.trace(W_1(z))**2-4*(W_1(z)[0][0]*W_1(z)[1][1]-W_1(z)[0][1]*W_1(z)[1][0]),z))
+z_2 = list(solveset(np.trace(W_2(z))**2-4*(W_2(z)[0][0]*W_2(z)[1][1]-W_2(z)[0][1]*W_2(z)[1][0]),z))
+z_3 = list(solveset(np.trace(W_3(z))**3-4*(W_3(z)[0][0]*W_3(z)[1][1]-W_3(z)[0][1]*W_3(z)[1][0]),z))
+z_4 = list(solveset(np.trace(W_4(z))**4-4*(W_4(z)[0][0]*W_4(z)[1][1]-W_4(z)[0][1]*W_4(z)[1][0]),z))
 
 # z_disc = list(solveset(Trace(z)**2-4*Det(z),z))
 # simplify((Trace(z)**2-4*Det(z)))
@@ -66,6 +67,11 @@ z_disc = np.array(z_disc)
 z_disc = z_disc.astype(np.float64)
 # z_disc = np.append(z_disc,0)
 z_disc
+z_1
+z_2
+z_3
+z_4
+
 
 ############### adiabatic current ################
 j_d = lambda x : (1-r(x)**2)/(16*np.pi)*(np.cos(phi_a(x))-np.cos(phi_b(x)))
@@ -89,18 +95,47 @@ ax3 = plt.subplot2grid((2,2),(1,1))
 ###### J_d = 0 ############
 ax1.set_title(f"$r = {r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.3g}\cos$")
 
-# ax1.plot(x,np.real(z1(x)),color="black",label="$z_1$")
-# ax1.plot(x,np.real(z2(x)),color="blue",label="$z_2$")
-# ax1.legend()
-# ax1.set_xlabel(r"$\theta$")
-# ax1.set_ylabel("$z$")
-# ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-# ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-# ax1.hlines(0,0,2*np.pi,color="gray")
+ax1.plot(x,np.real(z1(x)),color="red")
+ax1.plot(x,np.real(z2(x)),color="blue")
+ax1.plot(theta,z1(theta),marker="s",color="red",label=f"{z_1[1]:.3g}",linestyle="None")
+ax1.plot(theta,z2(theta),marker="s",color="blue",label=f"{z_1[0]:.3g}",linestyle="None")
+ax1.plot(theta+0.5*np.pi,z1(theta+0.5*np.pi),marker="o",color="red",label=f"{z_2[1]:.2e}",linestyle="None")
+ax1.plot(theta+0.5*np.pi,z2(theta+0.5*np.pi),marker="o",color="blue",label=f"{z_2[0]:.3g}",linestyle="None")
+ax1.plot(theta+1.0*np.pi,z1(theta+1.0*np.pi),marker="*",color="red",label=f"{z_3[1]:.3g}",linestyle="None")
+ax1.plot(theta+1.0*np.pi,z2(theta+1.0*np.pi),marker="*",color="blue",label=f"{z_3[0]:.3g}",linestyle="None")
+ax1.plot(theta+1.5*np.pi,z1(theta+1.5*np.pi),marker="+",color="red",label=f"{z_4[1]:.3g}",linestyle="None")
+ax1.plot(theta+1.5*np.pi,z2(theta+1.5*np.pi),marker="+",color="blue",label=f"{z_4[0]:.3g}",linestyle="None")
+
+ax1.legend()
+ax1.set_xlabel(r"$\theta$")
+ax1.set_ylabel("$z$")
+ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+ax1.hlines(0,0,2*np.pi,color="gray")
 
 ax2.set_title(f"$J_d=${J_d:.2g}"+"\n"+f"$J_{{ad}}=${J_ad:.2g}")
+
+# ########### phi_a-phi_b ################
+# ax2.plot(phi_a(x),phi_b(x))
+# ax2.plot(phi_a(theta),phi_b(theta),marker="s",color="orange")
+# ax2.plot(phi_a(theta+0.5*np.pi),phi_b(theta+0.5*np.pi),marker="s",color="orange")
+# ax2.plot(phi_a(theta+1.0*np.pi),phi_b(theta+1.0*np.pi),marker="s",color="orange")
+# ax2.plot(phi_a(theta+1.5*np.pi),phi_b(theta+1.5*np.pi),marker="s",color="orange")
+# ax2.set_xlabel(r"$\phi_a(\theta)$")
+# ax2.set_ylabel(r"$\phi_b(\theta)$")
+# ax2.set_xlim([0,np.pi])
+# ax2.set_xticks([0,np.pi/2,np.pi])
+# ax2.set_ylim([0,np.pi])
+# ax2.set_yticks([0,np.pi/2,np.pi])
+# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+# ax2.set_yticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+
 ########## r-phi ################
 ax2.plot(phi_a(x),r(x))
+ax2.plot(phi_a(theta),r(theta),marker="s",color="orange")
+ax2.plot(phi_a(theta+0.5*np.pi),r(theta+0.5*np.pi),marker="s",color="orange")
+ax2.plot(phi_a(theta+1.0*np.pi),r(theta+1.0*np.pi),marker="s",color="orange")
+ax2.plot(phi_a(theta+1.5*np.pi),r(theta+1.5*np.pi),marker="s",color="orange")
 ax2.set_xlabel(r"$\phi(\theta)$")
 ax2.set_ylabel(r"$r(\theta)$")
 ax2.set_xlim([0,np.pi])
@@ -154,7 +189,11 @@ for i in range(5):
 f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
 f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3])+" "+str(z_disc[4])+" "+str(z_disc[5])+" "+str(z_disc[6])+" "+str(z_disc[7])+" ")
 f_zero.write(str(nume[0])+" "+str(nume[1])+" "+str(0)+" "+str(nume[3])+" "+str(nume[4])+" ")
-f_zero.write(str(denom[0])+" "+str(denom[1])+" "+str(denom[2])+" "+str(denom[3])+" "+str(denom[4]))
+f_zero.write(str(denom[0])+" "+str(denom[1])+" "+str(denom[2])+" "+str(denom[3])+" "+str(denom[4])+" ")
+f_zero.write(str(z_1[0])+" "+str(z_1[1])+" ")
+f_zero.write(str(z_2[0])+" "+str(z_2[1])+" ")
+f_zero.write(str(z_3[0])+" "+str(z_3[1])+" ")
+f_zero.write(str(z_4[0])+" "+str(z_4[1]))
 f_zero.close()
 
 

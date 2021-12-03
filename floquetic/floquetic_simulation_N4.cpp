@@ -12,9 +12,9 @@ int dt = 1;
 int N = 1;
 int M = 1000;
 
-int iter = 1000000;
+int iter = 10000;
 
-string date = "211128";
+string date = "211203";
 string ver = "_N4_1";
 
 double r(double x){

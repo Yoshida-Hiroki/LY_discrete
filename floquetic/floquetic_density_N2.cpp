@@ -157,7 +157,7 @@ double phi2(double z,int j){
   }
   for(int i = 0 ; i< partnum2;i++){
     double x = x2_2min + (double)dx2_2*i;
-    double temp = dx2_2*Rho1_2[i]*(log((z-x)/(1-x)));
+    double temp = dx2_2*Rho2_2[i]*(log((z-x)/(1-x)));
     integ += (temp == temp) ? temp:0;
   }
   return 0.5*integ-J2_dat[j]*log(z)-0.5*log(z);

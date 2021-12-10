@@ -12,9 +12,9 @@ int dt = 1;
 int N = 1;
 int M = 1000;
 
-int iter = 10000;
+int iter = 1000000;
 
-string date = "211203";
+string date = "211210";
 string ver = "_N4_2";
 
 double r(double x){
@@ -23,11 +23,11 @@ double r(double x){
 }
 
 double phi_a(double x){
-  return pi*0.75+(double)pi/4.01*cos(x);
+  return pi*0.75+(double)pi/5.0*cos(x);
 }
 
 double phi_b(double x){
-  return pi*0.5+(double)pi/2.005*sin(x);
+  return pi*0.5+(double)pi/2.5*sin(x);
   // return phi_a(x);
 }
 

@@ -11,7 +11,7 @@ double pi = 3.141592;
 double dt = 1;
 
 string date = "211211";
-string ver = "_N4_1";
+string ver = "_N4_2";
 
 //////////////////////////////////////
 vector<double> z_disc(8);
@@ -20,7 +20,7 @@ vector<double> deno(5);
 vector<double> z_1(2),z_2(2),z_3(2),z_4(2);
 
 double xU_1min,xU_1max,dxU_1,xU_2min,xU_2max,dxU_2,xU_3min,xU_3max,dxU_3,xU_4min,xU_4max,dxU_4;
-long long partnum1 = 5.0e+04,partnum2 = 1.0e+04,partnum3 = 1.0e+03,partnum4 = 1.0e+03;
+long long partnum1 = 1.0e+03,partnum2 = 1.0e+04,partnum3 = 1.0e+03,partnum4 = 1.0e+03;
 vector<double> RhoU_1(partnum1),RhoU_2(partnum2),RhoU_3(partnum3),RhoU_4(partnum4);
 vector<double> JU_dat;
 

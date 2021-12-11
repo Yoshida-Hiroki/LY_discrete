@@ -9,7 +9,7 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211210"
+date = "211211"
 ver = "N2_1"
 
 z = Symbol('z')

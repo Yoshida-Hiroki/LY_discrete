@@ -9,7 +9,7 @@ import time
 
 
 type = r"\floquetic_N4_zeros"
-date = "211210"
+date = "211211"
 ver = "N4_1"
 
 z = Symbol('z')
@@ -19,10 +19,10 @@ r_base = 0.5
 r_coef = 0.4
 phi_coef = 5.0
 r = lambda x: r_base+r_coef*np.sin(x)
-# phi_a = lambda x: 0.75*np.pi+np.pi/phi_coef*np.cos(x)
 phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
-# phi_b = lambda x: 0.5*np.pi+2*np.pi/phi_coef*np.sin(x)
+# phi_a = lambda x: 0.75*np.pi+np.pi/phi_coef*np.cos(x)
 phi_b = lambda x: phi_a(x)
+# phi_b = lambda x: 0.5*np.pi+2*np.pi/phi_coef*np.sin(x)
 
 r_prime = lambda x: r_coef*np.cos(x)
 

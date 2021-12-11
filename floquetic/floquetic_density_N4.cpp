@@ -10,7 +10,7 @@ double pi = 3.141592;
 
 double dt = 1;
 
-string date = "211210";
+string date = "211211";
 string ver = "_N4_1";
 
 //////////////////////////////////////
@@ -20,11 +20,11 @@ vector<double> deno(5);
 vector<double> z_1(2),z_2(2),z_3(2),z_4(2);
 
 double xU_1min,xU_1max,dxU_1,xU_2min,xU_2max,dxU_2,xU_3min,xU_3max,dxU_3,xU_4min,xU_4max,dxU_4;
-long long partnum1 = 1.0e+05,partnum2 = 1.0e+05,partnum3 = 1.0e+05,partnum4 = 1.0e+05;
+long long partnum1 = 5.0e+04,partnum2 = 1.0e+04,partnum3 = 1.0e+03,partnum4 = 1.0e+03;
 vector<double> RhoU_1(partnum1),RhoU_2(partnum2),RhoU_3(partnum3),RhoU_4(partnum4);
 vector<double> JU_dat;
 
-int Partnum1=1.0e+06,Partnum2 = 1.0e+06;
+int Partnum1=1.0e+01,Partnum2 = 1.0e+01;
 double x1_1min,x1_1max,dx1_1;
 double x1_2min,x1_2max,dx1_2;
 vector<double> Rho1_1(Partnum1),Rho1_2(Partnum2);
@@ -291,33 +291,33 @@ int main(){
   xU_4max = z_disc[7];
   dxU_4 = (double)(xU_4max-xU_4min)/partnum4;
 
-  x1_1min = z_1[0]-100;
-  x1_1max = z_1[0];
-  dx1_1 = (double)(x1_1max-x1_1min)/Partnum1;
-  x1_2min = z_1[1];
-  x1_2max = 0;
-  dx1_2 = (double)(x1_2max-x1_2min)/Partnum2;
-
-  x2_1min = z_2[0]-100;
-  x2_1max = z_2[0];
-  dx2_1 = (double)(x2_1max-x2_1min)/Partnum1;
-  x2_2min = z_2[1];
-  x2_2max = 0;
-  dx2_2 = (double)(x2_2max-x2_2min)/Partnum2;
-
-  x3_1min = z_3[0]-100;
-  x3_1max = z_3[0];
-  dx3_1 = (double)(x3_1max-x3_1min)/Partnum1;
-  x3_2min = z_3[1];
-  x3_2max = 0;
-  dx3_2 = (double)(x3_2max-x3_2min)/Partnum2;
-
-  x4_1min = z_4[0]-100;
-  x4_1max = z_4[0];
-  dx4_1 = (double)(x4_1max-x4_1min)/Partnum1;
-  x4_2min = z_4[1];
-  x4_2max = 0;
-  dx4_2 = (double)(x4_2max-x4_2min)/Partnum2;
+  // x1_1min = z_1[0]-100;
+  // x1_1max = z_1[0];
+  // dx1_1 = (double)(x1_1max-x1_1min)/Partnum1;
+  // x1_2min = z_1[1];
+  // x1_2max = 0;
+  // dx1_2 = (double)(x1_2max-x1_2min)/Partnum2;
+  //
+  // x2_1min = z_2[0]-100;
+  // x2_1max = z_2[0];
+  // dx2_1 = (double)(x2_1max-x2_1min)/Partnum1;
+  // x2_2min = z_2[1];
+  // x2_2max = 0;
+  // dx2_2 = (double)(x2_2max-x2_2min)/Partnum2;
+  //
+  // x3_1min = z_3[0]-100;
+  // x3_1max = z_3[0];
+  // dx3_1 = (double)(x3_1max-x3_1min)/Partnum1;
+  // x3_2min = z_3[1];
+  // x3_2max = 0;
+  // dx3_2 = (double)(x3_2max-x3_2min)/Partnum2;
+  //
+  // x4_1min = z_4[0]-100;
+  // x4_1max = z_4[0];
+  // dx4_1 = (double)(x4_1max-x4_1min)/Partnum1;
+  // x4_2min = z_4[1];
+  // x4_2max = 0;
+  // dx4_2 = (double)(x4_2max-x4_2min)/Partnum2;
 
   clock_t start = clock();
 
@@ -339,26 +339,26 @@ int main(){
     RhoU_4[j] = abs(rho(xU_4));
   }
 
-  for(int j =0 ; j < Partnum1;j++){
-    double x1_1 = x1_1min + (double)dx1_1*j;
-    Rho1_1[j] = abs(rho1(x1_1));
-    double x2_1 = x2_1min + (double)dx2_1*j;
-    Rho2_1[j] = abs(rho2(x2_1));
-    double x3_1 = x3_1min + (double)dx3_1*j;
-    Rho3_1[j] = abs(rho3(x3_1));
-    double x4_1 = x4_1min + (double)dx4_1*j;
-    Rho4_1[j] = abs(rho4(x4_1));
-  }
-  for(int j = 0 ; j < Partnum2; j++){
-    double x1_2 = x1_2min + (double)dx1_2*j;
-    Rho1_2[j] = abs(rho1(x1_2));
-    double x2_2 = x2_2min + (double)dx2_2*j;
-    Rho2_2[j] = abs(rho2(x2_2));
-    double x3_2 = x3_2min + (double)dx3_2*j;
-    Rho3_2[j] = abs(rho3(x3_2));
-    double x4_2 = x4_2min + (double)dx4_2*j;
-    Rho4_2[j] = abs(rho4(x4_2));
-  }
+  // for(int j =0 ; j < Partnum1;j++){
+  //   double x1_1 = x1_1min + (double)dx1_1*j;
+  //   Rho1_1[j] = abs(rho1(x1_1));
+  //   double x2_1 = x2_1min + (double)dx2_1*j;
+  //   Rho2_1[j] = abs(rho2(x2_1));
+  //   double x3_1 = x3_1min + (double)dx3_1*j;
+  //   Rho3_1[j] = abs(rho3(x3_1));
+  //   double x4_1 = x4_1min + (double)dx4_1*j;
+  //   Rho4_1[j] = abs(rho4(x4_1));
+  // }
+  // for(int j = 0 ; j < Partnum2; j++){
+  //   double x1_2 = x1_2min + (double)dx1_2*j;
+  //   Rho1_2[j] = abs(rho1(x1_2));
+  //   double x2_2 = x2_2min + (double)dx2_2*j;
+  //   Rho2_2[j] = abs(rho2(x2_2));
+  //   double x3_2 = x3_2min + (double)dx3_2*j;
+  //   Rho3_2[j] = abs(rho3(x3_2));
+  //   double x4_2 = x4_2min + (double)dx4_2*j;
+  //   Rho4_2[j] = abs(rho4(x4_2));
+  // }
 
 
   clock_t end = clock();
@@ -395,44 +395,60 @@ int main(){
   string path = "C:/Users/hyoshida/Desktop/floquetic/";
   string ext = ".dat";
 
-  start = clock();
-  //////////// J-phi(J) plot ////////////////////
-  string filename = path + "phi_"+date+ver + ext;
-  ofstream writing_file;
-  writing_file.open(filename, ios::out);
-
-  double chi_min = -4;
-  double chi_max = 5;
-  int chi_part = 100;
-
-  vector<double> Jad_dat(chi_part);
-
-  for(int j = 0 ; j < chi_part;j++){
-    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*j;
-    JU_dat.push_back(J(exp(chi)));
-    J1_dat.push_back(J1(exp(chi)));
-    J2_dat.push_back(J2(exp(chi)));
-    J3_dat.push_back(J3(exp(chi)));
-    J4_dat.push_back(J4(exp(chi)));
-    Jad_dat[j] = J1_dat[j]+J2_dat[j]+J3_dat[j]+J4_dat[j];
-  }
-  end = clock();
-  cout << "J : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-
-  start = clock();
-  for(int k = 0 ; k < chi_part ; k++){
-    double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
-    writing_file << exp(chi) << " "<< JU_dat[k] << " " << phi(exp(chi),k) << " " << Jad_dat[k] << " " << phi1(exp(chi),k)+phi2(exp(chi),k)+phi3(exp(chi),k)+phi4(exp(chi),k) << endl;
-  }
-  end = clock();
-  cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-
   // start = clock();
-  // ////////////// rho plot //////////////////
-  // string filename2 = path + "rho_"+date+ver + ext;
-  // ofstream writing_file2;
-  // writing_file2.open(filename2, ios::out);
+  // //////////// J-phi(J) plot ////////////////////
+  // string filename = path + "phi_"+date+ver + ext;
+  // ofstream writing_file;
+  // writing_file.open(filename, ios::out);
   //
+  // double chi_min = -4;
+  // double chi_max = 5;
+  // int chi_part = 100;
+  //
+  // vector<double> Jad_dat(chi_part);
+  //
+  // for(int j = 0 ; j < chi_part;j++){
+  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*j;
+  //   JU_dat.push_back(J(exp(chi)));
+  //   J1_dat.push_back(J1(exp(chi)));
+  //   J2_dat.push_back(J2(exp(chi)));
+  //   J3_dat.push_back(J3(exp(chi)));
+  //   J4_dat.push_back(J4(exp(chi)));
+  //   Jad_dat[j] = J1_dat[j]+J2_dat[j]+J3_dat[j]+J4_dat[j];
+  // }
+  // end = clock();
+  // cout << "J : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+  //
+  // start = clock();
+  // for(int k = 0 ; k < chi_part ; k++){
+  //   double chi = chi_min+(double)(chi_max-chi_min)/chi_part*k;
+  //   writing_file << exp(chi) << " "<< JU_dat[k] << " " << phi(exp(chi),k) << " " << Jad_dat[k] << " " << phi1(exp(chi),k)+phi2(exp(chi),k)+phi3(exp(chi),k)+phi4(exp(chi),k) << endl;
+  // }
+  // end = clock();
+  // cout << "phi : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+
+  start = clock();
+  ////////////// rho plot //////////////////
+  string filename2 = path + "rho_"+date+ver + ext;
+  ofstream writing_file2;
+  writing_file2.open(filename2, ios::out);
+
+  for(int l = 0 ; l < partnum1;l++){
+    double xU_1 = xU_1min + (double)dxU_1*l;
+    writing_file2 << xU_1 << " "<< RhoU_1[l] << endl;
+  }
+  for(int l = 0 ; l < partnum2;l++){
+    double xU_2 = xU_2min + (double)dxU_2*l;
+    writing_file2 << xU_2 << " "<< RhoU_2[l] << endl;
+  }
+  for(int l = 0 ; l < partnum3;l++){
+    double xU_3 = xU_3min + (double)dxU_3*l;
+    writing_file2 << xU_3 << " "<< RhoU_3[l] << endl;
+  }
+  for(int l = 0 ; l < partnum4;l++){
+    double xU_4 = xU_4min + (double)dxU_4*l;
+    writing_file2 << xU_4 << " "<< RhoU_4[l] << endl;
+  }
   // for(int l = 0 ; l < partnum1;l++){
   //   double xU_1 = xU_1min + (double)dxU_1*l;
   //   writing_file2 << xU_1 << " "<< RhoU_1[l] << " "<< RhoU_d1[l] << " "<< RhoU_g1[l] << endl;
@@ -449,8 +465,8 @@ int main(){
   //   double xU_4 = xU_4min + (double)dxU_4*l;
   //   writing_file2 << xU_4 << " "<< RhoU_4[l] << " "<< RhoU_d4[l] << " "<< RhoU_g4[l] << endl;
   // }
-  // end = clock();
-  // cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+  end = clock();
+  cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
 
   Beep(750,200);
 }

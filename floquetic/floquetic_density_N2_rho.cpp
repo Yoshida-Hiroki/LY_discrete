@@ -11,7 +11,7 @@ double pi = 3.141592;
 double dt = 1;
 
 string date = "211213";
-string ver = "_N2_1";
+string ver = "_N2_2";
 
 vector<double> z_disc(4);
 vector<double> nume(3);
@@ -49,7 +49,7 @@ int main(){
   x_1_1 = z_disc[0];
   x_1_4 = z_disc[1];
   x_1_2 = z_disc[0]+(x_1_4-x_1_1)*1.0e-03;
-  x_1_3 = z_disc[1]-(x_1_4-x_1_1)*5.0e-03;
+  x_1_3 = z_disc[1]-(x_1_4-x_1_1)*1.0e-03;
   dx_1_1 = (double)(x_1_2-x_1_1)/partnum2;
   dx_1_2 = (double)(x_1_3-x_1_2)/partnum1;
   dx_1_3 = (double)(x_1_4-x_1_3)/partnum2;

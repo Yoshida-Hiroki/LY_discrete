@@ -10,8 +10,8 @@ double pi = 3.141592;
 
 double dt = 1;
 
-string date = "211211";
-string ver = "_N4_2";
+string date = "211213";
+string ver = "_N4_1";
 
 //////////////////////////////////////
 vector<double> z_disc(8);

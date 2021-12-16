@@ -1,6 +1,8 @@
 ################# rho plot ####################
-set output "C:/Users/hyoshida/Desktop/floquetic/rho_211213_2.png"
-set terminal png
+# set output "C:/Users/hyoshida/Desktop/floquetic/rho_211213_2.png"
+# set terminal png
+set output "C:/Users/hyoshida/Desktop/floquetic/rho_211213.eps"
+set term postscript eps enhanced
 set multiplot
 
 set lmargin screen 0.1

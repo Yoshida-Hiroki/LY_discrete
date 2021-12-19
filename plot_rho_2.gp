@@ -1,13 +1,13 @@
 ################# rho plot ####################
-# set output "C:/Users/hyoshida/Desktop/floquetic/rho_211213_2.png"
+# set output "C:/Users/hyoshida/Desktop/floquetic/rho_211219_2.png"
 # set terminal png
-set output "C:/Users/hyoshida/Desktop/floquetic/rho_211213.eps"
+set output "C:/Users/hyoshida/Desktop/floquetic/rho_211219_2.eps"
 set term postscript eps enhanced
 set multiplot
 
 set lmargin screen 0.1
 set rmargin screen 0.9
-set bmargin screen 0.52
+set bmargin screen 0.53
 set tmargin screen 0.9
 
 set xzeroaxis
@@ -30,13 +30,13 @@ set logscale x
 set xtics ("" 1000,"" 100,"" 10,"" 1,"" 0.1,"" 0.01,"" 1.0e-03,"" 1.0e-04)
 set xlabel ''
 set ylabel '{/Symbol-Oblique r}(z)'
-plot [3.0e+03:3.0e-03][:40]'C:/Users/hyoshida/Desktop/floquetic/rho_211213_N2_2.dat' u (abs($1)):($2) notitle w l lc "black" lw 5
+plot [3.0e+03:5.0e-04][:40]'C:/Users/hyoshida/Desktop/floquetic/rho_211213_N2_2.dat' u (abs($1)):($2) notitle w l lc "black" lw 8
 reset
 
 set lmargin screen 0.1
 set rmargin screen 0.9
 set bmargin screen 0.1
-set tmargin screen 0.48
+set tmargin screen 0.47
 
 set xzeroaxis
 set yzeroaxis
@@ -66,7 +66,7 @@ set logscale x
 set xtics ("-10^{%L}" 1000,"-10^{%L}" 100,"-10^{%L}" 10,"-1" 1,"-10^{%L}" 0.1,"-10^{%L}" 0.01,"-10^{%L}" 1.0e-03)
 set xlabel 'z'
 set ylabel '{/Symbol-Oblique r}(z)'
-plot [3.0e+03:3.0e-03][:200]'C:/Users/hyoshida/Desktop/floquetic/rho_211213_N4_2.dat' u (abs($1)):($2) notitle w l lc "black" lw 5
+plot [3.0e+03:5.0e-04][:200]'C:/Users/hyoshida/Desktop/floquetic/rho_211213_N4_2.dat' u (abs($1)):($2) notitle w l lc "black" lw 8
 
 reset
 

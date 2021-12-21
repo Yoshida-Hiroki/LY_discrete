@@ -14,22 +14,22 @@ int M = 1000;
 
 int iter = 1000000;
 
-string date = "211210";
-string ver = "_N2_1";
+string date = "211221";
+string ver = "_N2_2";
 
 double r(double x){
-  return 0.5+0.4*sin(x);
   // return 0.5;
+  return 0.5+0.4*sin(x);
 }
 
 double phi_a(double x){
-  // return pi*0.5+pi/10*cos(x);
+  // return pi*0.75+pi*0.2*cos(x);
   return pi*0.5+pi/5.0*cos(x);
 }
 
 double phi_b(double x){
+  // return pi*0.5+0.4*pi*sin(x);
   return phi_a(x);
-  // return pi*0.5+2*pi/5.0*sin(x);
 }
 
 double a1_L(double x){

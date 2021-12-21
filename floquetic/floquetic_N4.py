@@ -9,20 +9,20 @@ import time
 
 
 type = r"\floquetic_N4_zeros"
-date = "211213"
+date = "211221"
 ver = "N4_2"
 
 z = Symbol('z')
 
 # transition matrix elements
 r_base = 0.5
-r_coef = 0
+r_coef = 0.4
 phi_coef = 5.0
 r = lambda x: r_base+r_coef*np.sin(x)
-# phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
-phi_a = lambda x: 0.75*np.pi+np.pi/phi_coef*np.cos(x)
-# phi_b = lambda x: phi_a(x)
-phi_b = lambda x: 0.5*np.pi+2*np.pi/phi_coef*np.sin(x)
+# phi_a = lambda x: 0.75*np.pi+np.pi/phi_coef*np.cos(x)
+phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
+# phi_b = lambda x: 0.5*np.pi+2*np.pi/phi_coef*np.sin(x)
+phi_b = lambda x: phi_a(x)
 
 r_prime = lambda x: r_coef*np.cos(x)
 

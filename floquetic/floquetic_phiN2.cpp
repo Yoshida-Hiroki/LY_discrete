@@ -10,8 +10,8 @@ double pi = 3.141592;
 
 double dt = 1;
 
-string date = "211221";
-string ver = "_N2_1";
+string date = "211223";
+string ver = "_N2_2";
 
 vector<double> z_disc(4);
 vector<double> nume(3);
@@ -50,7 +50,7 @@ double root(double x){
 }
 
 double rho(double x){
-  return 0.25/pi*(abs(Trace(1)-2)*root(x))/(pow(Trace(x),2.0)+pow((Trace(1)-2)*root(x),2.0))*(((1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3]))-2.0/x)*Trace(x)-2*(nume[0]*pow(x,2.0)+nume[1]*x+nume[2])/(pow(x,2.0)));
+  return 1/pi*(abs(Trace(1)-2)*root(x))/(pow(Trace(x),2.0)+pow((Trace(1)-2)*root(x),2.0))*(((1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3]))-2.0/x)*Trace(x)-2*(nume[0]*pow(x,2.0)+nume[1]*x+nume[2])/(pow(x,2.0)));
 }
 
 double J(double z){
@@ -65,7 +65,7 @@ double J(double z){
     double temp = (double)dxU_2*RhoU2[i]*z/(z-xU_2);
     integ += (temp==temp) ? temp : 0;
   }
-  return integ -0.5;
+  return 0.5*integ -1.0;
 }
 
 double phi(double z,int j){
@@ -80,7 +80,7 @@ double phi(double z,int j){
     double temp = dxU_2*RhoU2[i]*(log((z-xU_2)/(1-xU_2)));
     integ += (temp == temp) ? temp:0;
   }
-  return integ-JU_dat[j]*log(z)-0.5*log(z);
+  return 0.5*integ-log(z)-JU_dat[j]*log(z);
 }
 
 ///////////// adiabatic approximation ////////////////

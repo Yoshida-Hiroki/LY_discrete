@@ -14,28 +14,21 @@ ver = "N2_2"
 
 z = Symbol('z')
 
-# r_base = 0.5
-# r_coef = 0.4
-# phi_coef = 5
-# r = lambda x: r_base+r_coef*np.sin(x)
-# # phi_a = lambda x: 0.75*np.pi+np.pi/phi_coef*np.cos(x)
-# phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
-# # phi_b = lambda x: 0.5*np.pi+2*np.pi/phi_coef*np.sin(x)
-# phi_b = lambda x: phi_a(x)
-#
-# r_prime = lambda x: r_coef*np.cos(x)
-#
-# a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
-# a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
-# b_L = lambda x: 1/2*(1-r(x))*np.sin(phi_b(x)/2)**2
-# b_R = lambda x: 1/2*(1-r(x))*np.cos(phi_b(x)/2)**2
+r_base = 0.5
+r_coef = 0.4
+phi_coef = 5
+r = lambda x: r_base+r_coef*np.sin(x)
+# phi_a = lambda x: 0.75*np.pi+np.pi/phi_coef*np.cos(x)
+phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
+# phi_b = lambda x: 0.5*np.pi+2*np.pi/phi_coef*np.sin(x)
+phi_b = lambda x: phi_a(x)
 
-a_L = lambda x: 0.3
-# a_R = lambda x: 0.3
-a_R = lambda x: 0.4
-b_L = lambda x: 0.2
-# b_R = lambda x: 0.2
-b_R = lambda x: 0.1
+r_prime = lambda x: r_coef*np.cos(x)
+
+a_L = lambda x: 1/2*(1+r(x))*np.sin(phi_a(x)/2)**2
+a_R = lambda x: 1/2*(1+r(x))*np.cos(phi_a(x)/2)**2
+b_L = lambda x: 1/2*(1-r(x))*np.sin(phi_b(x)/2)**2
+b_R = lambda x: 1/2*(1-r(x))*np.cos(phi_b(x)/2)**2
 
 a = lambda x : a_R(x)+a_L(x)
 b = lambda x : b_R(x)+b_L(x)
@@ -65,7 +58,7 @@ z_disc = np.roots(coeff)
 
 # z_disc = np.array(z_disc)
 # z_disc = z_disc.astype(np.float64)
-z_disc = np.append(-100,z_disc)
+# z_disc = np.append(-100,z_disc)
 z_disc
 z_1
 z_2

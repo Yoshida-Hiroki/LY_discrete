@@ -9,12 +9,13 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211223"
+date = "211224"
 ver = "N2_2"
 
 z = Symbol('z')
 
 r_base = 0.5
+# r_coef = 0
 r_coef = 0.4
 phi_coef = 5
 r = lambda x: r_base+r_coef*np.sin(x)

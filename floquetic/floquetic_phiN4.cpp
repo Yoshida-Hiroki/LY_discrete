@@ -9,9 +9,10 @@ using namespace std;
 double pi = 3.141592;
 
 double dt = 1;
+double N = 4.0;
 
-string date = "211223";
-string ver = "_N4_1";
+string date = "211224";
+string ver = "_N4_2";
 
 //////////////////////////////////////
 vector<double> z_disc(8);
@@ -58,7 +59,7 @@ double root(double x){
 }
 
 double rho(double x){
-  return 1/pi*(R(x)*root(x))/(1+pow(R(x)*root(x),2.0))*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])+1/(x-z_disc[4])+1/(x-z_disc[5])+1/(x-z_disc[6])+1/(x-z_disc[7])-4.0/x-2*(nume[0]*pow(x,4.0)+nume[1]*pow(x,3.0)+nume[2]*pow(x,2.0)+nume[3]*x+nume[4])/(Trace(x)*pow(x,3.0)));
+  return 1/(2*N*pi)*(R(x)*root(x))/(1+pow(R(x)*root(x),2.0))*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])+1/(x-z_disc[4])+1/(x-z_disc[5])+1/(x-z_disc[6])+1/(x-z_disc[7])-4.0/x-2*(nume[0]*pow(x,4.0)+nume[1]*pow(x,3.0)+nume[2]*pow(x,2.0)+nume[3]*x+nume[4])/(Trace(x)*pow(x,3.0)));
 }
 
 
@@ -84,7 +85,7 @@ double J(double z){
     double temp = (double)dxU_4*RhoU_4[i]*z/(z-xU_4);
     integ += (temp==temp) ? temp : 0;
   }
-  return 0.5*integ -2.0;
+  return integ - 0.5;
 }
 
 double phi(double z,int j){
@@ -109,7 +110,7 @@ double phi(double z,int j){
     double temp = dxU_4*RhoU_4[i]*(log((z-xU_4)/(1-xU_4)));
     integ += (temp == temp) ? temp:0;
   }
-  return 0.5*integ-2.0*log(z)-JU_dat[j]*log(z);
+  return integ-0.5*log(z)-JU_dat[j]*log(z);
 }
 
 ///////////// adiabatic approximation /////////////////////////////////////////////////////////////////////////
@@ -119,7 +120,7 @@ double root1(double x){
 }
 
 double rho1(double x){
-  return 1/pi*root1(x)/(1+pow(root1(x),2.0))*(1/(x-z_1[0])+1/(x-z_1[1])-1.0/x);
+  return 1/(2*pi)*root1(x)/(1+pow(root1(x),2.0))*(1/(x-z_1[0])+1/(x-z_1[1])-1.0/x);
 }
 
 double J1(double z){
@@ -134,7 +135,7 @@ double J1(double z){
     double temp = (double)dx1_2*Rho1_2[i]*z/(z-x);
     integ += (temp==temp) ? temp : 0;
   }
-  return 0.5*integ -0.5;
+  return (integ -0.5)/N;
 }
 
 double phi1(double z,int j){
@@ -149,7 +150,7 @@ double phi1(double z,int j){
     double temp = dx1_2*Rho1_2[i]*(log((z-x)/(1-x)));
     integ += (temp == temp) ? temp:0;
   }
-  return 0.5*integ-J1_dat[j]*log(z)-0.5*log(z);
+  return (integ-0.5*log(z))/N-J1_dat[j]*log(z);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -159,7 +160,7 @@ double root2(double x){
 }
 
 double rho2(double x){
-  return 1/pi*root2(x)/(1+pow(root2(x),2.0))*(1/(x-z_2[0])+1/(x-z_2[1])-1.0/x);
+  return 1/(2*pi)*root2(x)/(1+pow(root2(x),2.0))*(1/(x-z_2[0])+1/(x-z_2[1])-1.0/x);
 }
 
 double J2(double z){
@@ -174,7 +175,7 @@ double J2(double z){
     double temp = (double)dx2_2*Rho2_2[i]*z/(z-x);
     integ += (temp==temp) ? temp : 0;
   }
-  return 0.5*integ -0.5;
+  return (integ -0.5)/N;
 }
 
 double phi2(double z,int j){
@@ -189,7 +190,7 @@ double phi2(double z,int j){
     double temp = dx2_2*Rho2_2[i]*(log((z-x)/(1-x)));
     integ += (temp == temp) ? temp:0;
   }
-  return 0.5*integ-J2_dat[j]*log(z)-0.5*log(z);
+  return (integ-0.5*log(z))/N-J2_dat[j]*log(z);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -199,7 +200,7 @@ double root3(double x){
 }
 
 double rho3(double x){
-  return 1/pi*root3(x)/(1+pow(root3(x),2.0))*(1/(x-z_3[0])+1/(x-z_3[1])-1.0/x);
+  return 1/(2*pi)*root3(x)/(1+pow(root3(x),2.0))*(1/(x-z_3[0])+1/(x-z_3[1])-1.0/x);
 }
 
 double J3(double z){
@@ -214,7 +215,7 @@ double J3(double z){
     double temp = (double)dx3_2*Rho3_2[i]*z/(z-x);
     integ += (temp==temp) ? temp : 0;
   }
-  return 0.5*integ -0.5;
+  return (integ -0.5)/N;
 }
 
 double phi3(double z,int j){
@@ -229,7 +230,7 @@ double phi3(double z,int j){
     double temp = dx3_2*Rho3_2[i]*(log((z-x)/(1-x)));
     integ += (temp == temp) ? temp:0;
   }
-  return 0.5*integ-J3_dat[j]*log(z)-0.5*log(z);
+  return (integ-0.5*log(z))/N-J3_dat[j]*log(z);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,7 +240,7 @@ double root4(double x){
 }
 
 double rho4(double x){
-  return 1/pi*root4(x)/(1+pow(root4(x),2.0))*(1/(x-z_4[0])+1/(x-z_4[1])-1.0/x);
+  return 1/(2*pi)*root4(x)/(1+pow(root4(x),2.0))*(1/(x-z_4[0])+1/(x-z_4[1])-1.0/x);
 }
 
 double J4(double z){
@@ -254,7 +255,7 @@ double J4(double z){
     double temp = (double)dx4_2*Rho4_2[i]*z/(z-x);
     integ += (temp==temp) ? temp : 0;
   }
-  return 0.5*integ -0.5;
+  return (integ -0.5)/N;
 }
 
 double phi4(double z,int j){
@@ -269,7 +270,7 @@ double phi4(double z,int j){
     double temp = dx4_2*Rho4_2[i]*(log((z-x)/(1-x)));
     integ += (temp == temp) ? temp:0;
   }
-  return 0.5*integ-J4_dat[j]*log(z)-0.5*log(z);
+  return (integ-0.5*log(z))/N-J4_dat[j]*log(z);
 }
 
 

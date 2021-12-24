@@ -7,28 +7,28 @@ using namespace std;
 int main(){
   vector<string> J(4001),sim_N2_1(4001),sim_N2_2(4001),sim_N4_1(4001),sim_N4_2(4001);
 
-  ifstream fin_N2_1("C:/Users/hyoshida/Desktop/floquetic/sim_211223_N2_1.dat");
-  for(int i = 0 ; i < 4001 ; i ++){
+  ifstream fin_N2_1("C:/Users/hyoshida/Desktop/floquetic/sim_211224_N2_1.dat");
+  for(int i = 0 ; i < 40001 ; i ++){
     fin_N2_1 >> J[i] >> sim_N2_1[i];
   }
 
-  ifstream fin_N2_2("C:/Users/hyoshida/Desktop/floquetic/sim_211223_N2_2.dat");
+  ifstream fin_N2_2("C:/Users/hyoshida/Desktop/floquetic/sim_211224_N2_2.dat");
   for(int i = 0 ; i < 4001 ; i ++){
     fin_N2_2 >> J[i] >> sim_N2_2[i];
   }
 
-  ifstream fin_N4_1("C:/Users/hyoshida/Desktop/floquetic/sim_211223_N4_1.dat");
+  ifstream fin_N4_1("C:/Users/hyoshida/Desktop/floquetic/sim_211224_N4_1.dat");
   for(int i = 0 ; i < 4001 ; i ++){
     fin_N4_1 >> J[i] >> sim_N4_1[i];
   }
 
-  ifstream fin_N4_2("C:/Users/hyoshida/Desktop/floquetic/sim_211223_N4_2.dat");
+  ifstream fin_N4_2("C:/Users/hyoshida/Desktop/floquetic/sim_211224_N4_2.dat");
   for(int i = 0 ; i < 4001 ; i ++){
     fin_N4_2 >> J[i] >> sim_N4_2[i];
   }
 
-  ofstream fout("C:/Users/hyoshida/Desktop/floquetic/sim_211223.dat");
-  for(int i = 0 ; i < 4001 ; i ++){
+  ofstream fout("C:/Users/hyoshida/Desktop/floquetic/sim_211224.dat");
+  for(int i = 0 ; i < 40001 ; i ++){
     fout << J[i] << " " << sim_N2_1[i] << " " <<sim_N4_1[i] << " " << sim_N2_2[i]<< " " << sim_N4_2[i] << endl;
   }
 

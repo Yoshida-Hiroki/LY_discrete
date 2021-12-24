@@ -9,27 +9,27 @@ using namespace std;
 double pi = 3.141592;
 
 int dt = 1;
-int N = 1;
-int M = 1000;
+int N = 2;
+int M = 2500;
 
-int iter = 100000;
+int iter = 1000000;
 
-string date = "211223";
-string ver = "_N2_2";
+string date = "211224";
+string ver = "_N2_1";
 
 double r(double x){
-  // return 0.5;
-  return 0.5+0.4*sin(x);
+  return 0.5;
+  // return 0.5+0.4*sin(x);
 }
 
 double phi_a(double x){
-  // return pi*0.75+pi*0.2*cos(x);
-  return pi*0.5+pi/5.0*cos(x);
+  return pi*0.75+pi*0.2*cos(x);
+  // return pi*0.5+pi/5.0*cos(x);
 }
 
 double phi_b(double x){
-  // return pi*0.5+0.4*pi*sin(x);
-  return phi_a(x);
+  return pi*0.5+0.4*pi*sin(x);
+  // return phi_a(x);
 }
 
 double a1_L(double x){
@@ -87,8 +87,8 @@ int main(){
     int n_after = 0;
     int j = 0;
 
-    for(int l = 0 ; l < 2*M*N ; l++){
-      for(int i = 0;i < 2;i++){
+    for(int l = 0 ; l < 2*M ; l++){
+      for(int i = 0;i < N;i++){
         double rnd = (double)rand()/RAND_MAX;
 
         n_after = (1-n_before)*0.5*(1+sign(B[i]*dt-rnd))+n_before*0.5*(1-sign(A[i]*dt-rnd));

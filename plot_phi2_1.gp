@@ -20,8 +20,8 @@ set ylabel ""
 set arrow from 0,-0.05 to 0,0 nohead lw 1 lc rgb "gray"
 plot [-0.15:0.15][-0.05:0.0]"C:/Users/hyoshida/Desktop/floquetic/phi_211224.dat" u ($1):($2) notitle w l lc "black"
 replot "C:/Users/hyoshida/Desktop/floquetic/phi_211224.dat" u ($3):($4) notitle w l lc "blue" dt "-"
-# replot "C:/Users/hyoshida/Desktop/floquetic/sim_211224.dat" u 1:2 notitle lc "black" pt 4
-replot "C:/Users/hyoshida/Desktop/floquetic/sim_211224_N2_1.dat" u 1:2 every 8 notitle lc "black" pt 4
+replot "C:/Users/hyoshida/Desktop/floquetic/sim_211224.dat" u 1:2 notitle lc "black" pt 4
+# replot "C:/Users/hyoshida/Desktop/floquetic/sim_211224_N2_1.dat" u 1:2 every 1 notitle lc "black" pt 4
 
 # d=0 with N=4
 set lmargin screen 0.1

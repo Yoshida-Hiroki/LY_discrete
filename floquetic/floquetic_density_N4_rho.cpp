@@ -9,8 +9,9 @@ using namespace std;
 double pi = 3.141592;
 
 double dt = 1;
+double N = 4.0;
 
-string date = "211213";
+string date = "211224";
 string ver = "_N4_2";
 
 //////////////////////////////////////
@@ -39,7 +40,7 @@ double root(double x){
 }
 
 double rho(double x){
-  return 1/pi*(R(x)*root(x))/(1+pow(R(x)*root(x),2.0))*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])+1/(x-z_disc[4])+1/(x-z_disc[5])+1/(x-z_disc[6])+1/(x-z_disc[7])-4.0/x-2*(nume[0]*pow(x,4.0)+nume[1]*pow(x,3.0)+nume[2]*pow(x,2.0)+nume[3]*x+nume[4])/(Trace(x)*pow(x,3.0)));
+  return 1/(2*N*pi)*(R(x)*root(x))/(1+pow(R(x)*root(x),2.0))*(1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3])+1/(x-z_disc[4])+1/(x-z_disc[5])+1/(x-z_disc[6])+1/(x-z_disc[7])-4.0/x-2*(nume[0]*pow(x,4.0)+nume[1]*pow(x,3.0)+nume[2]*pow(x,2.0)+nume[3]*x+nume[4])/(Trace(x)*pow(x,3.0)));
 }
 
 int main(){

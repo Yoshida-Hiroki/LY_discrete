@@ -9,8 +9,9 @@ using namespace std;
 double pi = 3.141592;
 
 double dt = 1;
+double N = 2.0;
 
-string date = "211213";
+string date = "211224";
 string ver = "_N2_2";
 
 vector<double> z_disc(4);
@@ -38,7 +39,7 @@ double root(double x){
 }
 
 double rho(double x){
-  return 1/pi*(abs(Trace(1)-2)*root(x))/(pow(Trace(x),2.0)+pow((Trace(1)-2)*root(x),2.0))*(((1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3]))-2.0/x)*Trace(x)-2*(nume[0]*pow(x,2.0)+nume[1]*x+nume[2])/(pow(x,2.0)));
+  return 1/(2*N*pi)*(abs(Trace(1)-2)*root(x))/(pow(Trace(x),2.0)+pow((Trace(1)-2)*root(x),2.0))*(((1/(x-z_disc[0])+1/(x-z_disc[1])+1/(x-z_disc[2])+1/(x-z_disc[3]))-2.0/x)*Trace(x)-2*(nume[0]*pow(x,2.0)+nume[1]*x+nume[2])/(pow(x,2.0)));
 }
 
 int main(){

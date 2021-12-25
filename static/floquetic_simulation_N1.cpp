@@ -14,11 +14,10 @@ int M = 1000;
 
 int iter = 1000000;
 
-string date = "211221";
+string date = "211225";
 string ver = "_N1_2";
 
 double a1_L(double x){
-  // return 0.3;
   return 0.3;
 }
 
@@ -28,7 +27,6 @@ double a1_R(double x){
 }
 
 double b1_L(double x){
-  // return 0.2;
   return 0.2;
 }
 

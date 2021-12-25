@@ -10,7 +10,7 @@ double pi = 3.141592;
 
 double dt = 1;
 
-string date = "211223";
+string date = "211225";
 string ver = "_N1_2";
 
 vector<double> z_disc(2);
@@ -27,7 +27,7 @@ double root(double x){
 }
 
 double rho(double x){
-  return 1/pi*root(x)/(1+pow(root(x),2.0))*((1/(x-z_disc[0])+1/(x-z_disc[1]))-1.0/x);
+  return 1/(2*pi)*root(x)/(1+pow(root(x),2.0))*((1/(x-z_disc[0])+1/(x-z_disc[1]))-1.0/x);
 }
 
 double J(double z){
@@ -42,7 +42,7 @@ double J(double z){
     double temp = (double)dxU_2*RhoU2[i]*z/(z-xU_2);
     integ += (temp==temp) ? temp : 0;
   }
-  return 0.5*integ -0.5;
+  return integ -0.5;
 }
 
 double phi(double z,int j){
@@ -57,7 +57,7 @@ double phi(double z,int j){
     double temp = dxU_2*RhoU2[i]*(log((z-xU_2)/(1-xU_2)));
     integ += (temp == temp) ? temp:0;
   }
-  return 0.5*integ-JU_dat[j]*log(z)-0.5*log(z);
+  return integ-0.5*log(z)-JU_dat[j]*log(z);
 }
 
 int main(){
@@ -86,6 +86,25 @@ int main(){
 
   string path = "C:/Users/hyoshida/Desktop/floquetic/";
   string ext = ".dat";
+
+  start = clock();
+  ////////////// rho plot //////////////////
+  string filename2 = path + "rho_"+date+ver + ext;
+  ofstream writing_file2;
+  writing_file2.open(filename2, ios::out);
+
+  for(int l = 0 ; l < partnum1;l++){
+    double x = xU_1min + (double)dxU_1*l;
+    writing_file2 << x << " "<< RhoU[l] << endl;
+  }
+  for(int l = 0 ; l < partnum2;l++){
+    double x = xU_2min + (double)dxU_2*l;
+    writing_file2 << x << " "<< RhoU2[l] << endl;
+  }
+
+  end = clock();
+  cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
+
 
   start = clock();
   //////////// J-phi(J) plot ////////////////////

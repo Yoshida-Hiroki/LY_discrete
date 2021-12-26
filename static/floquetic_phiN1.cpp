@@ -17,8 +17,8 @@ vector<double> z_disc(2);
 
 double xU_1min,xU_1max,dxU_1;
 double xU_2min,xU_2max,dxU_2;
-int partnum1 = 1.0e+04;
-int partnum2 = 1.0e+04;
+int partnum1 = 1.0e+07;
+int partnum2 = 1.0e+07;
 vector<double> RhoU(partnum1),RhoU2(partnum2);
 vector<double> JU_dat;
 
@@ -66,7 +66,7 @@ int main(){
   fin >> z_disc[0] >> z_disc[1];
 
   xU_1min = z_disc[0]-100;
-  xU_1max = z_disc[0];
+  xU_1max = z_disc[0]-1.0e-10;
   dxU_1 = (double)(xU_1max-xU_1min)/partnum1;
   xU_2min = z_disc[1];
   xU_2max = 0;
@@ -88,33 +88,14 @@ int main(){
   string ext = ".dat";
 
   start = clock();
-  ////////////// rho plot //////////////////
-  string filename2 = path + "rho_"+date+ver + ext;
-  ofstream writing_file2;
-  writing_file2.open(filename2, ios::out);
-
-  for(int l = 0 ; l < partnum1;l++){
-    double x = xU_1min + (double)dxU_1*l;
-    writing_file2 << x << " "<< RhoU[l] << endl;
-  }
-  for(int l = 0 ; l < partnum2;l++){
-    double x = xU_2min + (double)dxU_2*l;
-    writing_file2 << x << " "<< RhoU2[l] << endl;
-  }
-
-  end = clock();
-  cout << "rho write : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;
-
-
-  start = clock();
   //////////// J-phi(J) plot ////////////////////
   string filename = path + "phi_"+date+ver + ext;
   ofstream writing_file;
   writing_file.open(filename, ios::out);
 
-  double chi_min = -4;
-  double chi_max = 5;
-  int chi_part = 100;
+  double chi_min = -2.5;
+  double chi_max = 2;
+  int chi_part = 500;
 
   vector<double> Jad_dat(chi_part);
 

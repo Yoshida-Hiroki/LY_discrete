@@ -10,7 +10,7 @@ double pi = 3.141592;
 
 int dt = 1;
 int N = 1;
-int M = 1000;
+int M = 2000;
 
 int iter = 1000000;
 

@@ -11,7 +11,7 @@ double pi = 3.141592;
 double dt = 1;
 double N = 4.0;
 
-string date = "211224";
+string date = "211227";
 string ver = "_N4_2";
 
 //////////////////////////////////////
@@ -21,7 +21,7 @@ vector<double> deno(5);
 vector<double> z_1(2),z_2(2),z_3(2),z_4(2);
 
 double xU_1min,xU_1max,dxU_1,xU_2min,xU_2max,dxU_2,xU_3min,xU_3max,dxU_3,xU_4min,xU_4max,dxU_4;
-long long partnum1 = 1.0e+05,partnum2 = 1.0e+05,partnum3 = 1.0e+05,partnum4 = 1.0e+05;
+long long partnum1 = 1.0e+07,partnum2 = 1.0e+07,partnum3 = 1.0e+07,partnum4 = 1.0e+07;
 vector<double> RhoU_1(partnum1),RhoU_2(partnum2),RhoU_3(partnum3),RhoU_4(partnum4);
 vector<double> JU_dat;
 
@@ -279,16 +279,16 @@ int main(){
   ifstream fin("C:/Users/hyoshida/Desktop/floquetic/zero_"+date+ver+".dat");
   fin >> z_disc[0] >> z_disc[1] >> z_disc[2] >> z_disc[3] >>z_disc[4] >>z_disc[5] >>z_disc[6] >>z_disc[7] >> nume[0] >> nume[1] >> nume[2] >> nume[3] >>nume[4] >> deno[0] >> deno[1] >> deno[2] >> deno[3] >>deno[4] >> z_1[0] >> z_1[1] >> z_2[0] >> z_2[1] >> z_3[0] >> z_3[1] >> z_4[0] >> z_4[1];
 
-  xU_1min = z_disc[0];
+  xU_1min = z_disc[0]+1.0e-10;
   xU_1max = z_disc[1];
   dxU_1 = (double)(xU_1max-xU_1min)/partnum1;
-  xU_2min = z_disc[2];
+  xU_2min = z_disc[2]+1.0e-10;
   xU_2max = z_disc[3];
   dxU_2 = (double)(xU_2max-xU_2min)/partnum2;
-  xU_3min = z_disc[4];
+  xU_3min = z_disc[4]+1.0e-10;
   xU_3max = z_disc[5];
   dxU_3 = (double)(xU_3max-xU_3min)/partnum3;
-  xU_4min = z_disc[6];
+  xU_4min = z_disc[6]+1.0e-10;
   xU_4max = z_disc[7];
   dxU_4 = (double)(xU_4max-xU_4min)/partnum4;
 
@@ -360,7 +360,6 @@ int main(){
     double x4_2 = x4_2min + (double)dx4_2*j;
     Rho4_2[j] = abs(rho4(x4_2));
   }
-
 
   clock_t end = clock();
   cout << "Rho : " << (double)(end-start) / CLOCKS_PER_SEC<< "sec." << endl;

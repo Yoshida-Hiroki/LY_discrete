@@ -11,8 +11,8 @@ double pi = 3.141592;
 double dt = 1;
 double N = 2.0;
 
-string date = "211224";
-string ver = "_N2_2";
+string date = "211227";
+string ver = "_N2_1";
 
 vector<double> z_disc(4);
 vector<double> nume(3);
@@ -22,8 +22,8 @@ vector<double> z_2(2);
 
 double xU_1min,xU_1max,dxU_1;
 double xU_2min,xU_2max,dxU_2;
-int partnum1 = 1.0e+06;
-int partnum2 = 1.0e+06;
+int partnum1 = 1.0e+07;
+int partnum2 = 1.0e+07;
 vector<double> RhoU(partnum1),RhoU2(partnum2);
 vector<double> JU_dat;
 
@@ -172,10 +172,10 @@ int main(){
   ifstream fin("C:/Users/hyoshida/Desktop/floquetic/zero_"+date+ver+".dat");
   fin >> z_disc[0] >> z_disc[1] >> z_disc[2] >> z_disc[3] >> nume[0] >> nume[1] >> nume[2] >> deno[0] >> deno[1] >> deno[2] >> z_1[0] >> z_1[1]>> z_2[0] >> z_2[1];
 
-  xU_1min = z_disc[0];
+  xU_1min = z_disc[0]+1.0e-10;
   xU_1max = z_disc[1];
   dxU_1 = (double)(xU_1max-xU_1min)/partnum1;
-  xU_2min = z_disc[2];
+  xU_2min = z_disc[2]+1.0e-10;
   xU_2max = z_disc[3];
   dxU_2 = (double)(xU_2max-xU_2min)/partnum2;
 

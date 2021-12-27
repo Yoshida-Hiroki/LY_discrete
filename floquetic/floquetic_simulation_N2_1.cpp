@@ -10,26 +10,23 @@ double pi = 3.141592;
 
 int dt = 1;
 int N = 2;
-int M = 2500;
+int M = 1000;
 
 int iter = 100000;
 
-string date = "211224";
+string date = "211227";
 string ver = "_N2_1";
 
 double r(double x){
   return 0.5;
-  // return 0.5+0.4*sin(x);
 }
 
 double phi_a(double x){
   return pi*0.75+pi*0.2*cos(x);
-  // return pi*0.5+pi/5.0*cos(x);
 }
 
 double phi_b(double x){
   return pi*0.5+0.4*pi*sin(x);
-  // return phi_a(x);
 }
 
 double a1_L(double x){

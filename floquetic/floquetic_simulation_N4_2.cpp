@@ -10,11 +10,11 @@ double pi = 3.141592;
 
 int dt = 1;
 int N = 4;
-int M = 1250;
+int M = 500;
 
 int iter = 100000;
 
-string date = "211224";
+string date = "211227";
 string ver = "_N4_2";
 
 double r(double x){

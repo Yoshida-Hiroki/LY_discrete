@@ -9,20 +9,20 @@ import time
 
 
 type = r"\floquetic_zeros"
-date = "211224"
-ver = "N2_2"
+date = "211227"
+ver = "N2_1"
 
 z = Symbol('z')
 
 r_base = 0.5
-# r_coef = 0
-r_coef = 0.4
+r_coef = 0
+# r_coef = 0.4
 phi_coef = 5
 r = lambda x: r_base+r_coef*np.sin(x)
-# phi_a = lambda x: 0.75*np.pi+np.pi/phi_coef*np.cos(x)
-phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
-# phi_b = lambda x: 0.5*np.pi+2*np.pi/phi_coef*np.sin(x)
-phi_b = lambda x: phi_a(x)
+phi_a = lambda x: 0.75*np.pi+np.pi/phi_coef*np.cos(x)
+# phi_a = lambda x: 0.5*np.pi+np.pi/phi_coef*np.cos(x)
+phi_b = lambda x: 0.5*np.pi+2*np.pi/phi_coef*np.sin(x)
+# phi_b = lambda x: phi_a(x)
 
 r_prime = lambda x: r_coef*np.cos(x)
 

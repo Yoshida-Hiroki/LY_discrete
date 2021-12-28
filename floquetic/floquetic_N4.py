@@ -9,7 +9,7 @@ import time
 
 
 type = r"\floquetic_N4_zeros"
-date = "211227"
+date = "211228"
 ver = "N4_1"
 
 z = Symbol('z')
@@ -76,63 +76,63 @@ z_3
 z_4
 
 
-# ############### adiabatic current ################
-# j_d = lambda x : (1-r(x)**2)/(16*np.pi)*(np.cos(phi_a(x))-np.cos(phi_b(x)))
-# J_d = integrate.quad(j_d,0,2*np.pi)[0]
-#
-# j_ad = lambda x : r_prime(x)*np.cos(phi_a(x))/(8*np.pi)
-# J_ad = integrate.quad(j_ad,0,2*np.pi)[0]
-#
-# J_d
-# J_ad
-# ############### graph plot #######################
-# x = np.linspace(0,2*np.pi,1000)
-# fig = plt.figure()
-# ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
-# ax2 = plt.subplot2grid((2,2),(0,1))
-# ax3 = plt.subplot2grid((2,2),(1,1))
-#
-# # ###### J_ad = 0 ############
-# # ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=3\pi/4+$"+f"$\pi/{phi_coef:.3g}\cos$"+"\n"+r"$\phi_b=\pi/2+$"+f"$2\pi/{phi_coef:.3g}\sin$")
-#
+############### adiabatic current ################
+j_d = lambda x : (1-r(x)**2)/(16*np.pi)*(np.cos(phi_a(x))-np.cos(phi_b(x)))
+J_d = integrate.quad(j_d,0,2*np.pi)[0]
+
+j_ad = lambda x : r_prime(x)*np.cos(phi_a(x))/(8*np.pi)
+J_ad = integrate.quad(j_ad,0,2*np.pi)[0]
+
+J_d
+J_ad
+############### graph plot #######################
+x = np.linspace(0,2*np.pi,1000)
+fig = plt.figure()
+ax1 = plt.subplot2grid((2,2),(0,0),rowspan=2)
+ax2 = plt.subplot2grid((2,2),(0,1))
+ax3 = plt.subplot2grid((2,2),(1,1))
+
+###### J_ad = 0 ############
+ax1.set_title(f"$r = {r_base:.2f}$"+"\n"+r"$\phi_a=3\pi/4+$"+f"$\pi/{phi_coef:.3g}\cos$"+"\n"+r"$\phi_b=\pi/2+$"+f"$2\pi/{phi_coef:.3g}\sin$")
+
 # ###### J_d = 0 ############
 # ax1.set_title(f"$r = {r_base:.2f}+{r_coef:.4f}\sin$"+"\n"+r"$\phi=\pi/2+$"+f"$\pi/{phi_coef:.3g}\cos$")
-#
-# ax1.plot(x,np.real(z1(x)),color="red")
-# ax1.plot(x,np.real(z2(x)),color="blue")
-# ax1.plot(theta,z1(theta),marker="s",color="red",label=f"{z_1[1]:.3g}",linestyle="None")
-# ax1.plot(theta,z2(theta),marker="s",color="blue",label=f"{z_1[0]:.3g}",linestyle="None")
-# ax1.plot(theta+0.5*np.pi,z1(theta+0.5*np.pi),marker="o",color="red",label=f"{z_2[1]:.2e}",linestyle="None")
-# ax1.plot(theta+0.5*np.pi,z2(theta+0.5*np.pi),marker="o",color="blue",label=f"{z_2[0]:.3g}",linestyle="None")
-# ax1.plot(theta+1.0*np.pi,z1(theta+1.0*np.pi),marker="*",color="red",label=f"{z_3[1]:.3g}",linestyle="None")
-# ax1.plot(theta+1.0*np.pi,z2(theta+1.0*np.pi),marker="*",color="blue",label=f"{z_3[0]:.3g}",linestyle="None")
-# ax1.plot(theta+1.5*np.pi,z1(theta+1.5*np.pi),marker="+",color="red",label=f"{z_4[1]:.3g}",linestyle="None")
-# ax1.plot(theta+1.5*np.pi,z2(theta+1.5*np.pi),marker="+",color="blue",label=f"{z_4[0]:.3g}",linestyle="None")
-#
-# ax1.legend()
-# ax1.set_xlabel(r"$\theta$")
-# ax1.set_ylabel("$z$")
-# ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-# ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-# ax1.hlines(0,0,2*np.pi,color="gray")
-#
-# ax2.set_title(f"$J_d=${J_d:.2g}"+"\n"+f"$J_{{ad}}=${J_ad:.2g}")
-#
-# # ########### phi_a-phi_b ################
-# # ax2.plot(phi_a(x),phi_b(x))
-# # ax2.plot(phi_a(theta),phi_b(theta),marker="s",color="orange")
-# # ax2.plot(phi_a(theta+0.5*np.pi),phi_b(theta+0.5*np.pi),marker="s",color="orange")
-# # ax2.plot(phi_a(theta+1.0*np.pi),phi_b(theta+1.0*np.pi),marker="s",color="orange")
-# # ax2.plot(phi_a(theta+1.5*np.pi),phi_b(theta+1.5*np.pi),marker="s",color="orange")
-# # ax2.set_xlabel(r"$\phi_a(\theta)$")
-# # ax2.set_ylabel(r"$\phi_b(\theta)$")
-# # ax2.set_xlim([0,np.pi])
-# # ax2.set_xticks([0,np.pi/2,np.pi])
-# # ax2.set_ylim([0,np.pi])
-# # ax2.set_yticks([0,np.pi/2,np.pi])
-# # ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
-# # ax2.set_yticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
-#
+
+ax1.plot(x,np.real(z1(x)),color="red")
+ax1.plot(x,np.real(z2(x)),color="blue")
+ax1.plot(theta,z1(theta),marker="s",color="red",label=f"{z_1[1]:.3g}",linestyle="None")
+ax1.plot(theta,z2(theta),marker="s",color="blue",label=f"{z_1[0]:.3g}",linestyle="None")
+ax1.plot(theta+0.5*np.pi,z1(theta+0.5*np.pi),marker="o",color="red",label=f"{z_2[1]:.2e}",linestyle="None")
+ax1.plot(theta+0.5*np.pi,z2(theta+0.5*np.pi),marker="o",color="blue",label=f"{z_2[0]:.3g}",linestyle="None")
+ax1.plot(theta+1.0*np.pi,z1(theta+1.0*np.pi),marker="*",color="red",label=f"{z_3[1]:.3g}",linestyle="None")
+ax1.plot(theta+1.0*np.pi,z2(theta+1.0*np.pi),marker="*",color="blue",label=f"{z_3[0]:.3g}",linestyle="None")
+ax1.plot(theta+1.5*np.pi,z1(theta+1.5*np.pi),marker="+",color="red",label=f"{z_4[1]:.3g}",linestyle="None")
+ax1.plot(theta+1.5*np.pi,z2(theta+1.5*np.pi),marker="+",color="blue",label=f"{z_4[0]:.3g}",linestyle="None")
+
+ax1.legend()
+ax1.set_xlabel(r"$\theta$")
+ax1.set_ylabel("$z$")
+ax1.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax1.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+ax1.hlines(0,0,2*np.pi,color="gray")
+
+ax2.set_title(f"$J_d=${J_d:.2g}"+"\n"+f"$J_{{ad}}=${J_ad:.2g}")
+
+# ########### phi_a-phi_b ################
+# ax2.plot(phi_a(x),phi_b(x))
+# ax2.plot(phi_a(theta),phi_b(theta),marker="s",color="orange")
+# ax2.plot(phi_a(theta+0.5*np.pi),phi_b(theta+0.5*np.pi),marker="s",color="orange")
+# ax2.plot(phi_a(theta+1.0*np.pi),phi_b(theta+1.0*np.pi),marker="s",color="orange")
+# ax2.plot(phi_a(theta+1.5*np.pi),phi_b(theta+1.5*np.pi),marker="s",color="orange")
+# ax2.set_xlabel(r"$\phi_a(\theta)$")
+# ax2.set_ylabel(r"$\phi_b(\theta)$")
+# ax2.set_xlim([0,np.pi])
+# ax2.set_xticks([0,np.pi/2,np.pi])
+# ax2.set_ylim([0,np.pi])
+# ax2.set_yticks([0,np.pi/2,np.pi])
+# ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+# ax2.set_yticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
+
 # ########## r-phi ################
 # ax2.plot(phi_a(x),r(x))
 # ax2.plot(phi_a(theta),r(theta),marker="s",color="orange")
@@ -146,61 +146,61 @@ z_4
 # ax2.set_yticks([0,1/2,1])
 # ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$"])
 # ax2.set_yticklabels([r"$0$",r"$\frac{1}{2}$",r"$1$"])
-#
-#
-# ############ affinity #############
-# # ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
-# # ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
-# # ax2.set_ylim([-5,5])
-# # ax2.set_xlabel(r"$\theta$")
-# # ax2.legend()
-# # ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
-# # ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
-#
-#
-# ax3.text(0.1, 1, f"z0={z_disc[0]:.2e}" , va="center", ha="center",size=10)
-# ax3.text(0.6, 1, f"z1={z_disc[1]:.2e}" , va="center", ha="center",size=10)
-# ax3.text(0.1, 0.66, f"z2={z_disc[2]:.3f}" , va="center", ha="center",size=10)
-# ax3.text(0.6, 0.66, f"z3={z_disc[3]:.3f}" , va="center", ha="center",size=10)
-# ax3.text(0.1, 0.33, f"z4={z_disc[4]:.3f}" , va="center", ha="center",size=10)
-# ax3.text(0.6, 0.33, f"z5={z_disc[5]:.3f}" , va="center", ha="center",size=10)
-# ax3.text(0.1, 0, f"z6={z_disc[6]:.2e}" , va="center", ha="center",size=10)
-# ax3.text(0.6, 0, f"z7={z_disc[7]:.2e}" , va="center", ha="center",size=10)
-# ax3.tick_params(labelbottom=False, labelleft=False)
-# ax3.spines['right'].set_visible(False)
-# ax3.spines['top'].set_visible(False)
-# ax3.spines['bottom'].set_visible(False)
-# ax3.spines['left'].set_visible(False)
-# ax3.tick_params('x', length=0, which='major')
-# ax3.tick_params('y', length=0, which='major')
-#
-# plt.tight_layout()
-# plt.savefig(r"C:/Users/hyoshida/Desktop/floquetic/z_"+str(date)+"_"+str(ver)+".png")
-# plt.clf()
-# plt.close()
-# # plt.show()
+
+
+########### affinity #############
+ax2.plot(x,z1(x)*z2(x),label="$z_1z_2$")
+ax2.plot(x,-np.log(z1(x)*z2(x)),label="A")
+ax2.set_ylim([-10,5])
+ax2.set_xlabel(r"$\theta$")
+ax2.legend()
+ax2.set_xticks([0,np.pi/2,np.pi,np.pi*3/2,np.pi*2])
+ax2.set_xticklabels([r"$0$",r"$\frac{\pi}{2}$",r"$\pi$",r"$\frac{3\pi}{2}$",r"$2\pi$"])
+
+
+ax3.text(0.1, 1, f"z0={z_disc[0]:.2e}" , va="center", ha="center",size=10)
+ax3.text(0.6, 1, f"z1={z_disc[1]:.2e}" , va="center", ha="center",size=10)
+ax3.text(0.1, 0.66, f"z2={z_disc[2]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.6, 0.66, f"z3={z_disc[3]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.1, 0.33, f"z4={z_disc[4]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.6, 0.33, f"z5={z_disc[5]:.3f}" , va="center", ha="center",size=10)
+ax3.text(0.1, 0, f"z6={z_disc[6]:.2e}" , va="center", ha="center",size=10)
+ax3.text(0.6, 0, f"z7={z_disc[7]:.2e}" , va="center", ha="center",size=10)
+ax3.tick_params(labelbottom=False, labelleft=False)
+ax3.spines['right'].set_visible(False)
+ax3.spines['top'].set_visible(False)
+ax3.spines['bottom'].set_visible(False)
+ax3.spines['left'].set_visible(False)
+ax3.tick_params('x', length=0, which='major')
+ax3.tick_params('y', length=0, which='major')
+
+plt.tight_layout()
+plt.savefig(r"C:/Users/hyoshida/Desktop/floquetic/z2_"+str(date)+"_"+str(ver)+".png")
+plt.clf()
+plt.close()
+# plt.show()
 
 ################## Trace ############################
 # simplify(diff(log(Trace(z))))
 # simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,0)
 # simplify(Trace(z))
 
-nume = []
-denom = []
-for i in range(5):
-    nume.append(simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,4-i))
-    denom.append(simplify(Trace(z)*z**2).coeff(z,4-i))
-
-################## file make ##########################
-f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
-f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3])+" "+str(z_disc[4])+" "+str(z_disc[5])+" "+str(z_disc[6])+" "+str(z_disc[7])+" ")
-f_zero.write(str(nume[0])+" "+str(nume[1])+" "+str(0)+" "+str(nume[3])+" "+str(nume[4])+" ")
-f_zero.write(str(denom[0])+" "+str(denom[1])+" "+str(denom[2])+" "+str(denom[3])+" "+str(denom[4])+" ")
-f_zero.write(str(z_1[0])+" "+str(z_1[1])+" ")
-f_zero.write(str(z_2[0])+" "+str(z_2[1])+" ")
-f_zero.write(str(z_3[0])+" "+str(z_3[1])+" ")
-f_zero.write(str(z_4[0])+" "+str(z_4[1]))
-f_zero.close()
+# nume = []
+# denom = []
+# for i in range(5):
+#     nume.append(simplify(diff(log(Trace(z)))*Trace(z)*z**3).coeff(z,4-i))
+#     denom.append(simplify(Trace(z)*z**2).coeff(z,4-i))
+#
+# ################## file make ##########################
+# f_zero = open(r"C:\Users\hyoshida\Desktop\floquetic\zero_"+str(date)+"_"+str(ver)+r".dat",'w')
+# f_zero.write(str(z_disc[0])+" "+str(z_disc[1])+" "+str(z_disc[2])+" "+str(z_disc[3])+" "+str(z_disc[4])+" "+str(z_disc[5])+" "+str(z_disc[6])+" "+str(z_disc[7])+" ")
+# f_zero.write(str(nume[0])+" "+str(nume[1])+" "+str(0)+" "+str(nume[3])+" "+str(nume[4])+" ")
+# f_zero.write(str(denom[0])+" "+str(denom[1])+" "+str(denom[2])+" "+str(denom[3])+" "+str(denom[4])+" ")
+# f_zero.write(str(z_1[0])+" "+str(z_1[1])+" ")
+# f_zero.write(str(z_2[0])+" "+str(z_2[1])+" ")
+# f_zero.write(str(z_3[0])+" "+str(z_3[1])+" ")
+# f_zero.write(str(z_4[0])+" "+str(z_4[1]))
+# f_zero.close()
 
 
 # def R(x):

@@ -5,8 +5,8 @@ set term postscript enhanced eps size 8.1,5.0
 set datafile separator ","
 set multiplot
 
-set lmargin screen 0.05
-set rmargin screen 0.45
+set lmargin screen 0.02
+set rmargin screen 0.43
 set bmargin screen 0.2
 set tmargin screen 0.8
 
@@ -26,8 +26,8 @@ plot [0:0.25][-2:0.25]'C:/Users/hyoshida/Desktop/floquetic/210903_zeros.csv' u 1
 reset
 set datafile separator ","
 
-set lmargin screen 0.3
-set rmargin screen 0.43
+set lmargin screen 0.25
+set rmargin screen 0.42
 set bmargin screen 0.52
 set tmargin screen 0.71
 
@@ -42,7 +42,7 @@ reset
 
 set datafile separator ","
 
-set lmargin screen 0.55
+set lmargin screen 0.57
 set rmargin screen 0.95
 set bmargin screen 0.2
 set tmargin screen 0.8
